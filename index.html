@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script src="https://unpkg.com/vue"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="./src/hash.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.3.1/css/foundation.min.css">
+<meta charset="utf-8">
+<title>Switcheo Smart Contract Explorer</title>
+<style>
+body {
+	background-color: #212A3F;
+	color: #FFFFFF;
+	text-align: center;
+	}
+	label {
+	color:#FFFFFF;
+	}
+</style>
+</head>
+
+<body>
+
+<div  class="container" id="api">
+<h3><span style="color:#88C773">Switcheo</span> Smart Contract Explorer</h3>
+<div class="row">
+    <input style="background-color: #32374B; color:#FFFFFF; width:400px; margin:auto;" autofocus type="text" v-on:keyup.enter = "request" v-model.trim = "address" placeholder = "Input your NEO address">
+</div>
+<div class="row">			 
+	<button style="width:400px; color:#FFFFFF" v-on:click = "request" class="button success"><b>Go</b></button>
+</div>
+
+<div class="row" >
+<input v-on:keyup.enter ="request" type="radio" id="v2" value="91b83e96f2a7c4fdf0c1688441ec61986c7cae26" v-model="contract">
+<label for="v2">Ver. 2.0</label>
+<input v-on:keyup.enter ="request" type="radio" id="v15" value="01bafeeafe62e651efc3a530fde170cf2f7b09bd" v-model="contract">
+<label for="v15">Ver. 1.5</label>
+<input v-on:keyup.enter ="request" type="radio" id="v1" value="0ec5712e0f7c63e4b0fea31029a28cea5e9d551f" v-model="contract">
+<label for="v15">Ver. 1.0</label>
+</div>
+
+<div class="row">
+	<div class="small-1 large-2 columns">&nbsp</div>
+	<div class="small-5 large-4 columns"  v-for="(result, index, key) in results"> <!-- requested Vue module api.js -->
+	<div v-show ="key!=0"> <!-- miss 'confirming' data -->
+	<div  style=" background-color: #32374B;">
+		<div style="background-color: #88C773;" >
+		<p> {{ index }} </p>
+		</div>
+
+<div  v-show = "!isNaN(result.NEO)">
+<p>{{parseFloat(result.NEO+"e-8")}}&nbsp;&nbsp;&nbsp;NEO</p>
+</div>
+<div  v-show = "!isNaN(result.GAS)">
+<p>{{ parseFloat(result.GAS+"e-8") }}&nbsp;&nbsp;&nbsp;GAS</p>
+</div>
+<div v-show = "!isNaN(result.SWTH)">
+<p>{{ parseFloat(result.SWTH+"e-8") }}&nbsp;&nbsp;&nbsp;SWTH</p>
+</div>
+<div v-show = "!isNaN(result.ACAT)">
+<p>{{ parseFloat(result.ACAT+"e-8") }}&nbsp;&nbsp;&nbsp;ACAT</p>
+</div>
+<div v-show = "!isNaN(result.APH)">
+<p>{{ parseFloat(result.APH+"e-8") }}&nbsp;&nbsp;&nbsp;APH</p>
+</div>
+<div v-show = "!isNaN(result.AVA)">
+<p>{{ parseFloat(result.AVA+"e-8") }}&nbsp;&nbsp;&nbsp;AVA</p>
+</div>
+<div v-show = "!isNaN(result.COUP)">
+<p>{{ parseFloat(result.COUP+"e-8") }}&nbsp;&nbsp;&nbsp;COUP</p>
+</div>
+<div v-show = "!isNaN(result.CPX)">
+<p>{{ parseFloat(result.CPX+"e-8") }}&nbsp;&nbsp;&nbsp;CPX</p>
+</div>
+<div v-show = "!isNaN(result.DBC)">
+<p>{{ parseFloat(result.DBC+"e-8") }}&nbsp;&nbsp;&nbsp;DBC</p>
+</div>
+<div v-show = "!isNaN(result.EFX)">
+<p>{{ parseFloat(result.EFX+"e-8") }}&nbsp;&nbsp;&nbsp;EFX</p>
+</div>
+<div v-show = "!isNaN(result.GUARD)">
+<p>{{ parseFloat(result.GUARD+"e-8") }}&nbsp;&nbsp;&nbsp;GUARD</p>
+</div>
+<div v-show = "!isNaN(result.LRN)">
+<p>{{ parseFloat(result.LRN+"e-8") }}&nbsp;&nbsp;&nbsp;LRN</p>
+</div>
+<div v-show = "!isNaN(result.LX)">
+<p>{{ parseFloat(result.LX+"e-8") }}&nbsp;&nbsp;&nbsp;LX</p>
+</div>
+<div v-show = "!isNaN(result.MCT)">
+<p>{{ parseFloat(result.MCT+"e-8") }}&nbsp;&nbsp;&nbsp;MCT</p>
+</div>
+<div v-show = "!isNaN(result.NKN)">
+<p>{{ parseFloat(result.NKN+"e-8") }}&nbsp;&nbsp;&nbsp;NKN</p>
+</div>
+<div v-show = "!isNaN(result.NRVE)">
+<p>{{ parseFloat(result.NRVE+"e-8") }}&nbsp;&nbsp;&nbsp;NRVE</p>
+</div>
+<div v-show = "!isNaN(result.OBT)">
+<p>{{ parseFloat(result.OBT+"e-8") }}&nbsp;&nbsp;&nbsp;OBT</p>
+</div>
+<div v-show = "!isNaN(result.PHX)">
+<p>{{ parseFloat(result.PHX+"e-8") }}&nbsp;&nbsp;&nbsp;PHX</p>
+</div>
+<div v-show = "!isNaN(result.PKC)">
+<p>{{ parseFloat(result.PKC+"e-8") }}&nbsp;&nbsp;&nbsp;PKC</p>
+</div>
+<div v-show = "!isNaN(result.PROQ)">
+<p>{{ parseFloat(result.PROQ+"e-8") }}&nbsp;&nbsp;&nbsp;PROQ</p>
+</div>
+<div v-show = "!isNaN(result.QLC)">
+<p>{{ parseFloat(result.QLC+"e-8") }}&nbsp;&nbsp;&nbsp;QLC</p>
+</div>
+<div v-show = "!isNaN(result.RHT)">
+<p>{{ parseFloat(result.RHT+"e-0") }}&nbsp;&nbsp;&nbsp;RHT</p>
+</div>
+<div v-show = "!isNaN(result.SDS)">
+<p>{{ parseFloat(result.SDS+"e-8") }}&nbsp;&nbsp;&nbsp;SDS</p>
+</div>
+<div v-show = "!isNaN(result.SDT)">
+<p>{{ parseFloat(result.SDT+"e-8") }}&nbsp;&nbsp;&nbsp;SDT</p>
+</div>
+<div v-show = "!isNaN(result.SOUL)">
+<p>{{ parseFloat(result.SOUL+"e-8") }}&nbsp;&nbsp;&nbsp;SOUL</p>
+</div>
+<div v-show = "!isNaN(result.TKY)">
+<p>{{ parseFloat(result.TKY+"e-8") }}&nbsp;&nbsp;&nbsp;TKY</p>
+</div>
+<div v-show = "!isNaN(result.TNC)">
+<p>{{ parseFloat(result.TNC+"e-8") }}&nbsp;&nbsp;&nbsp;TNC</p>
+</div>
+<div v-show = "!isNaN(result.TOLL)">
+<p>{{ parseFloat(result.TOLL+"e-8") }}&nbsp;&nbsp;&nbsp;TOLL</p>
+</div>
+<div v-show = "!isNaN(result.ZPT)">
+<p>{{ parseFloat(result.ZPT+"e-8") }}&nbsp;&nbsp;&nbsp;ZPT</p>
+</div>
+</div>
+</div>
+</div>
+<div class="small-1 large-2 columns">&nbsp</div>
+</div>
+
+<!-- request data API -->
+<script src="./src/api.js"></script>
+
+</body>
+</html>
+
+
+
+
+
