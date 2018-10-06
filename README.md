@@ -6,7 +6,7 @@ The purpose of this software is to allow convenient querying of a user's balance
 
 You just need input your address and you will see balances all your NEO and ETH** tokens, wich are stored in contracts of Switcheo DEX.
 
-**ETH are going to added after launching ethereum traiding smartcontract.
+**ETH are going to added after launching ethereum`s smartcontract.
 
 How to try out? Follow these link to try out: https://switchstatistic.000webhostapp.com/
 
