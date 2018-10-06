@@ -12,4 +12,4 @@ How to try out? Follow these link to try out: https://switchstatistic.000webhost
 
 I would be happy to receive your feedback.
 
-![ScreenShort](https://github.com/alekcangp/SwitcheoSmartContract/raw/master/img.jpg)
+![ScreenShort](https://raw.githubusercontent.com/alekcangp/SwitcheoSmartContractExplorer/master/img.jpg)
