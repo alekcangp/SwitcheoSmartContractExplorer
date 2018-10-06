@@ -11,3 +11,5 @@ You just need input your address and you will see balances all your NEO and ETH*
 How to try out? Follow these link to try out: https://switchstatistic.000webhostapp.com/
 
 I would be happy to receive your feedback.
+
+![ScreenShort](https://github.com/alekcangp/SwitcheoSmartContract/raw/master/img.jpg)
