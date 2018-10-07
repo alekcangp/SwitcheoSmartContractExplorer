@@ -20,72 +20,66 @@ body {
 [v-cloak]::before { content: "loading..."; }
 </style>
 </head>
-
 <body>
-<!--Input address-->
 <div  class="container" id="api" v-cloak>
   <h2><span style="color:#88C773">Switcheo</span> Smart Contract Explorer</h2>
+  
+<!--Input address-->  
   <div class="row">
-  <input style="background-color: #32374B; color:#FFFFFF; width:400px; margin:auto;" autofocus type="text" v-on:keyup.enter = "request" v-model.trim = "address" placeholder = "Input your NEO address">
+	<input style="background-color: #32374B; color:#FFFFFF; width:400px; margin:auto;" autofocus type="text"
+	v-on:keyup.enter = "request" v-model.trim = "address" placeholder = "Input your NEO address">
   </div>
+<!-- Button -->  
   <div class="row">			 
-  <button style="width:400px; color:#FFFFFF" v-on:click = "request" class="button success"><b>Go</b></button>
+	<button style="width:400px; color:#FFFFFF" 
+	v-on:click = "request" class="button success"><b>Go</b></button>
   </div>
+  
 <!--Select contract-->
 <div class="row" >
-  <input v-on:keyup.enter ="request" v-on:click = "request" type="radio" id="v2" value="91b83e96f2a7c4fdf0c1688441ec61986c7cae26" v-model="contract">
-  <label for="v2">Ver. 2.0</label>
-  <input v-on:keyup.enter ="request" v-on:click = "request" type="radio" id="v15" value="01bafeeafe62e651efc3a530fde170cf2f7b09bd" v-model="contract">
-  <label for="v15">Ver. 1.5</label>
-  <input v-on:keyup.enter ="request" v-on:click = "request" type="radio" id="v1" value="0ec5712e0f7c63e4b0fea31029a28cea5e9d551f" v-model="contract">
-  <label for="v1">Ver. 1.0</label>
+  <input v-on:keyup.enter ="request" v-on:click = "request" type="radio" id="All" 
+		value="&contract_hashes[]=91b83e96f2a7c4fdf0c1688441ec61986c7cae26&contract_hashes[]=01bafeeafe62e651efc3a530fde170cf2f7b09bd&contract_hashes[]=0ec5712e0f7c63e4b0fea31029a28cea5e9d551f" 
+		v-model="contract">
+		<label for="All">All</label>
+  <input v-on:keyup.enter ="request" v-on:click = "request" type="radio" id="v2" 
+		value="&contract_hashes[]=91b83e96f2a7c4fdf0c1688441ec61986c7cae26" v-model="contract">
+		<label for="v2">Ver. 2.0</label>
+  <input v-on:keyup.enter ="request" v-on:click = "request" type="radio" id="v15" 
+		value="&contract_hashes=01bafeeafe62e651efc3a530fde170cf2f7b09bd" v-model="contract">
+		<label for="v15">Ver. 1.5</label>
+  <input v-on:keyup.enter ="request" v-on:click = "request" type="radio" id="v1" 
+		value="&contract_hashes=0ec5712e0f7c63e4b0fea31029a28cea5e9d551f" v-model="contract">
+		<label for="v1">Ver. 1.0</label>
 </div>
+
 <div id="txt" class="row" style="color:red"></div> <!--Alert message if address is not correct-->
+
 <!--Output balances-->
-<div class="row">
-	<div class="small-1 large-2 columns">&nbsp </div>
-	<div class="small-5 large-4 columns"  v-for="(result, index, key) in results"> <!-- requested Vue module api.js -->
-	<div v-show ="key!=0" style="background-color: #32374B;"> <!-- miss 'confirming' data -->	 
-		<div style="background-color: #88C773;" >
-		<p> {{ index }} </p>
+<div class="row">		
+<div class="large-4 columns"  v-for="(result, index) in results"> <!-- requested Vue module in api.js -->
+
+	<div style="background-color:#32374B">
+		
+		<!--auto comments in columns-->
+		<div style="background-color: #88C773" >
+			<p v-show="index == 'confirming'">{{ index }}<br>(waiting for deposit or withdraw)</p>
+			<p v-show="index == 'confirmed'">{{ index }}<br>(smart contract balance)</p> 
+			<p v-show="index == 'locked'">{{ index }}<br>(tokens in orders)</p> 
 		</div>
-		<!-- All supported NEO tokens-->
-        <div  v-show = "!isNaN(result.NEO)"><p>{{parseFloat(result.NEO+"e-8")}}&nbsp;&nbsp;&nbsp;NEO</p></div>
-		<div  v-show = "!isNaN(result.GAS)"><p>{{ parseFloat(result.GAS+"e-8") }}&nbsp;&nbsp;&nbsp;GAS</p></div>
-		<div v-show = "!isNaN(result.SWTH)"><p>{{ parseFloat(result.SWTH+"e-8") }}&nbsp;&nbsp;&nbsp;SWTH</p></div>
-		<div v-show = "!isNaN(result.ACAT)"><p>{{ parseFloat(result.ACAT+"e-8") }}&nbsp;&nbsp;&nbsp;ACAT</p></div>
-		<div v-show = "!isNaN(result.APH)"><p>{{ parseFloat(result.APH+"e-8") }}&nbsp;&nbsp;&nbsp;APH</p></div>
-		<div v-show = "!isNaN(result.AVA)"><p>{{ parseFloat(result.AVA+"e-8") }}&nbsp;&nbsp;&nbsp;AVA</p></div>
-		<div v-show = "!isNaN(result.COUP)"><p>{{ parseFloat(result.COUP+"e-8") }}&nbsp;&nbsp;&nbsp;COUP</p></div>
-		<div v-show = "!isNaN(result.CPX)"><p>{{ parseFloat(result.CPX+"e-8") }}&nbsp;&nbsp;&nbsp;CPX</p></div>
-		<div v-show = "!isNaN(result.DBC)"><p>{{ parseFloat(result.DBC+"e-8") }}&nbsp;&nbsp;&nbsp;DBC</p></div>
-		<div v-show = "!isNaN(result.EFX)"><p>{{ parseFloat(result.EFX+"e-8") }}&nbsp;&nbsp;&nbsp;EFX</p></div>
-		<div v-show = "!isNaN(result.GUARD)"><p>{{ parseFloat(result.GUARD+"e-8") }}&nbsp;&nbsp;&nbsp;GUARD</p></div>
-		<div v-show = "!isNaN(result.LRN)"><p>{{ parseFloat(result.LRN+"e-8") }}&nbsp;&nbsp;&nbsp;LRN</p></div>
-		<div v-show = "!isNaN(result.LX)"><p>{{ parseFloat(result.LX+"e-8") }}&nbsp;&nbsp;&nbsp;LX</p></div>
-		<div v-show = "!isNaN(result.MCT)"><p>{{ parseFloat(result.MCT+"e-8") }}&nbsp;&nbsp;&nbsp;MCT</p></div>
-		<div v-show = "!isNaN(result.NKN)"><p>{{ parseFloat(result.NKN+"e-8") }}&nbsp;&nbsp;&nbsp;NKN</p></div>
-		<div v-show = "!isNaN(result.NRVE)"><p>{{ parseFloat(result.NRVE+"e-8") }}&nbsp;&nbsp;&nbsp;NRVE</p></div>
-		<div v-show = "!isNaN(result.OBT)"><p>{{ parseFloat(result.OBT+"e-8") }}&nbsp;&nbsp;&nbsp;OBT</p></div>
-		<div v-show = "!isNaN(result.PHX)"><p>{{ parseFloat(result.PHX+"e-8") }}&nbsp;&nbsp;&nbsp;PHX</p></div>
-		<div v-show = "!isNaN(result.PKC)"><p>{{ parseFloat(result.PKC+"e-8") }}&nbsp;&nbsp;&nbsp;PKC</p></div>
-		<div v-show = "!isNaN(result.PROQ)"><p>{{ parseFloat(result.PROQ+"e-8") }}&nbsp;&nbsp;&nbsp;PROQ</p></div>
-		<div v-show = "!isNaN(result.QLC)"><p>{{ parseFloat(result.QLC+"e-8") }}&nbsp;&nbsp;&nbsp;QLC</p></div>
-		<div v-show = "!isNaN(result.RHT)"><p>{{ parseFloat(result.RHT+"e-0") }}&nbsp;&nbsp;&nbsp;RHT</p></div>
-		<div v-show = "!isNaN(result.SDS)"><p>{{ parseFloat(result.SDS+"e-8") }}&nbsp;&nbsp;&nbsp;SDS</p></div>
-		<div v-show = "!isNaN(result.SDT)"><p>{{ parseFloat(result.SDT+"e-8") }}&nbsp;&nbsp;&nbsp;SDT</p></div>
-		<div v-show = "!isNaN(result.SOUL)"><p>{{ parseFloat(result.SOUL+"e-8") }}&nbsp;&nbsp;&nbsp;SOUL</p></div>
-		<div v-show = "!isNaN(result.TKY)"><p>{{ parseFloat(result.TKY+"e-8") }}&nbsp;&nbsp;&nbsp;TKY</p></div>
-		<div v-show = "!isNaN(result.TNC)"><p>{{ parseFloat(result.TNC+"e-8") }}&nbsp;&nbsp;&nbsp;TNC</p></div>
-		<div v-show = "!isNaN(result.TOLL)"><p>{{ parseFloat(result.TOLL+"e-8") }}&nbsp;&nbsp;&nbsp;TOLL</p></div>
-		<div v-show = "!isNaN(result.ZPT)"><p>{{ parseFloat(result.ZPT+"e-8") }}&nbsp;&nbsp;&nbsp;ZPT</p></div>
-		<div v-show = "!isNaN(result.PROQ)"><p>{{ parseFloat(result.PROQ+"e-8") }}&nbsp;&nbsp;&nbsp;PROQ</p></div>
+				
+		<!-- Print all data in table -->
+		<div  v-for = "(result1, index1) in result">	
+			<div v-for = "(dec, tok) in tokens"> <!--get decimals of tokens-->
+				<p v-show = "index != 'confirming' && tok == index1">{{parseFloat(result1+"e-"+dec.decimals)}}&nbsp;&nbsp;&nbsp;{{index1}}</p>
+				<div v-show = "index == 'confirming' && tok == index1" v-for="(result2, index2) in result1"> <!-- print balance only for 'confirming'-->		
+					<p> {{parseFloat(result2.amount+"e-"+dec.decimals)}}&nbsp;&nbsp;&nbsp;{{index1}}</p>				
+				</div>
+			</div>
+		</div>  	
 	</div>
-	</div>
-	<div class="small-1 large-2 columns">&nbsp </div>
+</div>	
 </div>
 <script src="./src/api.js"></script> <!-- request data API -->
-
 </body>
 </html>
 
