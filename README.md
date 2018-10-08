@@ -8,7 +8,12 @@ You just need input your address and you will see balances all your NEO and ETH*
 
 **ETH are going to added after launching ethereum`s smartcontract.
 
-How to try out? Follow these link to try out: https://switchstatistic.000webhostapp.com/
+How to try out? 
+
+1. Follow this link to: https://switchstatistic.000webhostapp.com/
+2. Choose the desired contract or leave the default values.
+3. Input your NEO address.
+4. Press the green button or 'Enter'.
 
 I would be happy to receive your feedback.
 
