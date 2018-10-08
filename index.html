@@ -62,9 +62,9 @@ body {
 		
 		<!--auto comments in columns-->
 		<div style="background-color: #88C773" >
-			<p v-show="index == 'confirming'">{{ index }}<br>(waiting for deposit or withdraw)</p>
-			<p v-show="index == 'confirmed'">{{ index }}<br>(smart contract balance)</p> 
-			<p v-show="index == 'locked'">{{ index }}<br>(tokens in orders)</p> 
+			<p v-show="index == 'confirming'">WAITING FOR CONFIRMATION</p>
+			<p v-show="index == 'confirmed'">CONTRACT BALANCE</p> 
+			<p v-show="index == 'locked'">TOKENS IN ORDERS</p> 
 		</div>
 				
 		<!-- Print all data in table -->
