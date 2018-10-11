@@ -13,8 +13,7 @@ function decode(string) {
   var i, j, bytes = [0]
   for (i = 0; i < string.length; i++) {
     var c = string[i]
-    if (!(c in ALPHABET_MAP) || string[0]!="A" || string.length !=34)  //Neo address validation
-	{ document.getElementById('txt').innerHTML = "NEO address is not correct!"; return []}
+  
 		
 	
     for (j = 0; j < bytes.length; j++) bytes[j] *= BASE

@@ -3,34 +3,96 @@
  * get balances
  * and save address in local storage
  */
+ 
 var vm = new Vue({
 el: '#api',
 data: {
 address: "",
 results: [],
 tokens: [],
-contract: "&contract_hashes[]=91b83e96f2a7c4fdf0c1688441ec61986c7cae26&contract_hashes[]=01bafeeafe62e651efc3a530fde170cf2f7b09bd&contract_hashes[]=0ec5712e0f7c63e4b0fea31029a28cea5e9d551f",
+contr: "All",
+tabn: "balance",
+uhistory: [],
+xaddress: "",
 },
 
 //Request data API
 methods: {
+	
     request: 
-		function (event) {
-			document.getElementById('txt').innerHTML = ""; //delete alert message
-			var data;
-			var addr = decode(vm.address);
-			var url = "https://api.switcheo.network/v2/balances?addresses="+addr+vm.contract;
-			var urll = "https://api.switcheo.network/v2/exchange/tokens"
-			vm.results = []; // to update table			
-			axios.get(urll).then(function(response) {	   //get json tokens
-			vm.tokens = response.data;
+		async function (event) {
+									
+			//Neo address validation
+			if (vm.address.length === 0) { return [] };
+			for (i = 0; i < vm.address.length; i++) {
+			var c = vm.address[i];
+			
+			if (!(c in ALPHABET_MAP) || vm.address[0] != "A" || vm.address.length !=34) 
+			{ document.getElementById('load').innerHTML = "NEO address is not correct!"; return []}
+			 else {document.getElementById('load').innerHTML = "Go"; 
 				}
-			); 
-			axios.get(url).then(function(response) {       // get json balances
-			vm.results = response.data;
+			};
+	
+		document.getElementById('load').innerHTML = "loading...";
+			
+// BALANCE section			
+			
+		if (vm.tabn == "balance") {				
+			var contract20 = "&contract_hashes[]=91b83e96f2a7c4fdf0c1688441ec61986c7cae26";
+			var contract15 = "&contract_hashes[]=01bafeeafe62e651efc3a530fde170cf2f7b09bd";
+			var contract10 = "&contract_hashes[]=0ec5712e0f7c63e4b0fea31029a28cea5e9d551f";			
+			
+			vm.results = []; // to update table				
+			vm.contr == "All" ? (contract = contract20+contract15+contract10) : vm.contr == "v20" 
+			? contract = contract20 : vm.contr == "v15" 
+			? contract = contract15 : contract = contract10;						
+			
+			var addrb = decode(vm.address);
+			var urlb = "https://api.switcheo.network/v2/balances?addresses="+addrb+contract;
+
+			axios.get(urlb).then(function(response) {       // get json balance				
+			vm.results = response.data; 
+			document.getElementById('load').innerHTML = "Go";		
 				}
-			); 
-		}
+				
+			); 			
+// HISTORY section			
+		};  
+		if (vm.tabn == "history"){
+			
+			var addr20 = "AKJQMHma9MA8KK5M8iQg8ASeg3KZLsjwvB";
+			var addr15 = "AZ1QiX5nqgm8dsUY7iRyafKwmKnGP9bUhN";
+			var addr10 = "AJdZA4UftshLwVAS4YAc9k274GmwDmkJgj";						
+			var urlh20 = "https://api.neoscan.io/api/main_net/v1/get_address_to_address_abstracts/"+vm.address+"/"+addr20+"/";
+			var urlh15 = "https://api.neoscan.io/api/main_net/v1/get_address_to_address_abstracts/"+vm.address+"/"+addr15+"/";
+			var urlh10 = "https://api.neoscan.io/api/main_net/v1/get_address_to_address_abstracts/"+vm.address+"/"+addr10+"/";
+			var urlh = [urlh20, urlh15, urlh10];
+			var urlhh = [];
+			vm.xaddress = vm.address;
+			
+			vm.uhistory = []; // to update table		
+
+			(vm.contr == "v20") ? urlhh[0] = urlh[0] : 
+			(vm.contr == "v15") ? urlhh[0] = urlh[1] : 
+			(vm.contr == "v10") ? urlhh[0] = urlh[2] : urlhh = urlh;
+					
+			 var x = 0, urlhx = [], pages = 1;			
+					for (var url of urlhh) {
+						await axios.get(url+1).then(function (response) {
+						pages = response.data.total_pages;
+							});							
+							for (var i = 1; i <= pages; ++i) {
+								urlhx[x] = axios.get(url+(i));
+								x += 1;
+							};
+					};
+							
+				axios.all(urlhx).then(function (response) {			// get json history	
+				vm.uhistory = response;
+				document.getElementById('load').innerHTML = "Go";
+					});				
+		};
+	}
 },
 // Save Neo address in local storage
 mounted() {
