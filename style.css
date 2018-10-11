@@ -1,0 +1,127 @@
+body {
+	background-color: #212A3F;
+	color: #FFFFFF;
+	text-align: center;
+	overflow: scroll;
+	}
+
+	
+/* button select contract */
+	
+.button-group {
+margin:auto;
+}
+
+.button-group > input {
+  display: none;
+  margin:auto;
+  }
+  
+ .button-group > label {
+ width:100px;
+ } 
+ 
+.button-group input:checked + label,
+.button-group input:checked + label:active {
+  background-color: #22BB5B; font-weight:bold;
+}
+
+
+/* display DOM after load js */	
+
+[v-cloak] > * { display:none; }
+[v-cloak]::before { content: "loading..."; }
+
+/* tabs zone */
+        
+        .containertab {
+            margin: 0 auto ;
+            padding: 15px	
+        }
+        
+        /* tabs container */
+        
+        .tabs {
+           
+            padding: 15px 15px 0px 15px;
+            margin: 0 auto;
+			background: #212A3F;
+			border: 0px;
+			
+        }
+        /* style windows */
+        
+        .tabs > section {
+            display: none;
+            padding: 15px 15px 0px 15px;
+            background: #32374B;
+            border: 0px;
+			border-radius: 5px 5px 0 0;
+			border-top: 1px solid #009933
+			
+        }
+        
+	.grad {
+	 background: linear-gradient( #32374B, #212A3F);
+	 height:20px;
+	 
+	 }
+	 
+	 .gradx {
+	 background: linear-gradient( #212A3F, #32374B);
+	 height:20px;
+	 
+	 }
+              
+        /* hide checkbox */
+        
+        .tabs > input {
+            display: none;
+            
+        }
+        /* style balane history sumnmary */
+        
+        .tabs > label {
+            display: inline-block;
+            margin: 0 0 -1px;
+            padding: 10px 30px;
+            font-weight: 600;
+            text-align: center;
+            color: #aaa;
+            border: 0px solid #32374B;
+			
+            border-width: 1px 1px 0px 1px;
+            background: #212A3F;
+            border-radius: 5px 5px 0 0;
+        }
+           
+        /* style tabs on hover */
+        
+        .tabs > label:hover {
+            color: #888;
+            cursor: pointer;
+        }
+        /* style active tab */
+        
+        .tabs > input:checked + label {
+            color: #fff;
+            border-top: 1px solid #009933;
+            border-bottom: 1px solid #32374B;
+            background: #32374B;
+        }
+        /* activation */
+        
+        #tab1:checked ~ #content-tab1,
+        #tab2:checked ~ #content-tab2,
+		#tab3:checked ~ #content-tab3
+         {
+            display: block;
+        }
+      
+        /*change tab`slabel for small screen */
+        
+        @media screen and (max-width: 400px) {
+            .tabs > label {
+                padding: 15px;
+            }
+        }
