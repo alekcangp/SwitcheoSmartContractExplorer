@@ -1,21 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.2.6/vue.min.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="./src/hash.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.3.1/css/foundation.min.css" rel="stylesheet"/>
 <link href="./css/style.css" rel="stylesheet"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
-
-
 <meta charset="utf-8">
 <title>Switcheo Smart Contract Explorer</title>
-
 </head>
 <body>
-
 
 <div  class="container" id="api" v-cloak>
 
@@ -38,9 +33,7 @@
     </div>
 	
 </div>
-  
-  
-  
+   
 <!--Input address-->  
   <div class="row">
 	<input style="background-color: #32374B; color:#FFFFFF; width:403px; margin:auto auto 1px auto;" autofocus type="text"
@@ -52,14 +45,7 @@
 	<button style="width:403px; color:#FFFFFF;" 
 	v-on:click = "request" class="button success"><b id = "load">Go</b></button>
   </div>
-
-  
-<!--Alert message if address is not correct-->    
-
-<p  id = "txt" class = "large-12 columns" style="color:red; font-size:10px"></p>
-
-
-
+   
 <!-- tabs zone -->
 <div class="row">
           
@@ -72,7 +58,7 @@
             <input id="tab3" type="radio" value="summary" v-model = "tabn">
             <label for="tab3" >SUMMARY</label>
           
- <!--Output balances-->
+<!--Output balances-->
 <section id="content-tab1">							  
 	<div class="row">	
 		<div class="large-4 columns"  v-for="(result, index) in results"> <!-- requested Vue module in api.js -->
@@ -84,12 +70,19 @@
 			<p v-show="index == 'locked'">TOKENS IN ORDERS</p> 
 			</div>
 		
-		<!-- Print balance data in table -->
+			<!-- Print balance data in table -->
 			<div style="background-color:#212A3F" v-for = "(result1, index1) in result">	
-				<div v-for = "(dec, tok) in tokens" v-if = "index != 'confirming' && tok == index1"> <!--get decimals of tokens-->
-					<p v-show = "index != 'confirming' && tok == index1">{{parseFloat(result1+"e-"+dec.decimals)}}&nbsp;&nbsp;&nbsp;{{index1}}</p>
-					<div v-show = "index == 'confirming' && tok == index1" v-for="(result2, index2) in result1"> <!-- print balance only for 'confirming'-->		
-						<p> {{parseFloat(result2.amount+"e-"+dec.decimals)}}&nbsp;&nbsp;&nbsp;{{index1}}</p>				
+				<div v-for = "(dec, tok) in tokens"> <!--get decimals of tokens-->
+				
+					<p v-show = "index != 'confirming' && tok == index1">
+					{{parseFloat(result1+"e-"+dec.decimals)}}&nbsp;&nbsp;&nbsp;{{index1}}
+					</p>
+					
+					<!-- print balance only for 'confirming'-->					
+					<div v-if = "index == 'confirming' && tok == index1" v-for = "result2 in result1"> 		
+					<p> {{parseFloat(result2.amount+"e-"+dec.decimals)}}&nbsp;&nbsp;&nbsp;{{index1}} &nbsp;&nbsp;&nbsp;
+						<span style="color:grey">{{result2.event_type}}</span>		
+					</p>
 					</div>
 				</div>
 			</div> 
@@ -104,26 +97,13 @@
 		<div  v-for="uhistt in uhistory" :key="uhistt.id"> <!-- requested Vue module in api.js -->
 			<div class = "large-6 large-centered columns" v-for="uresult in uhistt.data.entries" :key="uresult.id">
 				<div style="background-color:#212A3F">
-													
-							<p v-show = "uresult.asset == '78e6d16b914fe15bc16150aeb11d0c2a8e532bdd'" style = "text-align:left;">
-							{{moment.unix(uresult.time).format('DD-MM-YYYY, HH:mm:ss') }}
-							<span v-show = "uresult.address_from == vm.xaddress" style="color:green">deposit&nbsp;&nbsp;&nbsp;&nbsp;</span>
-							<span v-show = "uresult.address_to == vm.xaddress" style="color:yellow">withdraw&nbsp;</span>
-							{{uresult.amount}} SWH 
-							</p>
-														
-							<p v-show = "uresult.asset == 'ceab719b8baa2310f232ee0d277c061704541cfb'" style = "text-align:left;">
-							{{moment.unix(uresult.time).format('DD-MM-YYYY, HH:mm:ss') }}
-							<span v-show = "uresult.address_from == vm.xaddress" style="color:green">deposit&nbsp;&nbsp;&nbsp;&nbsp;</span>
-							<span v-show = "uresult.address_to == vm.xaddress" style="color:yellow">withdraw&nbsp;</span>
-							{{uresult.amount}} ONT NEP-5
-							</p>
-														
+				
+							<!-- for all tokens -->						
 						<div v-for = "(uhash, utok) in tokens" v-if = "uresult.asset == uhash.hash" :key="uhash.id">  <!--get hash of tokens-->
 							<p style = "text-align:left;">							
 							{{moment.unix(uresult.time).format('DD-MM-YYYY, HH:mm:ss') }}
-							<span v-show = "uresult.address_from == vm.xaddress" style="color:green">deposit&nbsp;&nbsp;&nbsp;&nbsp;</span>
-							<span v-show = "uresult.address_to == vm.xaddress" style="color:yellow">withdraw&nbsp;</span>
+							<span v-show = "uresult.address_from == vm.xaddress" style="color:green">deposit&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+							<span v-show = "uresult.address_to == vm.xaddress" style="color:yellow">withdrawal&nbsp;</span>
 							{{uresult.amount}} {{utok}}
 							</p>							
 						</div>
@@ -140,55 +120,12 @@
 </section>
 			
 <div class = "grad"> </div> 
+</div>      
 </div>
-      
-</div>
-
 </div>
 
+<script src="./src/api.js"></script> 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-  
-	  
-   
-
-
-<script>
-axios.get("https://api.switcheo.network/v2/exchange/tokens").then(function(response) {	   //get json tokens
-			vm.tokens = response.data;
-				}
-			); 	
-</script>
-
-<script src="./src/api.js"></script> <!-- request data API -->
 </body>
 </html>
 
