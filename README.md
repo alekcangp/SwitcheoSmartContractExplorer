@@ -21,4 +21,5 @@ How to try out?
 
 I would be happy to receive your feedback.
 
-![ScreenShort](https://raw.githubusercontent.com/alekcangp/SwitcheoSmartContractExplorer/master/img.jpg)
+![ScreenShort](https://raw.githubusercontent.com/alekcangp/SwitcheoSmartContractExplorer/master/img01.jpg)
+![ScreenShort](https://raw.githubusercontent.com/alekcangp/SwitcheoSmartContractExplorer/master/img02.jpg)
