@@ -8,6 +8,10 @@ You just need input your address and you will see balances all your NEO and ETH*
 
 **ETH are going to added after launching ethereum`s smartcontract.
 
+Feature:
+1. Showing smart contract's balance (V2, V1.5, V1)
+2. Showing smart contract's transactions (deposit and withdraw)
+
 How to try out? 
 
 1. Follow this link to: https://switchstatistic.000webhostapp.com/
