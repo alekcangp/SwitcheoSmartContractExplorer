@@ -4,15 +4,22 @@
  * and save address in local storage
  */
  
+axios.get("https://api.switcheo.network/v2/exchange/tokens").then(function(response) {	   //get json tokens
+		vm.tokens = response.data; 						
+		vm.tokens.SWH = {"hash":"78e6d16b914fe15bc16150aeb11d0c2a8e532bdd","decimals":8};	 //add SWH old token
+		vm.tokens.ONT = {"hash":"ceab719b8baa2310f232ee0d277c061704541cfb","decimals":8};	 //add ONT nep-5 token
+	}); 
+ 
+ 
 var vm = new Vue({
 el: '#api',
 data: {
 address: "",
-results: [],
-tokens: [],
-contr: "All",
+results: {},
+tokens: {},
+contr: "v20",
 tabn: "balance",
-uhistory: [],
+uhistory: {},
 xaddress: "",
 },
 
