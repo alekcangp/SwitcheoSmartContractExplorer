@@ -12,13 +12,13 @@
 </head>
 <body>
 
-<div  class="container" id="api" v-cloak>
+<div  class="container" id="api" style = "min-width: 500px" v-cloak>
 
 <h2><span style="color:#88C773">Switcheo</span> Smart Contract Explorer</h2>
 
  <!-- Buttons select contract -->  
  <div class="row" >
-  <div class="small button-group">
+  <div  class="small button-group">
 	  <input v-on:click = "request" type="radio" id="All" value="All" v-model="contr">
       <label class="button success" style="color:#fff;" for="All">All</label>
 	  
@@ -36,35 +36,39 @@
    
 <!--Input address-->  
   <div class="row">
-	<input style="background-color: #32374B; color:#FFFFFF; width:403px; margin:auto auto 1px auto;" autofocus type="text"
+	<input style="background-color: #32374B; color:#FFFFFF; width:423px; margin:auto auto 1px auto;" autofocus type="text"
 	v-on:keyup.enter = "request" v-model.trim = "address" placeholder = "Input your NEO address">
   </div>
 
 <!-- Button -->  
   <div class="row">			 
-	<button style="width:403px; color:#FFFFFF;" 
+	<button style="width:423px; color:#FFFFFF;" 
 	v-on:click = "request" class="button success"><b id = "load">Go</b></button>
   </div>
    
 <!-- tabs zone -->
 <div class="row">
           
-<div class="tabs">
+	<div class="tabs" >		
 		
             <input id="tab1" type="radio"  value="balance" v-model = "tabn">
             <label for="tab1" >BALANCE</label>
-            <input id="tab2" type="radio"  value="history" v-model = "tabn">
-            <label for="tab2" >HISTORY</label>
-            <input id="tab3" type="radio" value="summary" v-model = "tabn">
-            <label for="tab3" >SUMMARY</label>
-          
-<!--Output balances-->
+            <input id="tab2" type="radio"  value="transfers" v-model = "tabn">
+            <label for="tab2" >TRANSFERS</label>
+            <input id="tab3" type="radio" value="orders" v-model = "tabn">
+            <label for="tab3" >ORDERS</label>
+			<input id="tab4" type="radio" value="volume" v-model = "tabn">
+            <label for="tab4" >VOLUME</label>
+			
+      
+<!--Output BALANCE-->
 <section id="content-tab1">							  
-	<div class="row">	
+	<div class="row">
+<p><b>Balance contract</b></p>	
 		<div class="large-4 columns"  v-for="(result, index) in results"> <!-- requested Vue module in api.js -->
 		
 			<!--auto comments in columns-->
-			<div style="background-color: #88C773" >
+			<div style="background-color: #88C773; font-weight: bold">
 			<p v-show="index == 'confirming'">WAITING FOR CONFIRMATION</p>
 			<p v-show="index == 'confirmed'">CONTRACT BALANCE</p> 
 			<p v-show="index == 'locked'">TOKENS IN ORDERS</p> 
@@ -75,12 +79,12 @@
 				<div v-for = "(dec, tok) in tokens"> <!--get decimals of tokens-->
 				
 					<p v-show = "index != 'confirming' && tok == index1">
-					{{parseFloat(result1+"e-"+dec.decimals)}}&nbsp;&nbsp;&nbsp;{{index1}}
+					<b>{{parseFloat(result1+"e-"+dec.decimals)}}</b>&nbsp;&nbsp;&nbsp;{{index1}}
 					</p>
 					
 					<!-- print balance only for 'confirming'-->					
 					<div v-if = "index == 'confirming' && tok == index1" v-for = "result2 in result1"> 		
-					<p> {{parseFloat(result2.amount+"e-"+dec.decimals)}}&nbsp;&nbsp;&nbsp;{{index1}} &nbsp;&nbsp;&nbsp;
+					<p><b>{{parseFloat(result2.amount+"e-"+dec.decimals)}}</b>&nbsp;&nbsp;&nbsp;{{index1}} &nbsp;&nbsp;&nbsp;
 						<span style="color:grey">{{result2.event_type}}</span>		
 					</p>
 					</div>
@@ -91,11 +95,13 @@
 	</div>
 </section>
 			
-<!-- Output history -->    
+<!-- Output TRANSFERS -->    
 <section id="content-tab2"> 	
 	<div class="row">	
+	<p><b>Deposit and withdrawal contract</b></p>
 		<div  v-for="uhistt in uhistory" :key="uhistt.id"> <!-- requested Vue module in api.js -->
-			<div class = "large-6 large-centered columns" v-for="uresult in uhistt.data.entries" :key="uresult.id">
+			
+			<div class = "large-8 large-centered columns" v-for="uresult in uhistt.data.entries" :key="uresult.id">
 				<div style="background-color:#212A3F">
 				
 							<!-- for all tokens -->						
@@ -104,19 +110,49 @@
 							{{moment.unix(uresult.time).format('DD-MM-YYYY, HH:mm:ss') }}
 							<span v-show = "uresult.address_from == vm.xaddress" style="color:green">deposit&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
 							<span v-show = "uresult.address_to == vm.xaddress" style="color:yellow">withdrawal&nbsp;</span>
-							{{uresult.amount}} {{utok}}
+							<b>{{uresult.amount}}</b> {{utok}}
 							</p>							
 						</div>
 				</div>
 			</div>
+			
 		</div>				
 	</div>	
 </section>			
-           
-<section id="content-tab3">
-			
-			----------
-			
+        
+		
+	<!-- Output ORDERS--> 
+<section id="content-tab3"> 	
+<div class="row">	
+<p><b>Last 50 orders</b></p>
+	<div  class = "large-9 large-centered columns" v-for = "oresult0 in orders" :key="oresult0.id"> 
+		<div v-for = "oresult in oresult0.data" :key="oresult.id">
+				<div v-if = "oresult.offer_asset_id == ohash1.hash" v-for = "(ohash1, otok1) in tokens"  :key="otok1.id">
+					<div v-if = "oresult.want_asset_id == ohash2.hash"  v-for = "(ohash2, otok2) in tokens" :key="otok2.id"> 
+						<p style = "text-align:left; background-color:#212A3F">
+
+							{{moment(oresult.created_at).format('DD-MM-YYYY, HH:mm:ss')}} 
+							<span v-show = "oresult.side == 'sell'">
+							<span style = "color:red">sell</span> {{otok1}}/{{otok2}} <b>{{parseFloat(oresult.offer_amount+"e-"+ohash1.decimals)}}</b> &nbsp;&nbsp;price:
+							</span>
+							<span v-show = "oresult.side == 'buy'">
+							<span style = "color:green">buy</span> {{otok2}}/{{otok1}} <b>{{parseFloat(oresult.want_amount+"e-"+ohash2.decimals)}}</b> &nbsp;&nbsp;price:
+							</span>
+							
+							{{priced(oresult.fills, oresult.makes)}}
+							<span v-if = "oresult.order_status == 'open'" style = "color:yellow">{{oresult.order_status}}</span>
+							<span v-else style = "color:grey">{{oresult.order_status}}</span> 
+							filled: {{Math.round(persent(oresult.fills, oresult.makes)/Number(oresult.offer_amount)*100)}}%
+						</p>
+					</div>
+				</div>	
+		</div>	
+	</div>
+</div>
+</section>	
+
+<section id="content-tab4"> 	
+developing...	
 </section>
 			
 <div class = "grad"> </div> 
