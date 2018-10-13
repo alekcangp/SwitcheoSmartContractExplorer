@@ -18,14 +18,13 @@ margin:auto;
   }
   
  .button-group > label {
- width:100px;
+ width:105px;
  } 
  
 .button-group input:checked + label,
 .button-group input:checked + label:active {
   background-color: #22BB5B; font-weight:bold;
 }
-
 
 /* display DOM after load js */	
 
@@ -36,18 +35,16 @@ margin:auto;
         
         .containertab {
             margin: 0 auto ;
-            padding: 15px	
+            padding: 15px;			
         }
         
         /* tabs container */
         
-        .tabs {
-           
+        .tabs {           
             padding: 15px 15px 0px 15px;
             margin: 0 auto;
 			background: #212A3F;
-			border: 0px;
-			
+			border: 0px;	
         }
         /* style windows */
         
@@ -57,34 +54,25 @@ margin:auto;
             background: #32374B;
             border: 0px;
 			border-radius: 5px 5px 0 0;
-			border-top: 1px solid #009933
-			
+			border-top: 1px solid #009933	
         }
         
 	.grad {
 	 background: linear-gradient( #32374B, #212A3F);
 	 height:20px;
-	 
-	 }
-	 
-	 .gradx {
-	 background: linear-gradient( #212A3F, #32374B);
-	 height:20px;
-	 
-	 }
-              
+	}      
         /* hide checkbox */
         
         .tabs > input {
-            display: none;
-            
+            display: none;   
         }
         /* style balane history sumnmary */
         
         .tabs > label {
             display: inline-block;
-            margin: 0 0 -1px;
-            padding: 10px 30px;
+            margin: 0 0 -1px 0;
+            padding: 10px 0px;
+			width: 110px;
             font-weight: 600;
             text-align: center;
             color: #aaa;
@@ -113,7 +101,8 @@ margin:auto;
         
         #tab1:checked ~ #content-tab1,
         #tab2:checked ~ #content-tab2,
-		#tab3:checked ~ #content-tab3
+		#tab3:checked ~ #content-tab3,
+		#tab4:checked ~ #content-tab4
          {
             display: block;
         }
@@ -122,6 +111,6 @@ margin:auto;
         
         @media screen and (max-width: 400px) {
             .tabs > label {
-                padding: 15px;
+                padding: 10px;
             }
         }
