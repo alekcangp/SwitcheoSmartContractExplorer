@@ -4,6 +4,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.2.6/vue.min.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="./src/hash.js"></script>
+<script src="http://cdn.rawgit.com/Mikhus/canvas-gauges/gh-pages/download/2.1.5/radial/gauge.min.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.3.1/css/foundation.min.css" rel="stylesheet"/>
 <link href="./css/style.css" rel="stylesheet"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
@@ -12,15 +13,59 @@
 </head>
 <body>
 
-<div  class="container" id="api" style = "min-width: 500px" v-cloak>
+<div  class="container" id="api" style = "min-width: 890px" v-cloak>
 
-<h2><span style="color:#88C773">Switcheo</span> Smart Contract Explorer</h2>
+<span style="font-size:43px"><span style="color:#88C773; ">Switcheo</span> Smart Explorer</span>
 
- <!-- Buttons select contract -->  
- <div class="row" >
+ 
+ <div class="row" style = "text-align:center;width:920px;">
+ 
+ <!-- gauge balance -->  
+ <div  style = "width:220px;float:left;margin:-25px 0 0 0">
+ <canvas 
+		data-type="radial-gauge"
+        data-width="220"
+        data-height="220"
+        data-units="NEOx1000"
+        data-title="DEX BALANCE"
+        data-value="0.001"
+        data-animate-on-init="true"
+        data-animated-value="true"
+        data-min-value="0"
+        data-max-value="100"
+        data-major-ticks="0,10,20,30,40,50,60,70,80,90,100"
+        data-minor-ticks="2"
+        data-stroke-ticks="false"
+        data-highlights='[
+            { "from": 0, "to": 20, "color": "rgba(0,255,0,.15)" },
+            { "from": 20, "to": 40, "color": "rgba(255,255,0,.15)" },
+            { "from": 40, "to": 60, "color": "rgba(255,30,0,.25)" },
+            { "from": 60, "to": 80, "color": "rgba(255,0,225,.25)" },
+            { "from": 80, "to": 100, "color": "rgba(0,0,255,.25)" }
+        ]'
+        data-color-plate="transparent"
+        data-color-major-ticks="#f5f5f5"
+        data-color-minor-ticks="#ddd"
+        data-color-title="#fff"
+        data-color-units="#ccc"
+        data-color-numbers="#eee"
+        data-color-needle-start="rgba(240, 128, 128, 1)"
+        data-color-needle-end="rgba(255, 160, 122, .9)"
+        data-value-box="true"
+        data-animation-rule="bounce"
+        data-animation-duration="400"
+        data-border-outer-width="3"
+        data-border-middle-width="3"
+        data-border-inner-width="3"
+></canvas>
+ </div>
+ 
+
+ <div style = "width:480px; float:left; margin:30px 0 0 0">
+<!-- Buttons select contract --> 
   <div  class="small button-group">
 	  <input v-on:click = "request" type="radio" id="All" value="All" v-model="contr">
-      <label class="button success" style="color:#fff;" for="All">All</label>
+      <label class="button success" style="color:#fff; border-radius: 5px 0px 0 0;" for="All">All</label>
 	  
       <input v-on:click = "request" type="radio" id="v20" value = 'v20' v-model="contr">
       <label class="button success" style="color:#fff;" for="v20">Ver. 2.0</label>
@@ -29,11 +74,10 @@
       <label class="button success"  style="color:#fff;" for="v15">Ver. 1.5</label>
 	  
 	  <input v-on:click = "request" type="radio" id="v10" value="v10" v-model="contr">
-      <label class="button success" style="color:#fff;" for="v10">Ver. 1.0</label>
+      <label class="button success" style="color:#fff; border-radius: 0px 5px 0 0;" for="v10">Ver. 1.0</label>
     </div>
-	
-</div>
-   
+
+
 <!--Input address-->  
   <div class="row">
 	<input style="background-color: #32374B; color:#FFFFFF; width:423px; margin:auto auto 1px auto;" autofocus type="text"
@@ -42,29 +86,81 @@
 
 <!-- Button -->  
   <div class="row">			 
-	<button style="width:423px; color:#FFFFFF;" 
+	<button style="width:423px; color:#FFFFFF; border-radius: 0px 0px 5px 5px;" 
 	v-on:click = "request" class="button success"><b id = "load">Go</b></button>
   </div>
+  
+ </div>
+ 
+ 
+ <!-- gauge contract -->
+ <div style = "width:220px; float:left; margin:-25px 0 0 0">
+ <canvas 
+		data-value="270"
+        data-title="CONTRACT"
+		data-type="radial-gauge"
+        data-width="220"
+        data-height="220"
+        data-min-value="0"
+        data-max-value="360"
+        data-major-ticks="All,,NEOv1.0,,NEOv1.5,,NEOv2.0,,All"
+        data-minor-ticks="22"
+        data-ticks-angle="360"
+        data-start-angle="180"
+        data-stroke-ticks="false"
+        data-highlights="false"
+        data-color-plate="transparent"
+        data-color-major-ticks="#f5f5f5"
+        data-color-minor-ticks="#ddd"
+        data-color-numbers="#ccc"
+        data-color-needle="rgba(240, 128, 128, 1)"
+        data-color-needle-end="rgba(255, 160, 122, .9)"
+        data-value-box="false"
+        data-value-text-shadow="false"
+        data-color-circle-inner="#fff"
+        data-color-needle-circle-outer="#ccc"
+        data-needle-circle-size="15"
+        data-needle-circle-outer="false"
+        data-animation-rule="linear"
+        data-needle-type="line"
+        data-needle-start="75"
+        data-needle-end="99"
+        data-needle-width="3"
+        data-borders="true"
+        data-border-inner-width="0"
+        data-border-middle-width="0"
+        data-border-outer-width="10"
+        data-color-border-outer="#ccc"
+        data-color-border-outer-end="#ccc"
+        data-color-needle-shadow-down="#222"
+        data-border-shadow-width="0"
+        data-font-value="Led"
+></canvas>
+
+ </div>
+  
+ </div>
    
+
 <!-- tabs zone -->
 <div class="row">
           
 	<div class="tabs" >		
 		
             <input id="tab1" type="radio"  value="balance" v-model = "tabn">
-            <label for="tab1" >BALANCE</label>
+            <label for="tab1" ><b id = "bload">BALANCE</b></label>
             <input id="tab2" type="radio"  value="transfers" v-model = "tabn">
-            <label for="tab2" >TRANSFERS</label>
+            <label for="tab2" ><b id = "tload">TRANSFERS</b></label>
             <input id="tab3" type="radio" value="orders" v-model = "tabn">
-            <label for="tab3" >ORDERS</label>
+            <label for="tab3" ><b id = "oload">ORDERS</b></label>
 			<input id="tab4" type="radio" value="volume" v-model = "tabn">
-            <label for="tab4" >VOLUME</label>
+            <label for="tab4" ><b id = "vload">VOLUME</b></label>
 			
       
 <!--Output BALANCE-->
 <section id="content-tab1">							  
 	<div class="row">
-<p><b>Balance contract</b></p>	
+<p><b>Smart contract balance</b></p>	
 		<div class="large-4 columns"  v-for="(result, index) in results"> <!-- requested Vue module in api.js -->
 		
 			<!--auto comments in columns-->
@@ -98,10 +194,10 @@
 <!-- Output TRANSFERS -->    
 <section id="content-tab2"> 	
 	<div class="row">	
-	<p><b>Deposit and withdrawal contract</b></p>
+	<p><b>Deposits and withdrawals</b></p>
 		<div  v-for="uhistt in uhistory" :key="uhistt.id"> <!-- requested Vue module in api.js -->
 			
-			<div class = "large-8 large-centered columns" v-for="uresult in uhistt.data.entries" :key="uresult.id">
+			<div class = "large-10 large-centered columns" v-for="uresult in uhistt.data.entries" :key="uresult.id">
 				<div style="background-color:#212A3F">
 				
 							<!-- for all tokens -->						
@@ -110,7 +206,7 @@
 							{{moment.unix(uresult.time).format('DD-MM-YYYY, HH:mm:ss') }}
 							<span v-show = "uresult.address_from == vm.xaddress" style="color:green">deposit&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
 							<span v-show = "uresult.address_to == vm.xaddress" style="color:yellow">withdrawal&nbsp;</span>
-							<b>{{uresult.amount}}</b> {{utok}}
+							<b>{{uresult.amount}}</b> {{utok}} &nbsp;&nbsp; <span style = "font-size:12px">txid: {{uresult.txid}}</span>
 							</p>							
 						</div>
 				</div>
@@ -124,25 +220,31 @@
 	<!-- Output ORDERS--> 
 <section id="content-tab3"> 	
 <div class="row">	
-<p><b>Last 50 orders</b></p>
-	<div  class = "large-9 large-centered columns" v-for = "oresult0 in orders" :key="oresult0.id"> 
+<p><b>Last 200 orders</b></p>
+	<div  class = "large-10 large-centered columns" v-for = "oresult0 in orders" :key="oresult0.id"> 
 		<div v-for = "oresult in oresult0.data" :key="oresult.id">
-				<div v-if = "oresult.offer_asset_id == ohash1.hash" v-for = "(ohash1, otok1) in tokens"  :key="otok1.id">
-					<div v-if = "oresult.want_asset_id == ohash2.hash"  v-for = "(ohash2, otok2) in tokens" :key="otok2.id"> 
+				<div v-if = "oresult.offer_asset_id == ohash1.hash" v-for = "(ohash1, otok1, key1) in tokens"  :key="otok1.id">
+					<div v-if = "oresult.want_asset_id == ohash2.hash"  v-for = "(ohash2, otok2, key2) in tokens" :key="otok2.id"> 
 						<p style = "text-align:left; background-color:#212A3F">
 
 							{{moment(oresult.created_at).format('DD-MM-YYYY, HH:mm:ss')}} 
 							<span v-show = "oresult.side == 'sell'">
-							<span style = "color:red">sell</span> {{otok1}}/{{otok2}} <b>{{parseFloat(oresult.offer_amount+"e-"+ohash1.decimals)}}</b> &nbsp;&nbsp;price:
+							<span style = "color:red">sell</span> {{otok1}}/{{otok2}} <span style = "color:grey">amount:</span>
+							<b>{{parseFloat(oresult.offer_amount+"e-"+ohash1.decimals)}}</b>
+							<span style = "color:grey">price:</span>
 							</span>
 							<span v-show = "oresult.side == 'buy'">
-							<span style = "color:green">buy</span> {{otok2}}/{{otok1}} <b>{{parseFloat(oresult.want_amount+"e-"+ohash2.decimals)}}</b> &nbsp;&nbsp;price:
+							<span style = "color:green">buy</span> {{otok2}}/{{otok1}} <span style = "color:grey">amount:</span>
+							<b>{{parseFloat(oresult.want_amount+"e-"+ohash2.decimals)}}</b>
+							<span style = "color:grey">price:</span>
 							</span>
 							
 							{{priced(oresult.fills, oresult.makes)}}
+							<span style = "color:grey">status:</span>
 							<span v-if = "oresult.order_status == 'open'" style = "color:yellow">{{oresult.order_status}}</span>
-							<span v-else style = "color:grey">{{oresult.order_status}}</span> 
-							filled: {{Math.round(persent(oresult.fills, oresult.makes)/Number(oresult.offer_amount)*100)}}%
+							<span v-else>{{oresult.order_status}}</span> 
+							<span style = "color:grey">filled:</span>{{Math.round(persent(oresult.fills, oresult.makes)/Number(oresult.offer_amount)*100)}}%
+											
 						</p>
 					</div>
 				</div>	
@@ -151,8 +253,34 @@
 </div>
 </section>	
 
-<section id="content-tab4"> 	
-developing...	
+
+<!-- Output VOLUME --> 
+
+<section id = "content-tab4"> 	
+<div class="row">	
+<p><b>Trading volume for last 200 orders</b></p>
+<div  v-for = "vol in volume" :key="vol.id"> 
+		<div v-for = "vo in vol.data" :key="vo.id">
+				<div v-if = "vo.offer_asset_id == ohash1.hash" v-for = "(ohash1, otok1, key1) in tokens"  :key="otok1.id">
+					<div v-if = "vo.want_asset_id == ohash2.hash"  v-for = "(ohash2, otok2, key2) in tokens" :key="otok2.id"> 
+						
+							{{volumed(key1, key2, otok1, otok2, priced(vo.fills, vo.makes), persent(vo.fills, vo.makes), vo.side)}}
+						
+					</div>
+				</div>	
+		</div>	
+	</div>
+	
+	<div class = "large-8 large-centered columns" v-if = "m != null" v-for = "(m, i) in mt">
+	<p style = "text-align: left; background-color:#212A3F">
+	{{m}}&nbsp;&nbsp;
+	<span style =" color:grey">sell:</span><span style =" color:red">{{ms[i].toFixed(8)}} </span>
+	<span style =" color:grey">buy:</span><span style =" color:green">{{mb[i].toFixed(8)}}</span>
+	<span style =" color:grey">total:</span><b>{{(ms[i] + mb[i]).toFixed(8)}}</b>
+	</p>
+	</div>
+	
+</div>	
 </section>
 			
 <div class = "grad"> </div> 
