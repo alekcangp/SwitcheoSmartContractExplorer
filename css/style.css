@@ -4,7 +4,6 @@ body {
 	text-align: center;
 	overflow: scroll;
 	}
-
 	
 /* button select contract */
 	
@@ -42,7 +41,7 @@ margin:auto;
         
         .tabs {           
             padding: 15px 15px 0px 15px;
-            margin: 0 auto;
+            margin: -25px auto;
 			background: #212A3F;
 			border: 0px;	
         }
