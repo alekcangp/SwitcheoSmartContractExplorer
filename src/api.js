@@ -9,8 +9,37 @@ axios.get("https://api.switcheo.network/v2/exchange/tokens").then(function(respo
 		vm.tokens.SWH = {"hash":"78e6d16b914fe15bc16150aeb11d0c2a8e532bdd","decimals":8};	 //add SWH old token
 		vm.tokens.ONT = {"hash":"ceab719b8baa2310f232ee0d277c061704541cfb","decimals":8};	 //add ONT nep-5 token
 	}); 
- 
- 
+	
+var addr20 = "AKJQMHma9MA8KK5M8iQg8ASeg3KZLsjwvB"; //address neo v2 contract
+var addr15 = "AZ1QiX5nqgm8dsUY7iRyafKwmKnGP9bUhN"; //address neo v1.5 contract
+var addr10 = "AJdZA4UftshLwVAS4YAc9k274GmwDmkJgj";	//address neo v1 contract	
+var mt = [], ms = [], mb = [], ma = [];
+
+// set dex balance in gauge
+async function timing() {
+var addrneo = [];
+(vm.contr == "v20") ? addrneo[0] = addr20 : 
+			(vm.contr == "v15") ? addrneo[0] = addr15 : 
+			(vm.contr == "v10") ? addrneo[0] = addr10 : addrneo = [addr20, addr15, addr10];			
+var amo = 0	; 			
+for (var v of addrneo) {
+	/**/
+	await axios.get("https://api.neoscan.io/api/main_net/v1/get_balance/"+v).then(function (response) {
+	var bal = response.data.balance;
+		for (var w of bal) {	
+			var symbol = w.asset_symbol;
+			if (symbol == 'NEO') {var am = Number(w.amount); 				
+				};						
+			};
+		amo += am; 
+		});	
+	};
+
+gauges[0].value = amo * 0.001
+                
+};
+
+
 var vm = new Vue({
 el: '#api',
 data: {
@@ -22,6 +51,7 @@ tabn: "balance",
 uhistory: {},
 xaddress: "",
 orders: {},
+volume: [],
 
 },
 
@@ -45,9 +75,32 @@ methods: {
 		};		
 		return pe
 	},
-
+		
+// get total volume for each token	
+	volumed: function (k1, k2, t1, t2, pr, amt, side) {
+		
+		if (ms[k1] == null) {ms[k1] = 0};
+		if (ms[k2] == null) {ms[k2] = 0};
+		if (mb[k1] == null) {mb[k1] = 0};
+		if (mb[k2] == null) {mb[k2] = 0};
+		mt[k1] = t1;
+		mt[k2] = t2;
+		
+		ms[k1] = ms[k1] + amt*0.00000001;
+		if (t2 == 'NEO') {mb[k2] = mb[k2] + amt*0.00000001*pr;} 
+		else if (t2 == 'GAS' && side =='sell') {mb[k2] = mb[k2] + amt*0.00000001*pr;} 
+		else if (t2 == 'SWTH' && side =='sell') {mb[k2] = mb[k2] + amt*0.00000001*pr;} else {mb[k2] = mb[k2] + amt*0.00000001/pr;}
+		
+		},
+	
     request: 
 		async function (event) {
+			
+			timing();//set gauge balance
+		
+			// set gauge contract
+			(vm.contr == 'All') ? gauges[1].value =0 : (vm.contr == 'v20') ? gauges[1].value =270 : 
+			(vm.contr == 'v15') ? gauges[1].value = 180 : gauges[1].value = 90
 									
 			//Neo address validation
 			if (vm.address.length === 0) { return [] };
@@ -64,13 +117,15 @@ methods: {
 			var contract15 = "01bafeeafe62e651efc3a530fde170cf2f7b09bd";
 			var contract10 = "0ec5712e0f7c63e4b0fea31029a28cea5e9d551f";
 			var u = "&contract_hashes[]="
-	
-			document.getElementById('load').innerHTML = "loading...";
+			
+			document.getElementById('vload').innerHTML = "loading...";
+			document.getElementById('oload').innerHTML = "loading...";
+			document.getElementById('tload').innerHTML = "loading...";
+			document.getElementById('bload').innerHTML = "loading...";	
 			
 // BALANCE section			
-			
-		if (vm.tabn == "balance") {				
-				
+							
+			vm.results = [];	
 			var contract = "";
 			vm.results = {}; // to update table				
 			vm.contr == "All" ? (contract = u+contract20+u+contract15+u+contract10) : vm.contr == "v20" 
@@ -82,17 +137,13 @@ methods: {
 
 			axios.get(urlb).then(function(response) {       // get json balance				
 			vm.results = response.data; 
-			document.getElementById('load').innerHTML = "Go";		
-				}				
-			); 					
-		}; 
-
+			document.getElementById('bload').innerHTML = "BALANCE";		
+				}			
+			); 
+				
 // TRANSFERS section		
-		if (vm.tabn == "transfers"){
-			
-			var addr20 = "AKJQMHma9MA8KK5M8iQg8ASeg3KZLsjwvB";
-			var addr15 = "AZ1QiX5nqgm8dsUY7iRyafKwmKnGP9bUhN";
-			var addr10 = "AJdZA4UftshLwVAS4YAc9k274GmwDmkJgj";						
+					
+			vm.uhistory = [];					
 			var urlh20 = "https://api.neoscan.io/api/main_net/v1/get_address_to_address_abstracts/"+vm.address+"/"+addr20+"/";
 			var urlh15 = "https://api.neoscan.io/api/main_net/v1/get_address_to_address_abstracts/"+vm.address+"/"+addr15+"/";
 			var urlh10 = "https://api.neoscan.io/api/main_net/v1/get_address_to_address_abstracts/"+vm.address+"/"+addr10+"/";
@@ -116,13 +167,12 @@ methods: {
 					};							
 				axios.all(urlhx).then(function (response) {			// get json history	
 				vm.uhistory = response;
-				document.getElementById('load').innerHTML = "Go";
-					});				
-		};
-		
-// ORDERS section
-		
-		if (vm.tabn == "orders") {
+				document.getElementById('tload').innerHTML = "TRANSFERS";
+					});							
+				
+// ORDERS  section
+				
+			vm.orders = [];
 			var contract = [];		
 			(vm.contr == "All") ? contract = [contract20, contract15, contract10] : vm.contr == "v20" 
 			? contract = [contract20] : (vm.contr == "v15") 
@@ -130,22 +180,43 @@ methods: {
 			var addrb = decode(vm.address);	
 			var ourl = [], ourlx = [];			
 					for (var j = 0; j < contract.length; ++j) {
-						var ourl = "https://api.switcheo.network/v2/orders?address="+addrb+"&contract_hash="+contract[j];
+						var ourl = "https://api.switcheo.network/v2/orders?address="+addrb+"&contract_hash="+contract[j]+"&limit=200";
 						ourlx[j] = axios.get(ourl); 		
 					};
-			axios.all(ourlx).then(function (response) {			// get json history	
+			 await axios.all(ourlx).then(function (response) {			// get json orders	
 			vm.orders = response;
-			document.getElementById('load').innerHTML = "Go";
-			});											
-		};
+			document.getElementById('oload').innerHTML = "ORDERS";
+			});
+						
+// VOLUME section
+					
+			mt = []; ms = []; mb = []; ma = [];
+			var contract = [];		
+			(vm.contr == "All") ? contract = [contract20, contract15, contract10] : vm.contr == "v20" 
+			? contract = [contract20] : (vm.contr == "v15") 
+			? contract = [contract15] : contract = [contract10];						
+			var addrb = decode(vm.address);	
+			var ourl = [], ourlx = [];			
+					for (var j = 0; j < contract.length; ++j) {
+						var ourl = "https://api.switcheo.network/v2/orders?address="+addrb+"&contract_hash="+contract[j]+"&limit=200";
+						ourlx[j] = axios.get(ourl); 		
+					};
+			 await axios.all(ourlx).then(function (response) {			// get json orders	
+			vm.volume = response;
+			document.getElementById('vload').innerHTML = "VOLUME";
+			});	
+			vm.volume = [];	//set volume in null after display data					
 				
 	}
 },
+
 // Save Neo address in local storage
 mounted() {
 	  if (localStorage.address) {
       this.address = localStorage.address;
-    }
+    };
+	setTimeout(timing, 500);// waiting for drawing canavas
+	setInterval(timing, 30000); //run timer
 },
 watch: {
     address(newAddress) {
