@@ -12,6 +12,8 @@ Feature:
 1. Showing smart contract's balance (for V2, V1.5, V1)
 2. Showing smart contract's transactions (deposit and withdrawal for V2, V1.5, V1 contracts)
 3. Showing orders history (for V2, V1.5, V1 contracts)
+4. Showing trading volume for each token
+5. Monitoring total users NEO balance for each contract.
 
 How to try out? 
 
@@ -22,6 +24,7 @@ How to try out?
 
 I would be happy to receive your feedback.
 
-![ScreenShort](https://raw.githubusercontent.com/alekcangp/SwitcheoSmartContractExplorer/master/img01.jpg)
-![ScreenShort](https://raw.githubusercontent.com/alekcangp/SwitcheoSmartContractExplorer/master/img02.jpg)
-![ScreenShort](https://raw.githubusercontent.com/alekcangp/SwitcheoSmartContractExplorer/master/img03.jpg)
+![ScreenShort](https://raw.githubusercontent.com/alekcangp/SwitcheoSmartContractExplorer/master/img/img01.jpg)
+![ScreenShort](https://raw.githubusercontent.com/alekcangp/SwitcheoSmartContractExplorer/master/img/img02.jpg)
+![ScreenShort](https://raw.githubusercontent.com/alekcangp/SwitcheoSmartContractExplorer/master/img/img03.jpg)
+![ScreenShort](https://raw.githubusercontent.com/alekcangp/SwitcheoSmartContractExplorer/master/img/img04.jpg)
