@@ -1,9 +1,57 @@
 body {
-	background-color: #212A3F;
-	color: #FFFFFF;
+	
+	background: #212A3F ;
+	color: #FFFFFF;	
 	text-align: center;
 	overflow: scroll;
+
 	}
+	
+/* fadein image */
+#test {
+	z-index: -1;
+	position: absolute;
+	height: 365px;
+	left: 0;
+	right: 0;
+	width: 100%;
+    animation: fadein 4s;
+    -moz-animation: fadein 4s; /* Firefox */
+    -webkit-animation: fadein 4s; /* Safari and Chrome */
+    -o-animation: fadein 4s; /* Opera */
+}
+@keyframes fadein {
+    from {
+        opacity:0;
+    }
+    to {
+        opacity:1;
+    }
+}
+@-moz-keyframes fadein { /* Firefox */
+    from {
+        opacity:0;
+    }
+    to {
+        opacity:1;
+    }
+}
+@-webkit-keyframes fadein { /* Safari and Chrome */
+    from {
+        opacity:0;
+    }
+    to {
+        opacity:1;
+    }
+}
+@-o-keyframes fadein { /* Opera */
+    from {
+        opacity:0;
+    }
+    to {
+        opacity: 1;
+    }
+}
 	
 	
 /* button select contract */
@@ -35,7 +83,8 @@ margin:auto;
         
         .containertab {
             margin: 0 auto ;
-            padding: 15px;			
+            padding: 15px;
+					
         }
         
         /* tabs container */
@@ -43,7 +92,7 @@ margin:auto;
         .tabs {           
             padding: 15px 15px 0px 15px;
             margin: -15px auto;
-			background: #212A3F;
+			background: inherit;
 			border: 0px;	
         }
         /* style windows */
@@ -58,7 +107,7 @@ margin:auto;
         }
         
 	.grad {
-	 background: linear-gradient( #32374B, #212A3F);
+	 background: linear-gradient( #32374B, #212A3F );
 	 height:20px;
 	}      
         /* hide checkbox */
