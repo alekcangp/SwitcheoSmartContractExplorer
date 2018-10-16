@@ -3,6 +3,8 @@
  * get balances
  * and save address in local storage
  */
+  
+
  
 axios.get("https://api.switcheo.network/v2/exchange/tokens").then(function(response) {	   //get json tokens
 		vm.tokens = response.data; 						
@@ -67,8 +69,8 @@ orders: {},
 volume: [],
 prices: [],
 addresses: [],
-	check: [],
-	current: ''
+check: [],
+
 
 },
 
@@ -136,7 +138,7 @@ methods: {
 				for (i = 0; i < address.length; i++) {
 					var c = address[i];			
 					if (!(c in ALPHABET_MAP) || address[0] != "A" || address.length !=34) 
-					{ alert("Incorrect address detected!"); return []}			 
+					{ alert("Incorrect NEO address is detected!"); return []}			 
 				};
 			};
 
@@ -146,11 +148,13 @@ methods: {
 			var u = "&contract_hashes[]="
 			var ua = "&addresses[]="
 			
-			document.getElementById('vload').innerHTML = "loading...";
-			document.getElementById('oload').innerHTML = "loading...";
-			document.getElementById('tload').innerHTML = "loading...";
-			document.getElementById('bload').innerHTML = "loading...";	
-					
+			
+			if ((vm.addresses.filter(word => word != '')).length > 0)  {
+				document.getElementById('bload').innerHTML = "loading...";
+				document.getElementById('tload').innerHTML = "loading...";
+				document.getElementById('vload').innerHTML = "loading...";			
+				document.getElementById('oload').innerHTML = "loading...";	
+			} else {alert("NEO address is not detected"); return;}
 			
 // BALANCE section			
 							
@@ -203,7 +207,8 @@ methods: {
 								x += 1;
 							};
 					};	
-			};		
+			};	
+			
 				axios.all(urlhx).then(function (response) {			// get json history	
 				vm.uhistory = response;
 				document.getElementById('tload').innerHTML = "TRANSFERS";
@@ -231,7 +236,8 @@ methods: {
 						ourlx[k] = axios.get(ourl); 
 						k += 1
 					};
-			};		
+			};
+			
 			 await axios.all(ourlx).then(function (response) {			// get json orders	
 			vm.orders = response; vm.volume = response;
 			document.getElementById('oload').innerHTML = "ORDERS";
