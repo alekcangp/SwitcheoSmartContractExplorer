@@ -20,6 +20,8 @@ How to try out?
 3. Input your NEO address(es).
 4. Press the green button or 'Enter'.
 
+* It was tested in Edge and Chrome browsers on Windows 10.
+
 I would be happy to receive your feedback.
 ![ScreenShort](https://raw.githubusercontent.com/alekcangp/SwitcheoSmartContractExplorer/master/img/img05.jpg)
 ![ScreenShort](https://raw.githubusercontent.com/alekcangp/SwitcheoSmartContractExplorer/master/img/img00.jpg)
