@@ -5,6 +5,7 @@ body {
 	overflow: scroll;
 	}
 	
+	
 /* button select contract */
 	
 .button-group {
@@ -41,7 +42,7 @@ margin:auto;
         
         .tabs {           
             padding: 15px 15px 0px 15px;
-            margin: -25px auto;
+            margin: -15px auto;
 			background: #212A3F;
 			border: 0px;	
         }
@@ -97,7 +98,7 @@ margin:auto;
             background: #32374B;
         }
         /* activation */
-        
+        #tab0:checked ~ #content-tab0,
         #tab1:checked ~ #content-tab1,
         #tab2:checked ~ #content-tab2,
 		#tab3:checked ~ #content-tab3,
