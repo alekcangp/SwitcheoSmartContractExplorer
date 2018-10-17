@@ -7,11 +7,10 @@ The purpose of this software is to allow convenient querying of a user's balance
 
 Feature:
 1. Smart contract's balance (for V2, V1.5, V1, and multi addresses)
-2. Smart contract's transactions (deposit and withdrawal for V2, V1.5, V1, and  multi addresses)
+2. Smart contract's transfers (deposit and withdrawal for V2, V1.5, V1, and  multi addresses)
 3. Orders history (for V2, V1.5, V1 and  multi addresses)
 4. Trading volume for each token (for V2, V1.5, V1 and  multi addresses)
 5. Total tokens balance in NEO for all users in Switcheo's contracts (for V2, V1.5, V1)
-6. Transfers (for V2, V1.5, V1 and  multi addresses)
 
 How to try out? 
 
