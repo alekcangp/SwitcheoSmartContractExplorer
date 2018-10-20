@@ -11,6 +11,7 @@ Feature:
 3. Orders history (for V2, V1.5, V1 and  multi addresses)
 4. Trading volume for each token (for V2, V1.5, V1 and  multi addresses)
 5. Total tokens balance in NEO for all users in Switcheo's contracts (for V2, V1.5, V1)
+6. Volume fees of tokens DASHBOARD
 
 How to try out? 
 
@@ -22,9 +23,11 @@ How to try out?
 * It was tested in Edge and Chrome browsers on Windows 10.
 
 I would be happy to receive your feedback.
+![ScreenShort](https://raw.githubusercontent.com/alekcangp/SwitcheoSmartContractExplorer/master/img/img06.jpg)
 ![ScreenShort](https://raw.githubusercontent.com/alekcangp/SwitcheoSmartContractExplorer/master/img/img05.jpg)
 ![ScreenShort](https://raw.githubusercontent.com/alekcangp/SwitcheoSmartContractExplorer/master/img/img00.jpg)
 ![ScreenShort](https://raw.githubusercontent.com/alekcangp/SwitcheoSmartContractExplorer/master/img/img01.jpg)
 ![ScreenShort](https://raw.githubusercontent.com/alekcangp/SwitcheoSmartContractExplorer/master/img/img02.jpg)
 ![ScreenShort](https://raw.githubusercontent.com/alekcangp/SwitcheoSmartContractExplorer/master/img/img03.jpg)
 ![ScreenShort](https://raw.githubusercontent.com/alekcangp/SwitcheoSmartContractExplorer/master/img/img04.jpg)
+
