@@ -4,12 +4,223 @@
  * and save address in local storage
  */
   
+// set dashboard
+window.onload = dashboard;
+async function dashboard () {
+	document.getElementById("dash").innerHTML = "loading...";
+var wps = [];	
+var mps = [];
+var dps = [];
+var chart = new CanvasJS.Chart("chartContainer", {
+	theme: "dark2",
+	animationEnabled: true,
+	zoomEnabled: true,
+	//zoomType: "xy",
+	exportEnabled: true,
+	 backgroundColor: "#212A3F",
+	 
+	title: {
+		margin: 50,
+		text: " "
+	},
+	axisX: {
+		valueFormatString: "DD MMM",
+		labelFontSize: 16,
+	},
+	axisY: {
+		title: "Daily & weekly volume",
+		titleFontSize: 20,
+		labelFontSize: 16,
+		minimum: 0,
+		gridColor: "#4169E1",
+		gridDashType: 'dot',
+			gridThickness: 1,
+		
+		includeZero: true,
+		lineColor: "#4169E1",
+		tickColor: "#4169E1",
+		labelFontColor: "#4169E1",
+		titleFontColor: "#4169E1",
+		//valueFormatString: "##,,###,.##",
+		lineThickness: 1,
+		
+	},
+	axisY2: {
+		title: "Monthly volume",
+		titleFontSize: 20,
+		labelFontSize: 16,
+		minimum: 0,
+		gridColor: "#9370DB",
+			gridDashType: 'dot',
+			gridThickness: 1,
+		lineColor: "#9370DB",
+		tickColor: "#9370DB",
+		//valueFormatString: "##,,###,.##",
+		labelFontColor: "#9370DB",
+		titleFontColor: "#9370DB",
+		lineThickness: 1
+	},
+	axisY3: {
+		title: "Volume",
+		lineColor: "#4169E1",
+		tickColor: "#4169E1",
+		minimum: 0,
+		//valueFormatString: "##,,###,.##",
+		labelFontColor: "#4169E1",
+		lineThickness: 1
+	},
+	
+	toolTip: {
+		shared: true
+	},
+	
+	legend: {
+            cursor: "pointer",
+            itemclick: function (e) {
+               
+                if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+                    e.dataSeries.visible = false;
+                } else {
+                    e.dataSeries.visible = true;
+                }
+ 
+                e.chart.render();
+            }
+        },
+	
+	data: [
+		
+	{
+		type: "stepArea",	
+		axisYType: "secondary",
+		name: "monthly volume",
+		
+		color: "#9370DB",
+		showInLegend: true,
+		yValueFormatString: "##,###.",
+		xValueType: "dateTime",
+		dataPoints: mps
+	},
+	{
+		type: "stepArea",
+		name: "weekly volume",
+		color: "#4169E1",
+		showInLegend: true,
+		yValueFormatString: "##,###.",
+		xValueType: "dateTime",
+		dataPoints: wps
+	},
+	{
+		type: "column",		
+		name: "daily volume",		
+		color: "#00FF00",
+		showInLegend: true,
+		yValueFormatString: "##,###.",
+		xValueType: "dateTime",
+		dataPoints: dps
+	},
+	
+	]
+});
+
+
+ await axios.get("https://api.switcheolytics.tech/switcheo/fee/amount/graph").then(function(response) {	 
+		vm.fees = response.data; 
+		
+	}); 
+	
+	var resul = [];
+	
+	for (var key in vm.fees) {
+	if (key == vm.selected) {resul = vm.fees[key]}
+	};
+		
+	
+	var msum = 0;
+	var wsum = 0;
+	var mo = '';
+	var ind = 0;
+	var wind = 0;
+	var mtime =[];
+	var we = '';
+	
+
+	for (var i = 0; i < resul.length; i++) {
+		time = 1000*moment(resul[i].block_date, "YYYY-MM-DD").unix();
+
+		mo = moment.unix(time/1000).format('DD');
+		we = moment.unix(time/1000).format('dd'); 
+
+		mtime[i] = time;
+		
+		
+		(i == resul.length-1 && (mo != '01' ||  we != 'Mo'))  ? k=i+1 : k=i; //plus last day
+				
+	//calculate month			
+		if (mo == '01' || i == resul.length-1) { 
+			for (var j = ind; j < k; ++j) {
+				mps.push({
+				x: mtime[j],
+				y: msum
+				}); 
+			};			
+					
+			(i == resul.length-1 && mo == '01') ? //if today is 01
+				mps.push({
+				x: mtime[i],
+				y: resul[i].fee_amount
+				})
+				: {};
+		 	 		 
+			msum = 0;		
+			ind = k;
+			
+		};
+				
+		msum += resul[i].fee_amount;				
+		
+		
+	//calculate week	
+		if (we == 'Mo' || i == resul.length-1) { 
+			for (var g = wind; g < k; ++g) {
+				wps.push({
+				x: mtime[g],
+				y: wsum
+				}); 
+			};	
+			
+			(i == resul.length-1 && we == 'Mo') ? //if today is Monday
+				wps.push({
+				x: mtime[i],
+				y: resul[i].fee_amount
+				})
+			: {};
+		 
+		 	wsum = 0;
+			wind = k;
+		};
+		
+		wsum += resul[i].fee_amount; 
+		dps.push({
+			x: time,
+			y: resul[i].fee_amount
+		});
+	};
+	
+	
+	chart.render();
+	document.getElementById("dash").innerHTML = "DASHBOARD";
+
+};
+
 
  
-axios.get("https://api.switcheo.network/v2/exchange/tokens").then(function(response) {	   //get json tokens
+ //get  tokens
+axios.get("https://api.switcheo.network/v2/exchange/tokens").then(function(response) {	  
 		vm.tokens = response.data; 						
 		vm.tokens.SWH = {"hash":"78e6d16b914fe15bc16150aeb11d0c2a8e532bdd","decimals":8};	 //add SWH old token
 		vm.tokens.ONT = {"hash":"ceab719b8baa2310f232ee0d277c061704541cfb","decimals":8};	 //add ONT nep-5 token
+		
 	}); 
 
 	
@@ -53,6 +264,7 @@ async function timing() {
 	gauges[0].value = amo * 0.001               
 };
 
+
 // VUE modules
 
 var vm = new Vue({
@@ -62,7 +274,7 @@ data: {
 results: {},
 tokens: {},
 contr: "v20",
-tabn: "balance",
+tabn: "dash",
 uhistory: {},
 xaddress: "",
 orders: {},
@@ -70,13 +282,15 @@ volume: [],
 prices: [],
 addresses: [],
 check: [],
-
+fees: [],
+selected: 'SWTH',
 
 },
 
 //Request data API
 methods: {
-	
+		
+	//add and del addresses
 	deleteItem: function(items, index) {
        items.splice(index, 1);
      },
@@ -122,6 +336,7 @@ methods: {
 		else if (t2 == 'SWTH' && side =='sell') {mb[k2] = mb[k2] + amt*0.00000001*pr;} else {mb[k2] = mb[k2] + amt*0.00000001/pr;}
 		
 		},
+				
 	
     request: 
 		async function (event) {
@@ -154,7 +369,7 @@ methods: {
 				document.getElementById('tload').innerHTML = "loading...";
 				document.getElementById('vload').innerHTML = "loading...";			
 				document.getElementById('oload').innerHTML = "loading...";	
-			} else {alert("NEO address is not detected"); return;}
+			} else {return;}
 			
 // BALANCE section			
 							
@@ -253,7 +468,8 @@ mounted() {
 
 	if (localStorage.addresses) {	
      this.addresses = JSON.parse(localStorage.addresses);   
-	}	
+	}
+	
 	setTimeout(timing, 500);// waiting for drawing canavas
 	setInterval(timing, 60000); //run timer
 },
