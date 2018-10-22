@@ -3,11 +3,17 @@
  * get balances
  * and save address in local storage
  */
+ 
+
   
-// set dashboard
-window.onload = dashboard;
-async function dashboard () {
-	document.getElementById("dash").innerHTML = "loading...";
+// SET FEES
+var trig = 1;
+async function feeVolume (x) {
+	
+	
+	if (vm.tabn == 'fee' && trig == 0 && x == 0)  { return } ; //run only first time for click on tab
+	
+	document.getElementById("fee").innerHTML = "<img src='./img/load.gif'>";
 var wps = [];	
 var mps = [];
 var dps = [];
@@ -83,13 +89,11 @@ var chart = new CanvasJS.Chart("chartContainer", {
                 } else {
                     e.dataSeries.visible = true;
                 }
- 
                 e.chart.render();
             }
         },
 	
 	data: [
-		
 	{
 		type: "stepArea",	
 		axisYType: "secondary",
@@ -135,7 +139,6 @@ var chart = new CanvasJS.Chart("chartContainer", {
 	if (key == vm.selected) {resul = vm.fees[key]}
 	};
 		
-	
 	var msum = 0;
 	var wsum = 0;
 	var mo = '';
@@ -144,7 +147,6 @@ var chart = new CanvasJS.Chart("chartContainer", {
 	var mtime =[];
 	var we = '';
 	
-
 	for (var i = 0; i < resul.length; i++) {
 		time = 1000*moment(resul[i].block_date, "YYYY-MM-DD").unix();
 
@@ -152,7 +154,6 @@ var chart = new CanvasJS.Chart("chartContainer", {
 		we = moment.unix(time/1000).format('dd'); 
 
 		mtime[i] = time;
-		
 		
 		(i == resul.length-1 && (mo != '01' ||  we != 'Mo'))  ? k=i+1 : k=i; //plus last day
 				
@@ -178,7 +179,6 @@ var chart = new CanvasJS.Chart("chartContainer", {
 		};
 				
 		msum += resul[i].fee_amount;				
-		
 		
 	//calculate week	
 		if (we == 'Mo' || i == resul.length-1) { 
@@ -207,12 +207,10 @@ var chart = new CanvasJS.Chart("chartContainer", {
 		});
 	};
 	
-	
 	chart.render();
-	document.getElementById("dash").innerHTML = "DASHBOARD";
-
+	document.getElementById("fee").innerHTML = "FEES";
+	trig =0;
 };
-
 
  
  //get  tokens
@@ -270,11 +268,16 @@ async function timing() {
 var vm = new Vue({
 el: '#api',
 data: {
+diff1: null,
+diff2:  null,	
+diff3:  null,
+diff4:  null,
+diff5:  null,
 
 results: {},
 tokens: {},
 contr: "v20",
-tabn: "dash",
+tabn: "status",
 uhistory: {},
 xaddress: "",
 orders: {},
@@ -289,6 +292,7 @@ selected: 'SWTH',
 
 //Request data API
 methods: {
+	
 		
 	//add and del addresses
 	deleteItem: function(items, index) {
@@ -341,7 +345,7 @@ methods: {
     request: 
 		async function (event) {
 			
-			timing();//set gauge balance	
+			timing();//set dex balance	
 		
 			// set gauge contract
 			(vm.contr == 'All') ? gauges[1].value =0 : (vm.contr == 'v20') ? gauges[1].value =270 : 
@@ -365,10 +369,10 @@ methods: {
 			
 			
 			if ((vm.addresses.filter(word => word != '')).length > 0)  {
-				document.getElementById('bload').innerHTML = "loading...";
-				document.getElementById('tload').innerHTML = "loading...";
-				document.getElementById('vload').innerHTML = "loading...";			
-				document.getElementById('oload').innerHTML = "loading...";	
+				document.getElementById('bload').innerHTML = "<img src='./img/load.gif'>";
+				document.getElementById('tload').innerHTML = "<img src='./img/load.gif'>";
+				document.getElementById('vload').innerHTML = "<img src='./img/load.gif'>";			
+				document.getElementById('oload').innerHTML = "<img src='./img/load.gif'>";	
 			} else {return;}
 			
 // BALANCE section			
@@ -469,7 +473,13 @@ mounted() {
 	if (localStorage.addresses) {	
      this.addresses = JSON.parse(localStorage.addresses);   
 	}
+	setTimeout(node1,100);
+	setTimeout(node2,100);
+	setTimeout(node3,100);
+	setTimeout(node4,100);
+	setTimeout(node5,100);
 	
+	setTimeout(setgauge, 3000); 	 
 	setTimeout(timing, 500);// waiting for drawing canavas
 	setInterval(timing, 60000); //run timer
 },
