@@ -4,9 +4,13 @@
  * and save address in local storage
  */
  
-
+ 
+		
+	
   
 // SET FEES
+
+ 
 var trig = 1;
 async function feeVolume (x) {
 	
@@ -127,11 +131,12 @@ var chart = new CanvasJS.Chart("chartContainer", {
 	]
 });
 
-
- await axios.get("https://api.switcheolytics.tech/switcheo/fee/amount/graph").then(function(response) {	 
-		vm.fees = response.data; 
+	if (vm.fees == '') {
 		
-	}); 
+			await axios.get("https://api.switcheolytics.tech/switcheo/fee/amount/graph").then(function(response) {	 
+			vm.fees = response.data; 
+			});
+	};
 	
 	var resul = [];
 	
@@ -285,7 +290,7 @@ volume: [],
 prices: [],
 addresses: [],
 check: [],
-fees: [],
+fees: '',
 selected: 'SWTH',
 
 },
@@ -473,13 +478,13 @@ mounted() {
 	if (localStorage.addresses) {	
      this.addresses = JSON.parse(localStorage.addresses);   
 	}
-	setTimeout(node1,100);
-	setTimeout(node2,100);
-	setTimeout(node3,100);
-	setTimeout(node4,100);
-	setTimeout(node5,100);
+	//setTimeout(node1,100);
+	//setTimeout(node2,100);
+	//setTimeout(node3,100);
+	//setTimeout(node4,100);
+	//setTimeout(node5,100);
 	
-	setTimeout(setgauge, 3000); 	 
+	//setTimeout(setgauge, 3000); 	 
 	setTimeout(timing, 500);// waiting for drawing canavas
 	setInterval(timing, 60000); //run timer
 },
