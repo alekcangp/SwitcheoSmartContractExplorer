@@ -91,7 +91,7 @@ margin:auto;
 /* display DOM after load js */	
 
 [v-cloak] > * { display:none; }
-[v-cloak]::before { content: "loading..."; }
+[v-cloak]::before { content: "Chrome, Firefox, Opera and Edge are supported browsers."; }
 
 /* tabs zone */
         
