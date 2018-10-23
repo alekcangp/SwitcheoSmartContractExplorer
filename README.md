@@ -12,16 +12,16 @@ Feature:
 4. Trading volume for each token (for V2, V1.5, V1 and  multi addresses)
 5. Total tokens balance in NEO for all users in Switcheo's contracts (for V2, V1.5, V1)
 6. Volume fees of tokens (using switcheolytics.tech API)
-7. Status monitor of switcheo's nodes
+7. Status monitor of switcheo's nodes (version, block height, time last block, peers, memory pool)
 
 How to try out? 
 
-1. Follow this link to: https://switchstatistic.000webhostapp.com/
+1. Follow this link to: https://switchstatistic.000webhostapp.com/ or https://switcheoexplorer.github.io/
 2. Choose the desired contract or leave the default values.
 3. Input your NEO address(es).
 4. Press the green button or 'Enter'.
 
-* It was tested in Edge and Chrome browsers on Windows 10.
+* It was tested in Edge, Chrome, Firefox and Opera browsers on Windows 10.
 
 I would be happy to receive your feedback.
 
