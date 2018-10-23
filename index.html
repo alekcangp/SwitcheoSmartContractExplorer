@@ -2,6 +2,36 @@
 <html lang="en">
 <head>
 
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript" >
+    (function (d, w, c) {
+        (w[c] = w[c] || []).push(function() {
+            try {
+                w.yaCounter50626468 = new Ya.Metrika2({
+                    id:50626468,
+                    clickmap:true,
+                    trackLinks:true,
+                    accurateTrackBounce:true
+                });
+            } catch(e) { }
+        });
+
+        var n = d.getElementsByTagName("script")[0],
+            s = d.createElement("script"),
+            f = function () { n.parentNode.insertBefore(s, n); };
+        s.type = "text/javascript";
+        s.async = true;
+        s.src = "https://mc.yandex.ru/metrika/tag.js";
+
+        if (w.opera == "[object Opera]") {
+            d.addEventListener("DOMContentLoaded", f, false);
+        } else { f(); }
+    })(document, window, "yandex_metrika_callbacks2");
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/50626468" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+
+<script src = "https://cdnjs.cloudflare.com/ajax/libs/vue/2.2.6/vue.min.js"></script>
 <script src = "https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src = "./src/neo.min.js"></script>
 <script src = "./src/hash.js"></script>
@@ -14,12 +44,10 @@
 <meta charset="utf-8">
 <title>Switcheo Smart Contract Explorer</title>
 </head><body>
-<noscript>
-      You need to enable JavaScript to run this app.
-</noscript>
+
 <img id = "fade" src = "./img/bg.jpg">
 <div class="container" id="api" style = "min-width: 890px" v-cloak>
-<img  style="height:47px; margin:0px 0px 20px 0px" src = "./img/logo.svg"><span  style="font-size:42px;"> Smart Explorer</span>
+<img  style="height:47px; margin:0px 10px 20px 0px" src = "./img/logo.svg"><span  style="font-size:42px;">Explorer</span>
 <div class="row" style = "text-align:center;width:920px;">
  
  <!-- gauge balance-->  
@@ -55,7 +83,7 @@
         data-color-needle-end="rgba(255, 160, 122, .9)"
         data-value-box="true"
         data-animation-rule="bounce"
-        data-animation-duration="400"
+        data-animation-duration="1000"
         data-border-outer-width="3"
         data-border-middle-width="3"
         data-border-inner-width="3"
@@ -200,7 +228,7 @@
     data-needle-width="4"
     data-color-needle="coral"
     data-color-needle-end="#fff"
-    data-animation-duration="200"
+    data-animation-duration="400"
     data-animation-rule="linear"
     data-animation-target="plate"
     data-bar-width="10"
@@ -222,9 +250,9 @@
 <thead>
  <tr style="text-align:center">
       <th style="text-align:center; width:200px">Nodes</th>
-      <th style="text-align:center; width:150px">Version</th>
-      <th style="text-align:center; width:150px">Block Height</th>
-	  <th style="text-align:center; width:150px">Last Block</th>
+      <th style="text-align:center; width:130px">Version</th>
+      <th style="text-align:center; width:170px">Block Height</th>
+	  <th style="text-align:center; width:150px">Create/Sync</th>
       <th style="text-align:center; width:100px">Peers</th>
 	  <th style="text-align:center; width:100px">MemPool</th>
     </tr>
@@ -279,6 +307,7 @@
 </tbody>
 </table>
 <br>	
+<div id = "test"></div>
 			
 		
 </section>			
@@ -295,7 +324,7 @@
 		</select>
 
 	</div>
-
+<div id="errfee" style="color:orange;"></div>
 <div id="chartContainer" style="height: 500px; width:100%;"></div>
 <br>
 <a style="font-size:12px;" href = "https://switcheolytics.tech/" >This is using API switcheolytics.tech</a>
@@ -463,7 +492,7 @@
 		</div>      
 	</div>
 </div>
-<script src = "https://cdnjs.cloudflare.com/ajax/libs/vue/2.2.6/vue.min.js"></script>
+
 <script src="./src/api.js"></script> 
 
 
