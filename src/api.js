@@ -4,16 +4,11 @@
  * and save address in local storage
  */
  
- 
-		
-	
   
 // SET FEES
 
- 
 var trig = 1;
 async function feeVolume (x) {
-	
 	
 	if (vm.tabn == 'fee' && trig == 0 && x == 0)  { return } ; //run only first time for click on tab
 	
@@ -132,10 +127,12 @@ var chart = new CanvasJS.Chart("chartContainer", {
 });
 
 	if (vm.fees == '') {
-		
-			await axios.get("https://api.switcheolytics.tech/switcheo/fee/amount/graph").then(function(response) {	 
-			vm.fees = response.data; 
-			});
+			try {
+				await axios.get("https://api.switcheolytics.tech/switcheo/fee/amount/graph").then(function(response) {	 
+				vm.fees = response.data; 
+				});
+			} 
+			catch (e) {document.getElementById('errfee').innerText = 'API is unreachable!'}
 	};
 	
 	var resul = [];
@@ -217,7 +214,7 @@ var chart = new CanvasJS.Chart("chartContainer", {
 	trig =0;
 };
 
- 
+
  //get  tokens
 axios.get("https://api.switcheo.network/v2/exchange/tokens").then(function(response) {	  
 		vm.tokens = response.data; 						
@@ -233,6 +230,10 @@ var addr10 = "AJdZA4UftshLwVAS4YAc9k274GmwDmkJgj";	//address neo v1 contract
 var mt = [], ms = [], mb = [], ma = [];
 
 // set dex balance in gauge
+
+setTimeout(timing, 1000);
+setInterval(timing, 60000);
+
 async function timing() {
 	var addrneo = [];
 	(vm.contr == "v20") ? addrneo[0] = addr20 : 
@@ -273,11 +274,18 @@ async function timing() {
 var vm = new Vue({
 el: '#api',
 data: {
-diff1: null,
-diff2:  null,	
-diff3:  null,
-diff4:  null,
-diff5:  null,
+diff1: -120,
+diff2: -120,	
+diff3: -120,
+diff4: -120,
+diff5: -120,
+
+counter1: -1,
+counter2: -1,
+counter3: -1,
+counter4: -1,
+counter5: -1,
+bestb: [],
 
 results: {},
 tokens: {},
@@ -485,8 +493,8 @@ mounted() {
 	//setTimeout(node5,100);
 	
 	//setTimeout(setgauge, 3000); 	 
-	setTimeout(timing, 500);// waiting for drawing canavas
-	setInterval(timing, 60000); //run timer
+	//setTimeout(timing, 1000);// waiting for drawing canavas
+	//setInterval(timing, 60000); //run timer
 },
 watch: {
 
