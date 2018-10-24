@@ -36,7 +36,6 @@
 <script src = "./src/neo.min.js"></script>
 <script src = "./src/hash.js"></script>
 <script src = "./src/gauge.min.js"></script>
-<script src = "./src/nodes.js"></script>
 <script src = "https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
 <link href = "https://cdnjs.cloudflare.com/ajax/libs/foundation/6.3.1/css/foundation.min.css" rel="stylesheet"/>
 <link href = "./css/style.css" type="text/css" rel="stylesheet"/>
@@ -44,6 +43,9 @@
 <meta charset="utf-8">
 <title>Switcheo Smart Contract Explorer</title>
 </head><body>
+
+<div style = " width:100%; background:green"> You can use this site: 
+<a style = "color:white; font-weight:bold" href = "https://switcheoexplorer.github.io/">https://switcheoexplorer.github.io</a>  </div>    
 
 <img id = "fade" src = "./img/bg.jpg">
 <div class="container" id="api" style = "min-width: 890px" v-cloak>
@@ -202,7 +204,7 @@
 			
 <p><b>SWITCHEO STATUS MONITOR</b></p>
 
- <canvas data-type="linear-gauge"
+    <canvas data-type="linear-gauge"
     data-width="420"
     data-height="120"
     data-min-value="0"
@@ -238,10 +240,9 @@
     data-color-minor-ticks="#ddd"
     data-color-numbers="#eee"
 ></canvas>
-
 <br>
 <br>
-
+<div id = "neosapi" style = "color:orange"></div>
 
 <table class="unstriped">
 <caption>NODES STATISTIC IN REAL TIME</caption>
@@ -494,7 +495,7 @@
 </div>
 
 <script src="./src/api.js"></script> 
-
+<script src = "./src/nodes.js"></script>
 
 </body>
 </html>
