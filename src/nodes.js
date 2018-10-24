@@ -7,48 +7,53 @@
 	async function monitor () {
 		
 		try {
-			if (trig1 == 0) {node1(); trig1 = 1;};
 			await neo.node('https://seed1.switcheo.network:10331').getBestBlockHash().then(function (result) {}); 
+			if (trig1 == 0) {node1(); trig1 = 1;};
+			
 		} catch(e) {
 			document.getElementById('nod1').style.color = "red";
 			document.getElementById('ver1').innerText = "unreachable"; 
-			trig1 = 0
+			trig1 = 0; vm.diff1 = -120;
 			}
 
 		try {
+			await neo.node('https://seed2.switcheo.network:10331').getBestBlockHash().then(function (result) {});
 			if (trig2 == 0) {node2(); trig2 = 1};
-			await neo.node('https://seed2.switcheo.network:10331').getBestBlockHash().then(function (result) {}); 
+			 
 		} catch(e) {
 			document.getElementById('nod2').style.color = "red";
 			document.getElementById('ver2').innerText = "unreachable"; 
-			trig2 = 0
+			trig2 = 0; vm.diff2 = -120;
 			} 
 
 		try {
-			if (trig3 == 0) {node3(); trig3 = 1};
 			await neo.node('https://seed3.switcheo.network:10331').getBestBlockHash().then(function (result) {}); 
+			if (trig3 == 0) {node3(); trig3 = 1};
+			
 		} catch(e) {
 			document.getElementById('nod3').style.color = "red";
 			document.getElementById('ver3').innerText = "unreachable"; 
-			trig3 = 0
+			trig3 = 0; vm.diff3 = -120;
 			}
 
 		try {
-			if (trig4 == 0) {node4(); trig4 = 1};
 			await neo.node('https://seed4.switcheo.network:10331').getBestBlockHash().then(function (result) {}); 
+			if (trig4 == 0) {node4(); trig4 = 1};
+			
 		} catch(e) {
 			document.getElementById('nod4').style.color = "red"; 
 			document.getElementById('ver4').innerText = "unreachable";
-			trig4 = 0;
+			trig4 = 0; vm.diff4 = -120;
 			}
 
 		try {
-			if (trig5 == 0) {node5(); trig5 = 1};
 			await neo.node('https://seed5.switcheo.network:10331').getBestBlockHash().then(function (result) {}); 
+			if (trig5 == 0) {node5(); trig5 = 1};
+			
 		} catch(e) {
 			document.getElementById('nod5').style.color = "red"; 
 			document.getElementById('ver5').innerText = "unreachable";
-			trig5 = 0;
+			trig5 = 0; vm.diff5 = -120;
 			}  
 
 	}
