@@ -4,7 +4,15 @@
  * and save address in local storage
  */
  
-  
+window.onload = function() {
+		setTimeout(timing, 500); // set dex balance on gauge 0, waiting load canvas
+		setInterval(timing, 60000); 
+		setTimeout(bestblocks(monitor), 100); //found best block
+		setInterval(monitor, 30000);
+		setInterval(bestblocks, 5000); // get best block
+		setInterval(setgauge, 5000) // gauge 2 status
+}
+ 
 // SET FEES
 
 var trig = 1;
@@ -230,9 +238,6 @@ var addr10 = "AJdZA4UftshLwVAS4YAc9k274GmwDmkJgj";	//address neo v1 contract
 var mt = [], ms = [], mb = [], ma = [];
 
 // set dex balance in gauge
-
-setTimeout(timing, 1000);
-setInterval(timing, 60000);
 
 async function timing() {
 	var addrneo = [];
@@ -486,15 +491,9 @@ mounted() {
 	if (localStorage.addresses) {	
      this.addresses = JSON.parse(localStorage.addresses);   
 	}
-	//setTimeout(node1,100);
-	//setTimeout(node2,100);
-	//setTimeout(node3,100);
-	//setTimeout(node4,100);
-	//setTimeout(node5,100);
+
+		
 	
-	//setTimeout(setgauge, 3000); 	 
-	//setTimeout(timing, 1000);// waiting for drawing canavas
-	//setInterval(timing, 60000); //run timer
 },
 watch: {
 
