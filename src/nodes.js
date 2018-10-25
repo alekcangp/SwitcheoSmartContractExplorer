@@ -1,88 +1,129 @@
 
 
-	
+
+
 	// monitoring status
-	var trig1 = 0, trig2 = 0,trig3 = 0, trig4 = 0, trig5 = 0;
+
+function monitor () {
 	
-	async function monitor () {
+	//if (vm.tabn == 'status')	{document.getElementById("vstatus").innerHTML = "<img src='./img/load.gif'>"}
+
+		mon1();
+		mon2();
+		mon3();
+		mon4();
+		mon5();
 		
-		try {
-			await neo.node('https://seed1.switcheo.network:10331').getBestBlockHash().then(function (result) {}); 
-			if (trig1 == 0) {node1(); trig1 = 1;};
+	async function mon1() {
+		
+			try {
+				document.getElementById("s1").innerHTML = "<img src='./img/load.gif'>"
+			await neo.node('https://seed1.switcheo.network:10331').getVersion().then(function (result) {
+				document.getElementById('ver1').innerText =  result.useragent;	
+				if (vm.trig[0] <= 0) {  node1();}
+			}); 	
 			
 		} catch(e) {
 			document.getElementById('nod1').style.color = "red";
 			document.getElementById('ver1').innerText = "unreachable"; 
-			trig1 = 0; vm.diff1 = -120;
-			}
-
+			vm.trig[0] = 0;
+			document.getElementById("s1").innerHTML = ""
+			}			
+	}
+		
+	async function mon2() {
 		try {
-			await neo.node('https://seed2.switcheo.network:10331').getBestBlockHash().then(function (result) {});
-			if (trig2 == 0) {node2(); trig2 = 1};
-			 
+			document.getElementById("s2").innerHTML = "<img src='./img/load.gif'>"
+			await neo.node('https://seed2.switcheo.network:10331').getVersion().then(function (result) {
+				document.getElementById('ver2').innerText =  result.useragent;
+				if (vm.trig[1] <= 0) { node2();}
+			});
+						 
 		} catch(e) {
 			document.getElementById('nod2').style.color = "red";
 			document.getElementById('ver2').innerText = "unreachable"; 
-			trig2 = 0; vm.diff2 = -120;
-			} 
+			vm.trig[1] = 0;
+			document.getElementById("s2").innerHTML = ""
+		}					
+	}
+
+	async function mon3() {
 
 		try {
-			await neo.node('https://seed3.switcheo.network:10331').getBestBlockHash().then(function (result) {}); 
-			if (trig3 == 0) {node3(); trig3 = 1};
+			document.getElementById("s3").innerHTML = "<img src='./img/load.gif'>"
+			await neo.node('https://seed3.switcheo.network:10331').getVersion().then(function (result) {
+				document.getElementById('ver3').innerText =  result.useragent;
+				if (vm.trig[2] <= 0) {  node3(); }
+			 }); 
 			
-		} catch(e) {
+		} catch(e) { 
 			document.getElementById('nod3').style.color = "red";
 			document.getElementById('ver3').innerText = "unreachable"; 
-			trig3 = 0; vm.diff3 = -120;
+			vm.trig[2] = 0;
+			document.getElementById("s3").innerHTML = ""
 			}
+	}
 
+	async function mon4() {
 		try {
-			await neo.node('https://seed4.switcheo.network:10331').getBestBlockHash().then(function (result) {}); 
-			if (trig4 == 0) {node4(); trig4 = 1};
-			
+			document.getElementById("s4").innerHTML = "<img src='./img/load.gif'>"
+			await neo.node('https://seed4.switcheo.network:10331').getVersion().then(function (result) {
+				document.getElementById('ver4').innerText =  result.useragent;
+				if (vm.trig[3] <= 0) {node4();}
+			}); 
+						
 		} catch(e) {
 			document.getElementById('nod4').style.color = "red"; 
 			document.getElementById('ver4').innerText = "unreachable";
-			trig4 = 0; vm.diff4 = -120;
+			vm.trig[3] = 0;
+			document.getElementById("s4").innerHTML = ""
 			}
+		}
+
+	async function mon5() {
 
 		try {
-			await neo.node('https://seed5.switcheo.network:10331').getBestBlockHash().then(function (result) {}); 
-			if (trig5 == 0) {node5(); trig5 = 1};
+			document.getElementById("s5").innerHTML = "<img src='./img/load.gif'>"
+			await neo.node('https://seed5.switcheo.network:10331').getVersion().then(function (result) {
+				document.getElementById('ver5').innerText =  result.useragent;
+				if (vm.trig[4] <= 0) { node5();}
+			}); 			
 			
 		} catch(e) {
 			document.getElementById('nod5').style.color = "red"; 
 			document.getElementById('ver5').innerText = "unreachable";
-			trig5 = 0; vm.diff5 = -120;
-			}  
-
-	}
+			vm.trig[4] = 0;
+			document.getElementById("s5").innerHTML = ""
+			}
+	}				
+}
 
 // set gauge 2	
 function setgauge () {
-	try {
-	var avgb = [vm.diff1, vm.diff2, vm.diff3, vm.diff4, vm.diff5];
-	var avgt = [vm.counter1, vm.counter2, vm.counter3, vm.counter4, vm.counter5]
-	var avg = [];	
-	
-				var sum = 0;
-				for (var i = 0; i < 5; ++i) {
-					if (avgb[i] == 'Infinity') {avgb[i] = -120;}
-					avg[i] = (avgb[i] - avgt[i]/30);
-					if (avg[i] < -120) avg[i] = -120;
-					sum += avg[i];
+		try {
+			var avg = [];	
+			var sum = 0;
+			for (var i = 0; i < 5; ++i) {
+				
+				if (vm.trig[i] == 0) {vm.diff[i] = -120; }
+				if (vm.diff[i] == 'Infinity') {vm.diff[i] = 0;}
+				avg[i] = (vm.diff[i] - vm.counter[i]/30 - vm.mem[i]/50);
+				if (avg[i] < -120) avg[i] = -120;
+				sum += avg[i];
 				};				
-				var res = 120 + sum/5; 
-				if (res > 120) res = 120;
-			} catch(e) {res = 0}			
-				gauges[2].value = res;
+			var res = 120 + sum/5; 
+				
+			if (res > 120) res = 120;
+		} catch(e) {res = 0; }			
+				
+		gauges[2].value = res;
 };
  
-
+// get best block height
  async function bestblocks (call) {
 try {
 	await axios.get('https://api.neoscan.io/api/main_net/v1/get_all_nodes').then(function(response) {
-		neos = response.data; 
+		neos = response.data; document.getElementById('neosapi').innerText = "";
 			for ( var i = 0; i < neos.length; ++i ) {	
 			vm.bestb[i] = neos[i].height; 
 			}
@@ -91,297 +132,301 @@ try {
 call();
 }
 
+var st1 = 0, st2 = 0, st3 = 0, st4 = 0, st5 = 0; // start only one time
 
 // NODE 1
 async function node1 () {
-	
-		var block, height, time, ago, peers, mem, ver, best;
+	vm.trig[0] = 1; 
+		var  hei = 0, time, ago, peers = '';
 		var url = "https://seed1.switcheo.network:10331";
 		
-		
-				await neo.node(url).getBestBlockHash().then(function (result) {
-				bhash = result	
-				 }); 
+		var pollingPolicy = neo.service.createPollingPolicy(5000);
 
-				await neo.node(url).getBlock(bhash, 1).then(function (result) {
-				height =  result.index; time = result.time;
-		 		 }); 
-		  
-		 	
+
+			neo.node(url).poll(pollingPolicy).getBlockCount().notify(function (result) {
+			if (hei != result-1) {
+				vm.counter[0] = -1; hei = result-1; 
+			}	
+		  });
+
+			
+			neo.node(url).poll(pollingPolicy).getConnectionCount().notify(function (result) {
+				peers = result;				
+			});
+
+			neo.node(url).poll(pollingPolicy).getRawMemPool().notify(function (result) {
+				vm.mem[0] = result.length;				
+			  });	
+
+			await neo.node(url).getBestBlockHash().then(function (result) {
+			bhash = result	
+			}); 
+
+			await neo.node(url).getBlock(bhash, 1).then(function (result) {
+			time = result.time;
+			 }); 
+				  
 		var x = moment().unix();
 		var y = time;
 		ago = x - y;
 
-        var pollingPolicy = neo.service.createPollingPolicy(5000);
-		
-        vm.counter1 = ago;
-		
-        
-		setInterval((function () {				
-            document.getElementById('count1').innerText =  (++vm.counter1) + " s ago"; 				
-		}),1000);
-			
+		vm.counter[0] = ago;
 
-            neo.node(url).poll(pollingPolicy).getBlockCount().notify(function (result) {
-				if (height != result-1) {
-					vm.counter1 = -1; height = result-1; 
-				};	
-				vm.diff1 = height - Math.max.apply(null, vm.bestb); if (vm.diff1 == 1) {vm.diff1 = 0};
-				document.getElementById('height1').innerText =  height + ' (' + vm.diff1 + ')';
-				if (vm.diff1 < -3 || vm.counter1 > 120) {document.getElementById('nod1').style.color = "orange"} 
-				else {document.getElementById('nod1').style.color = "limegreen"}
-				
-          	});
-			
+		if (st1 == 0) { st1 = 1; // should run only one time 
+			setInterval(differ,1000);	
+		}	
 
-			neo.node(url).poll(pollingPolicy).getVersion().notify(function (result) {
-				var ver = result.useragent;
-				document.getElementById('ver1').innerText =  ver;
-			});	  
-				  
-			neo.node(url).poll(pollingPolicy).getConnectionCount().notify(function (result) {
-				peers = result;
+		function differ () { //print data
+			
+			vm.diff[0] = hei - Math.max.apply(null, vm.bestb); 
+			if (vm.diff[0] == 1) {vm.diff[0] = 0}
+			document.getElementById('height1').innerText = hei + ' (' + vm.diff[0] + ')'; // current block
+			document.getElementById('count1').innerText =  (++vm.counter[0]) + " s ago"; //timer
+			if (vm.trig[0] != 0) {
+				if (vm.diff[0] < -3 || vm.counter[0] > 120 || vm.mem[0] > 200 || peers == 0) {document.getElementById('nod1').style.color = "orange"} 
+				else  {document.getElementById('nod1').style.color = "limegreen"}
 				document.getElementById('peers1').innerText =  peers;
-			});
-
-			neo.node(url).poll(pollingPolicy).getRawMemPool().notify(function (result) {
-				mem = result;
-				document.getElementById('mem1').innerText =  mem.length;
-          	});	
- 				 
+				document.getElementById('mem1').innerText =  vm.mem[0]; // mempool		
+			} else document.getElementById('peers1').innerText =  0
+		}
+		
+		
+			document.getElementById("s1").innerHTML = ""
+						 
 };
 		
 // NODE 2
 async function node2 () {
-
-		var block, height, time, ago, peers, mem, ver, best;
-		var url = "https://seed2.switcheo.network:10331"
+	vm.trig[1] = 1; 
+		var  hei = 0, time, ago, peers = '';
+		var url = "https://seed2.switcheo.network:10331";
 		
-		
-			
-				await neo.node(url).getBestBlockHash().then(function (result) {
-				bhash = result	
-				 }); 
+		var pollingPolicy = neo.service.createPollingPolicy(5000);
 
-				await neo.node(url).getBlock(bhash, 1).then(function (result) {
-				height =  result.index; time = result.time;
-		 		 }); 
-		  
-		 	
+
+			neo.node(url).poll(pollingPolicy).getBlockCount().notify(function (result) {
+			if (hei != result-1) {
+				vm.counter[1] = -1; hei = result-1; 
+			}	
+		  });
+
+			neo.node(url).poll(pollingPolicy).getConnectionCount().notify(function (result) {
+				peers = result;				
+			});
+
+			neo.node(url).poll(pollingPolicy).getRawMemPool().notify(function (result) {
+			vm.mem[1] = result.length;				
+			});	
+
+			await neo.node(url).getBestBlockHash().then(function (result) {
+			bhash = result	
+			 }); 
+
+			await neo.node(url).getBlock(bhash, 1).then(function (result) {
+			time = result.time;
+			 }); 
+				  
 		var x = moment().unix();
 		var y = time;
 		ago = x - y;
 
-        var pollingPolicy = neo.service.createPollingPolicy(5000);
+		vm.counter[1] = ago;
 
-        vm.counter2 = ago;
-		
-		setInterval((function () {	
-			 document.getElementById('count2').innerText = (++vm.counter2) + " s ago";
-		 }), 1000);	 
+		if (st2 == 0) { st2 = 1; // should run only one time 
+			setInterval(differ,1000);	
+		}
 
-         neo.node(url).poll(pollingPolicy).getBlockCount().notify(function (result) {
-				if (height != result-1) {
-					vm.counter2 = -1; height = result-1; 
-				};
- 			vm.diff2 = height - Math.max.apply(null, vm.bestb); 
-			 if (vm.diff2 == 1) {vm.diff2 = 0}
-			document.getElementById('height2').innerText = height + ' (' + vm.diff2 + ')';
-			if (vm.diff2 < -3 || vm.counter2 > 120) {document.getElementById('nod2').style.color = "orange"} 
-			else {document.getElementById('nod2').style.color = "limegreen"}
-		});
-			  
-			neo.node(url).poll(pollingPolicy).getVersion().notify(function (result) {
-				var ver = result.useragent;
-				document.getElementById('ver2').innerText = ver;
-          	});	  
-				  
-			neo.node(url).poll(pollingPolicy).getConnectionCount().notify(function (result) {
-				peers = result;
-				document.getElementById('peers2').innerText =  peers;
-          	});
+		function differ () { //print data
+			
+			vm.diff[1] = hei - Math.max.apply(null, vm.bestb); 
+			if (vm.diff[1] == 1) {vm.diff[1] = 0}
+			document.getElementById('height2').innerText = hei + ' (' + vm.diff[1] + ')'; // current block
+			document.getElementById('count2').innerText =  (++vm.counter[1]) + " s ago"; //timer
+			
+			if (vm.trig[1] != 0) {
+				if (vm.diff[1] < -3 || vm.counter[1] > 120 || vm.mem[1] > 200 || peers == 0) {document.getElementById('nod2').style.color = "orange"} 
+				else  {document.getElementById('nod2').style.color = "limegreen"}
+				document.getElementById('mem2').innerText =  vm.mem[1]; // mempool
+				document.getElementById('peers2').innerText =  peers;					
+			} else document.getElementById('peers2').innerText =  0
+		}
 
-			neo.node(url).poll(pollingPolicy).getRawMemPool().notify(function (result) {
-				mem = result;
-				document.getElementById('mem2').innerText =  mem.length;
-          	});					  		 
-				 
+		document.getElementById("s2").innerHTML = ""		 
 };
 		
 // NODE 3		
 async function node3 () {
-
-		var block, height, time, ago, peers, mem, ver, best;
-		var url = "https://seed3.switcheo.network:10331"
+	vm.trig[2] = 1; 
+		var  hei = 0, time, ago, peers = '';
+		var url = "https://seed3.switcheo.network:10331";
 		
-				await neo.node(url).getBestBlockHash().then(function (result) {
-				bhash = result	
-				 }); 
+		var pollingPolicy = neo.service.createPollingPolicy(5000);
 
-				await neo.node(url).getBlock(bhash, 1).then(function (result) {
-				height =  result.index; time = result.time;
-		 		 }); 
-		  
-		 	
+
+			neo.node(url).poll(pollingPolicy).getBlockCount().notify(function (result) {
+			if (hei != result-1) {
+				vm.counter[2] = -1; hei = result-1; 
+			}	
+		  });
+			  
+			neo.node(url).poll(pollingPolicy).getConnectionCount().notify(function (result) {
+				peers = result;				
+			});
+
+			neo.node(url).poll(pollingPolicy).getRawMemPool().notify(function (result) {
+				vm.mem[2] = result.length;				
+			});	
+
+			await neo.node(url).getBestBlockHash().then(function (result) {
+			bhash = result	
+			}); 
+
+			await neo.node(url).getBlock(bhash, 1).then(function (result) {
+			time = result.time;
+			 }); 
+				  
 		var x = moment().unix();
 		var y = time;
 		ago = x - y;
 
-        var pollingPolicy = neo.service.createPollingPolicy(5000);
+		vm.counter[2] = ago;
 
-        vm.counter3 = ago;
-				
-        setInterval((function () {	
-             document.getElementById('count3').innerText = (++vm.counter3) + " s ago"; 
-        }), 1000);
-			
-            neo.node(url).poll(pollingPolicy).getBlockCount().notify(function (result) {
-				if (height != result-1) {
-					vm.counter3 = -1; height = result-1; 
-				};
-				vm.diff3 = height - Math.max.apply(null, vm.bestb); if (vm.diff3 == 1) {vm.diff3 = 0};
-				document.getElementById('height3').innerText = height + ' (' + vm.diff3 + ')';
-				if (vm.diff3 < -3 || vm.counter3 > 120) {document.getElementById('nod3').style.color = "orange"} 
-				else {document.getElementById('nod3').style.color = "limegreen"}
-				
-          	});
-				   
+		if (st3 == 0) { st3 = 1; // should run only one time 
+			setInterval(differ,1000);	
+		}	
 
-			neo.node(url).poll(pollingPolicy).getVersion().notify(function (result) {
-				var ver = result.useragent;
-				document.getElementById('ver3').innerText = ver;
-          	});	  
-				  
-			neo.node(url).poll(pollingPolicy).getConnectionCount().notify(function (result) {
-				peers = result;
+		function differ () { //print data		
+			vm.diff[2] = hei - Math.max.apply(null, vm.bestb); 
+			if (vm.diff[2] == 1) {vm.diff[2] = 0}
+			document.getElementById('height3').innerText = hei + ' (' + vm.diff[2] + ')'; // current block
+			document.getElementById('count3').innerText =  (++vm.counter[2]) + " s ago"; //timer
+			if (vm.trig[2] != 0) {
+				if (vm.diff[2] < -3 || vm.counter[2] > 120 || vm.mem[2] > 200 || peers == 0) {document.getElementById('nod3').style.color = "orange"} 
+				else  {document.getElementById('nod3').style.color = "limegreen"}
 				document.getElementById('peers3').innerText =  peers;
-          	});
+				document.getElementById('mem3').innerText =  vm.mem[2]; // mempool	
+				
+			} else document.getElementById('peers3').innerText =  0
+		}	
 
-			neo.node(url).poll(pollingPolicy).getRawMemPool().notify(function (result) {
-				mem = result;
-				document.getElementById('mem3').innerText =  mem.length;
-          	});					  		 
-				 
+		document.getElementById("s3").innerHTML = ""	 
 };
 
 // NODE 4
 async function node4 () {
-
-		var block, height, time, ago, peers, mem, ver, best;
-		var url = "https://seed4.switcheo.network:10331"
+	vm.trig[3] = 1; 
+		var  hei = 0, time, ago, peers = '';
+		var url = "https://seed4.switcheo.network:10331";
 		
-		
-				await neo.node(url).getBestBlockHash().then(function (result) {
-				bhash = result	
-				 }); 
+		var pollingPolicy = neo.service.createPollingPolicy(5000);
 
-				await neo.node(url).getBlock(bhash, 1).then(function (result) {
-				height =  result.index; time = result.time;
-		 		 }); 
+
+			neo.node(url).poll(pollingPolicy).getBlockCount().notify(function (result) {
+			if (hei != result-1) {
+				vm.counter[3] = -1; hei = result-1; 
+			}	
+		  });
 		  
-		 	
+			neo.node(url).poll(pollingPolicy).getConnectionCount().notify(function (result) {
+				peers = result;				
+			});
+
+			neo.node(url).poll(pollingPolicy).getRawMemPool().notify(function (result) {
+				vm.mem[3] = result.length;				
+			});	
+
+			await neo.node(url).getBestBlockHash().then(function (result) {
+			bhash = result	
+			 }); 
+
+			await neo.node(url).getBlock(bhash, 1).then(function (result) {
+			time = result.time;
+			 }); 
+				  
 		var x = moment().unix();
 		var y = time;
 		ago = x - y;
 
-        var pollingPolicy = neo.service.createPollingPolicy(5000);
+		vm.counter[3] = ago;
 
-        vm.counter4 = ago;
-		
-			
-        setInterval((function () {	
-             document.getElementById('count4').innerText = (++vm.counter4) + " s ago"; 
-        }), 1000);
-			
-            neo.node(url).poll(pollingPolicy).getBlockCount().notify(function (result) {
-				if (height != result-1) {
-					vm.counter4 = -1; height = result-1; 
-				};	
-				vm.diff4 = height - Math.max.apply(null, vm.bestb); if (vm.diff4 == 1) {vm.diff4 = 0};
-				document.getElementById('height4').innerText = height + ' (' + vm.diff4 + ')';
-					if (vm.diff4 < -3 || vm.counter4 > 120) {document.getElementById('nod4').style.color = "orange"} 
-					else {document.getElementById('nod4').style.color = "limegreen"}	
-          	});
-				    
-		
-			neo.node(url).poll(pollingPolicy).getVersion().notify(function (result) {
-				var ver = result.useragent;
-				document.getElementById('ver4').innerText = ver;
-          	});	  
-				  
-			neo.node(url).poll(pollingPolicy).getConnectionCount().notify(function (result) {
-				peers = result;
+		if (st4 == 0) { st4 = 1; // should run only one time 
+			setInterval(differ,1000);	
+		}	
+
+		function differ () { //print data		
+			vm.diff[3] = hei - Math.max.apply(null, vm.bestb); 
+			if (vm.diff[3] == 1) {vm.diff[3] = 0}
+			document.getElementById('height4').innerText = hei + ' (' + vm.diff[3] + ')'; // current block
+			document.getElementById('count4').innerText =  (++vm.counter[3]) + " s ago"; //timer
+
+			if (vm.trig[3] != 0) {
+				if (vm.diff[3] < -3 || vm.counter[3] > 120 || vm.mem[3] > 200 || peers == 0) {document.getElementById('nod4').style.color = "orange";}
+				else  {document.getElementById('nod4').style.color = "limegreen"}
 				document.getElementById('peers4').innerText =  peers;
-          	});
+				document.getElementById('mem4').innerText =  vm.mem[3]; // mempool	
+				
+			} else document.getElementById('peers4').innerText =  0
+		}	
 
-			neo.node(url).poll(pollingPolicy).getRawMemPool().notify(function (result) {
-				mem = result;
-				document.getElementById('mem4').innerText =  mem.length;
-          	});					  		 
-				 
+		document.getElementById("s4").innerHTML = ""			 
 };
 
 // NODE 5
 async function node5 () {
-
-
-		var block, height, time, ago, peers, mem, ver, best;
-		var url = "https://seed5.switcheo.network:10331"
+	vm.trig[4] = 1; 
+		var  hei = 0, time, ago, peers = '', ver = '';
+		var url = "https://seed5.switcheo.network:10331";
 		
+		var pollingPolicy = neo.service.createPollingPolicy(5000);
 
-		
-				await neo.node(url).getBestBlockHash().then(function (result) {
-				bhash = result	
-				 }); 
 
-				await neo.node(url).getBlock(bhash, 1).then(function (result) {
-				height =  result.index; time = result.time;
-		 		 }); 
-		  
-		
-		
+			neo.node(url).poll(pollingPolicy).getBlockCount().notify(function (result) {
+			if (hei != result-1) {
+				vm.counter[4] = -1; hei = result-1; 
+			}	
+		  });
 
+			neo.node(url).poll(pollingPolicy).getConnectionCount().notify(function (result) {
+				peers = result;				
+			});
+
+			neo.node(url).poll(pollingPolicy).getRawMemPool().notify(function (result) {
+				vm.mem[4] = result.length;				
+			});	
+
+			await neo.node(url).getBestBlockHash().then(function (result) {
+			bhash = result	
+			}); 
+
+			await neo.node(url).getBlock(bhash, 1).then(function (result) {
+			time = result.time;
+			}); 
+				  
 		var x = moment().unix();
 		var y = time;
 		ago = x - y;
 
-        var pollingPolicy = neo.service.createPollingPolicy(5000);
+		vm.counter[4] = ago;
 
-		vm.counter5 = ago;
+		if (st5 == 0) { st5 = 1; // should run only one time 
+			setInterval(differ,1000);	
+		}	
 
-		 
-		
-			
-        setInterval((function () {	
-             document.getElementById('count5').innerText = (++vm.counter5) + " s ago"; 
-        }), 1000);
-			
-            neo.node(url).poll(pollingPolicy).getBlockCount().notify(function (result) {
-				if (height != result-1) {
-					vm.counter5 = -1; height = result-1; 
-				};
-				vm.diff5 = height - Math.max.apply(null, vm.bestb); if (vm.diff5 == 1) {vm.diff5 = 0};
-				document.getElementById('height5').innerText = height + ' (' + vm.diff5 + ')';
-					if (vm.diff5 < -3 || vm.counter5 > 120) {document.getElementById('nod5').style.color = "orange"} 
-					else {document.getElementById('nod5').style.color = "limegreen"} 
-          	});
-				  
+		function differ () { //print data		
+			vm.diff[4] = hei - Math.max.apply(null, vm.bestb); 
+			if (vm.diff[4] == 1) {vm.diff[4] = 0}
+			document.getElementById('height5').innerText = hei + ' (' + vm.diff[4] + ')'; // current block
+			document.getElementById('count5').innerText =  (++vm.counter[4]) + " s ago"; //timer
 
-
-			neo.node(url).poll(pollingPolicy).getVersion().notify(function (result) {
-				var ver = result.useragent;
-				document.getElementById('ver5').innerText = ver;
-          	});	  
-				  
-			neo.node(url).poll(pollingPolicy).getConnectionCount().notify(function (result) {
-				peers = result;
+			if (vm.trig[4] != 0) {
+				if (vm.diff[4] < -3 || vm.counter[4] > 120 || vm.mem[4] > 200 || peers == 0) {document.getElementById('nod5').style.color = "orange"} 
+				else  {document.getElementById('nod5').style.color = "limegreen"}
 				document.getElementById('peers5').innerText =  peers;
-          	});
+				document.getElementById('mem5').innerText =  vm.mem[4]; // mempool	
+				
+			} else document.getElementById('peers5').innerText =  0
+		}	
 
-			neo.node(url).poll(pollingPolicy).getRawMemPool().notify(function (result) {
-				mem = result;
-				document.getElementById('mem5').innerText =  mem.length;
-          	});					  		 
-				 
-};		
+		document.getElementById("s5").innerHTML = ""			 
+};
 				

@@ -8,7 +8,7 @@ window.onload = function() {
 		setTimeout(timing, 500); // set dex balance on gauge 0, waiting load canvas
 		setInterval(timing, 60000); 
 		setTimeout(bestblocks(monitor), 100); //found best block
-		setInterval(monitor, 30000);
+		setInterval(monitor, 60000);
 		setInterval(bestblocks, 5000); // get best block
 		setInterval(setgauge, 5000) // gauge 2 status
 }
@@ -279,18 +279,12 @@ async function timing() {
 var vm = new Vue({
 el: '#api',
 data: {
-diff1: -120,
-diff2: -120,	
-diff3: -120,
-diff4: -120,
-diff5: -120,
 
-counter1: -1,
-counter2: -1,
-counter3: -1,
-counter4: -1,
-counter5: -1,
+diff: [-120, -120, -120, -120, -120], // show differens between best block
+trig: [-1, -1, -1, -1, -1], //show status nodes
+counter: [-1, -1, -1, -1, -1], // secons ago
 bestb: [],
+mem: ['','','','',''], // mempool
 
 results: {},
 tokens: {},
