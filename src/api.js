@@ -355,7 +355,7 @@ methods: {
 				
 	
     request: 
-		async function (event) {
+		async function tabsx() {
 			
 			timing();//set dex balance	
 		
@@ -448,25 +448,21 @@ methods: {
 // ORDERS  section
 			mt = []; ms = []; mb = []; ma = [];	
 			vm.orders = [];
-			var contract = [];		
-			(vm.contr == "All") ? contract = [contract20, contract15, contract10] : vm.contr == "v20" 
-			? contract = [contract20] : (vm.contr == "v15") 
-			? contract = [contract15] : contract = [contract10];
-
-			
+			var contract = [];	
+			if (vm.contr == "All") {contract = [contract20, contract15, contract10]; } else if (vm.contr == "v20") {contract = [contract20] } 
+			else if (vm.contr == "v15") {contract = [contract15]} else {contract = [contract10];}		
 			
 			//var addrb = decode(vm.addresses[0]);
 			var ourl = [], ourlx = [], k = 0
 			for (i = 1; i <= (vm.addresses.filter(word => word != '')).length; ++i) {
-			var addrb = decode(vm.addresses[i-1]);
-			
-			
-						
+			var addrb = decode(vm.addresses[i-1]);		
+				
 					for (var j = 0; j < contract.length; ++j) {
-						var ourl = "https://api.switcheo.network/v2/orders?address="+addrb+"&contract_hash="+contract[j]+"&limit=200";
+						var ourl = "https://api.switcheo.network/v1/orders?address="+addrb+"&contract_hash="+contract[j]+"&limit=200";
 						ourlx[k] = axios.get(ourl); 
 						k += 1
 					};
+				
 			};
 			
 			 await axios.all(ourlx).then(function (response) {			// get json orders	
@@ -484,9 +480,7 @@ mounted() {
 
 	if (localStorage.addresses) {	
      this.addresses = JSON.parse(localStorage.addresses);   
-	}
-
-		
+	}	
 	
 },
 watch: {
