@@ -39,16 +39,13 @@
 <script src = "https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
 <link href = "https://cdnjs.cloudflare.com/ajax/libs/foundation/6.3.1/css/foundation.min.css" rel="stylesheet"/>
 <link href = "./css/style.css" type="text/css" rel="stylesheet"/>
-
 <meta charset="utf-8">
 <title>Switcheo Smart Contract Explorer</title>
 </head><body>
 
 <div style = " width:100%; background:green"> You can use these links:  
-<a style = "color:white; font-weight:bold" target="_blank" href = "https://switcheoexplorer.github.io/"> https://switcheoexplorer.github.io</a>
-, 
-<a style = "color:white; font-weight:bold" target="_blank" href = "https://switchstatistic.000webhostapp.com/">https://switchstatistic.000webhostapp.com</a>
-, 
+<a style = "color:white; font-weight:bold" target="_blank" href = "https://switcheoexplorer.github.io/"> https://switcheoexplorer.github.io</a>, 
+<a style = "color:white; font-weight:bold" target="_blank" href = "https://switchstatistic.000webhostapp.com/">https://switchstatistic.000webhostapp.com</a>, 
 <a style = "color:white; font-weight:bold" target="_blank" href = "https://t.me/joinchat/AAAAAEcuc4qsxMgIVcaQug ">https://t.me/SwitcheoSmartExplorer</a>
  </div>    
 
@@ -118,7 +115,7 @@
 <!--Input address-->  
   <div class="row" >
 	<input style="background-color: #32374B; color:#FFFFFF; width:423px; margin:auto auto 1px auto;" autofocus type="text"
-	v-on:keyup.enter = "request" v-model.trim = "addresses[0]" placeholder = "Input your NEO address">
+	v-on:keyup.enter = "request" v-model.trim = "addresses[0]" placeholder = "Enter NEO address">
   </div>
   
   
@@ -232,7 +229,7 @@
     data-number-side="left"
     data-needle-side="left"
     data-needle-type="line"
-    data-needle-width="4"
+    data-needle-width="5"
     data-color-needle="coral"
     data-color-needle-end="#fff"
     data-animation-duration="400"
@@ -324,7 +321,7 @@
 	<div class = "row">
 		<span style="font-weight:600;">VOLUME FEES:&nbsp;&nbsp; </span>
 		<select v-on:change = "feeVolume(1)" style="background-color: #32374B; color:#00FF00; width:100px; text-align:center; font-weight:600;" v-model="selected">
-		<option v-show = "inde > 0" v-for="(option, toke, inde) in fees" />
+		<option v-show = "inde > 0" v-for="(option, toke, inde) in fees">
 		{{ toke }}
 		</option>
 		</select>
@@ -344,7 +341,8 @@
 <p><b>Add multi addresses.</b></p>
 <div v-for="(item, index) in addresses" >
 		
-	  <input style="background-color: #212A3F; margin:0px 0px 15px 40px; display:inline; color:#FFFFFF; width:423px; " autofocus type="text" v-model="addresses[index]" placeholder = "Input your NEO address">     
+      <input style="background-color: #212A3F; margin:0px 0px 15px 40px; display:inline; color:#FFFFFF; width:423px;" 
+      autofocus type="text" v-model="addresses[index]" placeholder = "Enter NEO address">     
       <a href="#" @click="deleteItem(addresses, index)"><b style = "color:red">&nbsp;&nbsp;&nbsp;X</b></a>
     </div>	
 	<button class="button" v-on:click = "addItem(addresses)">Add more...</button>
@@ -354,8 +352,8 @@
 <!--Output BALANCE	-->
 <section id="content-tab1">							  
 	<div class="row">
-
-	<p v-if = "(addresses.filter(word => word != '')).length <= 1"><b>Smart contract balance. Address: {{addresses[0]}}</b></p>
+    <p v-if = "(addresses.filter(word => word != '')).length == 0 "><b>Smart contract balance. Enter address.</b></p> 
+	<p v-else-if = "(addresses.filter(word => word != '')).length == 1"><b>Smart contract balance. Address: {{addresses[0]}}</b></p>
 	<p v-else ><b>Smart contract balance. Address: MULTI</b></p>
 	
 		<div class="large-4 columns"  v-for="(result, index) in results"> <!-- requested Vue module in api.js -->
@@ -364,7 +362,7 @@
 			<div style="background-color: #88C773; font-weight: bold">
 			<p v-show="index == 'confirming'">WAITING FOR CONFIRMATION</p>
 			<p v-show="index == 'confirmed'">CONTRACT BALANCE</p> 
-			<p v-show="index == 'locked'">TOKENS IN ORDERS</p> 
+			<p v-show="index == 'locked'">TOKENS IN OPEN ORDERS</p> 
 			</div>
 		
 			<!-- Print balance data in table -->
@@ -392,8 +390,8 @@
 <!-- Output TRANSFERS -->    
 <section id="content-tab2"> 	
 	<div class="row">	
-	
-	<p v-if = "(addresses.filter(word => word != '')).length <= 1"><b>Deposits and withdrawals. Address: {{addresses[0]}}</b></p>
+    <p v-if = "(addresses.filter(word => word != '')).length == 0 "><b>Deposits and withdrawals. Enter address.</b></p> 
+	<p v-else-if = "(addresses.filter(word => word != '')).length == 1"><b>Deposits and withdrawals. Address: {{addresses[0]}}</b></p>
 	<p v-else ><b>Deposits and withdrawals. Address: MULTI</b></p>			
 		
 		<div  v-for="uhistt in uhistory" :key="uhistt.id"> <!-- requested Vue module in api.js -->
@@ -425,8 +423,8 @@
 	<!-- Output ORDERS--> 
 <section id="content-tab3"> 	
 <div class="row">	
-
-<p v-if = "(addresses.filter(word => word != '')).length <= 1"><b>Last 200 orders. Address: {{addresses[0]}}</b></p>
+<p v-if = "(addresses.filter(word => word != '')).length == 0 "><b>Last 200 orders. Enter address.</b></p> 
+<p v-else-if = "(addresses.filter(word => word != '')).length == 1"><b>Last 200 orders. Address: {{addresses[0]}}</b></p>
 	<p v-else ><b>Last 200 orders. Address: MULTI</b></p>
 	
 	<div  class = "large-10 large-centered columns" v-for = "oresult0 in orders" :key="oresult0.id"> 
@@ -467,7 +465,8 @@
 <section id = "content-tab4"> 	
 <div class="row">
 
-<p v-if = "(addresses.filter(word => word != '')).length <= 1"><b>Trading volume for last 200 orders. Address: {{addresses[0]}}</b></p>
+<p v-if = "(addresses.filter(word => word != '')).length == 0 "><b>Trading volume for last 200 orders. Enter address.</b></p>   
+<p v-else-if = "(addresses.filter(word => word != '')).length == 1"><b>Trading volume for last 200 orders. Address: {{addresses[0]}}</b></p>
 	<p v-else ><b>Trading volume for last 200 orders. Address: MULTI</b></p>	
 
 <div  v-for = "vol in volume" :key="vol.id"> 
