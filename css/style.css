@@ -8,7 +8,7 @@ body {
 #s1, #s2, #s3, #s4, #s5 {
     z-index: 1;
     position: absolute;
-   
+    
 }
 	
 tr {	
@@ -25,6 +25,7 @@ th {
 	text-align: center;
 	background: #212A3F ;
 }
+
 
 	
 /* fadein image */
@@ -96,10 +97,13 @@ margin:auto;
 
 /* display DOM after load js */	
 
-[v-cloak] > * { display:none; }
-[v-cloak]::before { content: "Chrome, Firefox, Opera and Edge are supported browsers."
-
+[v-cloak] > * { display:none;
 }
+/*
+[v-cloak]::before { content: "Chrome, Firefox, Opera and Edge are supported browsers. Internet Explorer is not supported!"
+    
+}
+*/
 
 /* tabs zone */
         
