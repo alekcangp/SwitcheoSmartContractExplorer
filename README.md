@@ -22,9 +22,9 @@ How to try out?
 3. Input your NEO address(es).
 4. Press the green button or 'Enter'.
 
-* It was tested in Edge, Chrome, Firefox and Opera browsers on Windows 10.
+* It was tested in Edge, Chrome, Firefox and Opera browsers on Windows 10. Internet Explorer is not supported.
 
-I would be happy to receive your feedback.
+I would be happy to receive your feedback. Telegram Group: https://t.me/SwitcheoSmartExplorer
 
 ![ScreenShort](https://raw.githubusercontent.com/alekcangp/SwitcheoSmartContractExplorer/master/img/img07.jpg)
 ![ScreenShort](https://raw.githubusercontent.com/alekcangp/SwitcheoSmartContractExplorer/master/img/img06.jpg)
