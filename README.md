@@ -5,7 +5,8 @@ Welcome to the Switcheo Smart Contract Explorer!
 The purpose of this software is to allow convenient querying of a user's balance, transfers, orders and trading volume across multiple smartcontracts and multiple addresses. You just need input your addresses and click , and you will see balances all your  tokens, wich are stored in contracts of Switcheo exchange, all your orders, all your transfers and all your volume for each tokens.
 
 
-Feature:
+Features:
+
 1. Smart contract's balance (for V2, V1.5, V1, and multi addresses)
 2. Smart contract's transfers (deposit and withdrawal for V2, V1.5, V1, and  multi addresses)
 3. Orders history (for V2, V1.5, V1 and  multi addresses)
