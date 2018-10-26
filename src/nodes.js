@@ -1,7 +1,4 @@
 
-
-
-
 	// monitoring status
 
 function monitor () {
@@ -20,7 +17,7 @@ function monitor () {
 				document.getElementById("s1").innerHTML = "<img src='./img/load.gif'>"
 			await neo.node('https://seed1.switcheo.network:10331').getVersion().then(function (result) {
 				document.getElementById('ver1').innerText =  result.useragent;	
-				if (vm.trig[0] <= 0) {  node1();}
+				if (vm.trig[0] <= 0) {  node1();} else document.getElementById('s1').innerText =  '';	
 			}); 	
 			
 		} catch(e) {
@@ -36,7 +33,7 @@ function monitor () {
 			document.getElementById("s2").innerHTML = "<img src='./img/load.gif'>"
 			await neo.node('https://seed2.switcheo.network:10331').getVersion().then(function (result) {
 				document.getElementById('ver2').innerText =  result.useragent;
-				if (vm.trig[1] <= 0) { node2();}
+				if (vm.trig[1] <= 0) { node2();} else document.getElementById('s2').innerText =  '';
 			});
 						 
 		} catch(e) {
@@ -53,7 +50,7 @@ function monitor () {
 			document.getElementById("s3").innerHTML = "<img src='./img/load.gif'>"
 			await neo.node('https://seed3.switcheo.network:10331').getVersion().then(function (result) {
 				document.getElementById('ver3').innerText =  result.useragent;
-				if (vm.trig[2] <= 0) {  node3(); }
+				if (vm.trig[2] <= 0) {  node3(); } else document.getElementById('s3').innerText =  '';
 			 }); 
 			
 		} catch(e) { 
@@ -69,7 +66,7 @@ function monitor () {
 			document.getElementById("s4").innerHTML = "<img src='./img/load.gif'>"
 			await neo.node('https://seed4.switcheo.network:10331').getVersion().then(function (result) {
 				document.getElementById('ver4').innerText =  result.useragent;
-				if (vm.trig[3] <= 0) {node4();}
+				if (vm.trig[3] <= 0) {node4();} else document.getElementById('s4').innerText =  '';
 			}); 
 						
 		} catch(e) {
@@ -86,7 +83,7 @@ function monitor () {
 			document.getElementById("s5").innerHTML = "<img src='./img/load.gif'>"
 			await neo.node('https://seed5.switcheo.network:10331').getVersion().then(function (result) {
 				document.getElementById('ver5').innerText =  result.useragent;
-				if (vm.trig[4] <= 0) { node5();}
+				if (vm.trig[4] <= 0) { node5();} else document.getElementById('s5').innerText =  '';
 			}); 			
 			
 		} catch(e) {
