@@ -2,7 +2,7 @@
 
 Welcome to the Switcheo Smart Contract Explorer!
 
-The purpose of this software is to allow convenient querying of a user's balance, transfers, orders and trading volume across multiple smartcontracts, multiple blockchains and multiple addresses. You just need input your addresses and click , and you will see balances all your  tokens, wich are stored in contracts of Switcheo exchange, all your orders, all your transfers and all your volume for each tokens.
+The purpose of this software is to allow convenient querying of a user's balance, transfers, orders and trading volume across multiple smartcontracts and multiple addresses. You just need input your addresses and click , and you will see balances all your  tokens, wich are stored in contracts of Switcheo exchange, all your orders, all your transfers and all your volume for each tokens.
 
 
 Feature:
@@ -12,7 +12,7 @@ Feature:
 4. Trading volume for each token (for V2, V1.5, V1 and  multi addresses)
 5. Total tokens balance in NEO for all users in Switcheo's contracts (for V2, V1.5, V1)
 6. Volume fees of tokens (using switcheolytics.tech API)
-7. Status monitor of switcheo's nodes (version, block height, time last block, peers, memory pool)
+7. Status monitor of switcheo's nodes in real time (version, block height, time last block, peers, memory pool)
 
 How to try out? 
 
