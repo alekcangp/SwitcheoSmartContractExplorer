@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    
     <script language="Javascript">
        <!--[if !IE]>
        alert("Internet Explorer is not supported! Chrome, Firefox, Opera and Edge are supported browsers.")
         <![endif]-->   
     </script>
+    
 <!-- Yandex.Metrika counter -->
 <script type="text/javascript" >
     (function (d, w, c) {
@@ -44,23 +46,12 @@
 <link href = "https://cdnjs.cloudflare.com/ajax/libs/foundation/6.3.1/css/foundation.min.css" rel="stylesheet"/>
 <link href = "./css/style.css" type="text/css" rel="stylesheet"/>
 <meta charset="utf-8">
-<title>Switcheo Smart Contract Explorer</title>
+<meta name="viewport" content="target-densitydpi=device-dpi"> 
+<title>Switcheo Explorer</title>
 </head><body>
-
-        <script language="Javascript">
-                <!--[if !IE]>
-                 document.getElementById('aler').innerHTML = "Internet Explorer is not supported! Chrome, Firefox, Opera and Edge are supported browsers.";
-                 <![endif]-->
-                 
-                  </script>
-
-<div style = " width:100%; background:green"> You can use these links:  
-<a style = "color:white; font-weight:bold" target="_blank" href = "https://switcheoexplorer.github.io/"> https://switcheoexplorer.github.io</a>, 
-<a style = "color:white; font-weight:bold" target="_blank" href = "https://switchstatistic.000webhostapp.com/">https://switchstatistic.000webhostapp.com</a>, 
-<a style = "color:white; font-weight:bold" target="_blank" href = "https://t.me/joinchat/AAAAAEcuc4qsxMgIVcaQug ">https://t.me/SwitcheoSmartExplorer</a>
- </div> 
- <div id = "aler" style = "width:100%; background:red; font-weight:bold" ></div> 
-
+                  
+<div id = "mes">&nbsp;</div> <!-- hide for webview android-->
+ 
 <img id = "fade" src = "./img/bg.jpg">
 <div class="container" id="api" style = "min-width: 890px" v-cloak>
 <a href = "https://switcheo.network"><img style="height:47px; margin:0px 10px 20px 0px" src = "./img/logo.svg"></a><span  style="font-size:42px;">Explorer</span>
@@ -130,12 +121,10 @@
 	v-on:keyup.enter = "request" v-model.trim = "addresses[0]" placeholder = "Enter NEO address">
   </div>
   
-  
-
 <!-- Button -->  
   <div class="row">			 
 	<button style="width:423px; color:#FFFFFF; border-radius: 0px 0px 5px 5px;" 
-	v-on:click = "request" class="button success"><b>Go</b>
+	v-on:click = "request" class="button success"><b id = 'go'>Go</b>
 	</button>
   </div>
   
