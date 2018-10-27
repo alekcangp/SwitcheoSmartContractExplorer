@@ -2,8 +2,27 @@ body {
 	background: #212A3F ;
 	color: #FFFFFF;	
 	text-align: center;
-	overflow: scroll;
+    overflow: scroll;
     }
+
+#mesf { /* hide for webview on android*/
+    width:100%; 
+    background:green; 
+}
+
+a {
+    color:#fff; 
+   
+}
+
+a:visited {
+    color:#fff; 
+}
+
+a:hover {
+    color:#fff;
+    text-decoration: underline;
+}
     
 #s1, #s2, #s3, #s4, #s5 {
     z-index: 1;
@@ -25,7 +44,6 @@ th {
 	text-align: center;
 	background: #212A3F ;
 }
-
 
 	
 /* fadein image */
@@ -117,7 +135,7 @@ margin:auto;
         
         .tabs {           
             padding: 15px 15px 0px 15px;
-            margin: -10px auto;
+            margin: -5px auto;
 			background: inherit;
 			border: 0px;	
         }
