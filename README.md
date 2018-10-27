@@ -21,7 +21,7 @@ How to try out?
 2. Choose the desired contract or leave the default values.
 3. Input your NEO address(es).
 4. Press the green button or 'Enter'.
-* Switcheo Explorer for Android is avalable: https://github.com/alekcangp/SwitcheoSmartContractExplorer/releases/tag/v1.0 or https://github.com/switcheoexplorer/switcheoexplorer.github.io/releases
+* Switcheo Explorer for Android is avalable: https://github.com/alekcangp/SwitcheoSmartContractExplorer/releases/tag/v1.0 or https://github.com/switcheoexplorer/switcheoexplorer.github.io/releases/tag/v1.0
 
 * It was tested in Edge, Chrome, Firefox and Opera browsers on Windows 10. Internet Explorer is not supported.
 
