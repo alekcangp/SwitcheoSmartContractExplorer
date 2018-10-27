@@ -10,15 +10,21 @@ window.onload = function() {
 		setTimeout(bestblocks(monitor), 100); //found best block
 		setInterval(monitor, 60000);
 		setInterval(bestblocks, 5000); // get best block
-		setInterval(setgauge, 5000) // gauge 2 status
-}
+		setInterval(setgauge, 5000); // gauge 2 status
+	}
+
+// hide for webview on android
+
+document.getElementById("mes").innerHTML = "<div id = 'mesf'><a target='_blank' href = 'https://switchstatistic.000webhostapp.com'>Web site 1</a> || <a target='_blank' href = 'https://switcheoexplorer.github.io/'>Web site 2</a> || <a  target='_blank' href = 'https://github.com/switcheoexplorer/switcheoexplorer.github.io/releases/tag/v1.0'>Download for Android</a> || <a  target='_blank' href = 'https://t.me/joinchat/AAAAAEcuc4qsxMgIVcaQug'>Telegramm Group</a></div>";
+
+
  
 // SET FEES
 
-var trig = 1;
+var trigx = 1;
 async function feeVolume (x) {
 	
-	if (vm.tabn == 'fee' && trig == 0 && x == 0)  { return } ; //run only first time for click on tab
+	if (trigx == 0 && x == 0)  { return } ; //run only first time for click on tab
 	
 	document.getElementById("fee").innerHTML = "<img src='./img/load.gif'>";
 var wps = [];	
@@ -28,13 +34,13 @@ var chart = new CanvasJS.Chart("chartContainer", {
 	theme: "dark2",
 	animationEnabled: true,
 	zoomEnabled: true,
-	//zoomType: "xy",
 	exportEnabled: true,
 	 backgroundColor: "#212A3F",
 	 
 	title: {
 		margin: 50,
-		text: " "
+		text: " ",
+		
 	},
 	axisX: {
 		valueFormatString: "DD MMM",
@@ -210,7 +216,7 @@ var chart = new CanvasJS.Chart("chartContainer", {
 			wind = k;
 		};
 		
-		wsum += resul[i].fee_amount; 
+		wsum += resul[i].fee_amount; if (trigx == 0 && x == 0)  { return } ; //run only first time for click on tab
 		dps.push({
 			x: time,
 			y: resul[i].fee_amount
@@ -219,7 +225,7 @@ var chart = new CanvasJS.Chart("chartContainer", {
 	
 	chart.render();
 	document.getElementById("fee").innerHTML = "FEES";
-	trig =0;
+	trigx =0;
 };
 
 
@@ -369,7 +375,8 @@ methods: {
 				for (i = 0; i < address.length; i++) {
 					var c = address[i];			
 					if (!(c in ALPHABET_MAP) || address[0] != "A" || address.length !=34) 
-					{ alert("Incorrect NEO address is detected!"); return []}			 
+					{ document.getElementById('go').innerHTML ="<span style = 'color:yellow'>Incorrect NEO address is detected!</span>"; return []}	
+					else {document.getElementById('go').innerHTML ="<span style = 'color:#fff'>Go</span>"}		 
 				};
 			};
 
