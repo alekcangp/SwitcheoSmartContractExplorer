@@ -1,7 +1,7 @@
  
- <a target='_blank' href = "https://switcheoexplorer.github.io"><img style="text-align:center" src = "./img/title.jpg"></a>
+ <center><a target='_blank' href = "https://switcheoexplorer.github.io"><img style="text-align:center" src = "./img/title.jpg"></a>
  <p align="center">>> <a href="https://switcheoexplorer.github.io">https://switcheoexplorer.github.io</a> <<</p>
- <p align="center"> <img src="https://img.shields.io/badge/status-online-green.svg"></p>
+ <p align="center"> <img src="https://img.shields.io/badge/status-online-green.svg"></p></center>
 
 Welcome to the Switcheo Smart Contract Explorer!
 
