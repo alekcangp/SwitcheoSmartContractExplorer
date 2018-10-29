@@ -3,9 +3,9 @@
  <p align="center">>> <a href="https://switcheoexplorer.github.io">https://switcheoexplorer.github.io</a> <<</p>
  <p align="center"><img src="https://img.shields.io/badge/status-online-green.svg"></p>
 
-Welcome to the Switcheo Smart Contract Explorer!
+  Welcome to the Switcheo Explorer!
 
-The purpose of this software is to allow convenient querying of a user's balance, transfers, orders and trading volume across multiple smartcontracts and multiple addresses. You just need input your addresses and click , and you will see balances all your  tokens, wich are stored in contracts of Switcheo exchange, all your orders, all your transfers and all your volume for each tokens.
+  The purpose of this software is to allow convenient querying of a user's balance, transfers, orders and trading volume across multiple smartcontracts and multiple addresses. You just need input your addresses and click , and you will see balances all your  tokens, wich are stored in contracts of Switcheo exchange, all your orders, all your transfers and all your volume for each tokens.
 
 
 Features:
