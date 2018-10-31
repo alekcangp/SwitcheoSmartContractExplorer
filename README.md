@@ -17,6 +17,7 @@ Features:
 5. Total tokens balance in NEO for all users in Switcheo's contracts (for V2, V1.5, V1)
 6. Volume fees of tokens (using switcheolytics.tech API)
 7. Status monitor of switcheo's nodes in real time (version, block height, time last block, peers, memory pool)
+8. NEO network 3D graph
 
 How to try out? 
 
