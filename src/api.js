@@ -16,7 +16,7 @@ window.onload = function() {
 
 // hide for webview on android
 
-document.getElementById("mes").innerHTML = "<div id = 'mesf'><a  target='_blank' href = 'https://github.com/switcheoexplorer/switcheoexplorer.github.io/releases/tag/v1.0'>Download for Android</a> || <a  target='_blank' href = 'https://t.me/joinchat/AAAAAEcuc4qsxMgIVcaQug'>Telegramm Group</a></div>";
+document.getElementById("mes").innerHTML = "<div id = 'mesf'><a  target='_blank' href = 'https://github.com/alekcangp/SwitcheoSmartContractExplorer/releases/tag/v1.1'>Download for Android</a> || <a  target='_blank' href = 'https://t.me/joinchat/AAAAAEcuc4qsxMgIVcaQug'>Telegramm Group</a></div>";
 
  //<a target='_blank' href = 'https://switchstatistic.000webhostapp.com'>Web site 1</a> || <a target='_blank' href = 'https://switcheoexplorer.github.io/'>Web site 2</a> || 
 // SET FEES
