@@ -3,31 +3,40 @@ body {
 	color: #FFFFFF;	
 	text-align: center;
     overflow: scroll;
+    
     }
+
 
 #mesf { /* hide for webview on android*/
     width:100%; 
     background:green; 
 }
 
-a {
-    color:#fff; 
+#neo {
    
+    height: 50px;
+    display: flex; 
+    justify-content: center;
+    background: transparent;
+
+}
+
+a {
+    color:#fff;  
 }
 
 a:visited {
     color:#fff; 
 }
 
-a:hover {
+#mesf a:hover {
     color:#fff;
     text-decoration: underline;
 }
     
 #s1, #s2, #s3, #s4, #s5 {
     z-index: 1;
-    position: absolute;
-    
+    position: absolute;   
 }
 	
 tr {	
@@ -165,7 +174,7 @@ margin:auto;
             display: inline-block;
             margin: 0 0 -1px 0;
             padding: 10px 0px;
-			width: 110px;
+			width: 105px;
             font-weight: 600;
             text-align: center;
             color: #aaa;
@@ -191,6 +200,7 @@ margin:auto;
             background: #32374B;
         }
         /* activation */
+        #tabneo:checked ~ #content-neo,
 		#tab000:checked ~ #content-tab000,
 		#tab00:checked ~ #content-tab00,
         #tab0:checked ~ #content-tab0,
