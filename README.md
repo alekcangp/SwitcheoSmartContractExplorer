@@ -1,6 +1,6 @@
  
  <p align="center"><a target='_blank' href = "https://switcheoexplorer.github.io"><img src = "./img/title.jpg"></a></p>
- <p align="center">>> <a href="https://switcheoexplorer.github.io">https://switcheoexplorer.github.io</a> <<</p>
+ <p align="center">>> <a href="http://switchstatistic.000webhostapp.com">http://switchstatistic.000webhostapp.com</a> <<</p>
  <p align="center"><img src="https://img.shields.io/badge/status-online-green.svg"></p>
 
   Welcome to the Switcheo Explorer!
@@ -20,16 +20,17 @@ Features:
 
 How to try out? 
 
-1. Follow this link to: https://switchstatistic.000webhostapp.com/ or https://switcheoexplorer.github.io/
+1. Follow this link to: http://switchstatistic.000webhostapp.com
 2. Choose the desired contract or leave the default values.
 3. Input your NEO address(es).
 4. Press the green button or 'Enter'.
-* Switcheo Explorer for Android is avalable: https://github.com/alekcangp/SwitcheoSmartContractExplorer/releases/tag/v1.0 or https://github.com/switcheoexplorer/switcheoexplorer.github.io/releases/tag/v1.0
+* Switcheo Explorer for Android is avalable: https://github.com/alekcangp/SwitcheoSmartContractExplorer/releases/tag/v1.0
 
 * It was tested in Edge, Chrome, Firefox and Opera browsers on Windows 10. Internet Explorer is not supported.
 
 I would be happy to receive your feedback. Telegram Group: https://t.me/SwitcheoSmartExplorer
 
+![ScreenShort](https://raw.githubusercontent.com/alekcangp/SwitcheoSmartContractExplorer/master/img/img08.jpg)
 ![ScreenShort](https://raw.githubusercontent.com/alekcangp/SwitcheoSmartContractExplorer/master/img/img07.jpg)
 ![ScreenShort](https://raw.githubusercontent.com/alekcangp/SwitcheoSmartContractExplorer/master/img/img06.jpg)
 ![ScreenShort](https://raw.githubusercontent.com/alekcangp/SwitcheoSmartContractExplorer/master/img/img00.jpg)
