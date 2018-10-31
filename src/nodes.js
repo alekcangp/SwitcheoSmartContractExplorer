@@ -1,9 +1,7 @@
-
+	
 	// monitoring status
 
-function monitor () {
-	
-	//if (vm.tabn == 'status')	{document.getElementById("vstatus").innerHTML = "<img src='./img/load.gif'>"}
+	function monitor () {
 
 		mon1();
 		mon2();

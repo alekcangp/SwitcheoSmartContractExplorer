@@ -11,22 +11,25 @@ window.onload = function() {
 		setInterval(monitor, 60000);
 		setInterval(bestblocks, 5000); // get best block
 		setInterval(setgauge, 5000); // gauge 2 status
+		setTimeout(getl, 2000);// graph
 	}
 
 // hide for webview on android
 
-document.getElementById("mes").innerHTML = "<div id = 'mesf'><a target='_blank' href = 'https://switchstatistic.000webhostapp.com'>Web site 1</a> || <a target='_blank' href = 'https://switcheoexplorer.github.io/'>Web site 2</a> || <a  target='_blank' href = 'https://github.com/switcheoexplorer/switcheoexplorer.github.io/releases/tag/v1.0'>Download for Android</a> || <a  target='_blank' href = 'https://t.me/joinchat/AAAAAEcuc4qsxMgIVcaQug'>Telegramm Group</a></div>";
+document.getElementById("mes").innerHTML = "<div id = 'mesf'><a  target='_blank' href = 'https://github.com/switcheoexplorer/switcheoexplorer.github.io/releases/tag/v1.0'>Download for Android</a> || <a  target='_blank' href = 'https://t.me/joinchat/AAAAAEcuc4qsxMgIVcaQug'>Telegramm Group</a></div>";
 
-
- 
+ //<a target='_blank' href = 'https://switchstatistic.000webhostapp.com'>Web site 1</a> || <a target='_blank' href = 'https://switcheoexplorer.github.io/'>Web site 2</a> || 
 // SET FEES
+
+var trigxx = 1;
+function xfeeVolume () {
+	if (trigxx == 1)  {  trigxx = 0; feeVolume (0) } else return;//run only first time for click on tab
+}
 
 var trigx = 1;
 async function feeVolume (x) {
 	
-	if (trigx == 0 && x == 0)  { return } ; //run only first time for click on tab
-	
-	document.getElementById("fee").innerHTML = "<img src='./img/load.gif'>";
+
 var wps = [];	
 var mps = [];
 var dps = [];
@@ -142,11 +145,16 @@ var chart = new CanvasJS.Chart("chartContainer", {
 
 	if (vm.fees == '') {
 			try {
+				document.getElementById("fee").innerHTML = "<img src='./img/load.gif'>";
 				await axios.get("https://api.switcheolytics.tech/switcheo/fee/amount/graph").then(function(response) {	 
 				vm.fees = response.data; 
+				document.getElementById("fee").innerHTML = "FEES";
+				document.getElementById('errfee').innerText = '';
 				});
 			} 
-			catch (e) {document.getElementById('errfee').innerText = 'API is unreachable!'}
+			catch (e) {document.getElementById('errfee').innerText = 'API is unreachable!'; 
+			document.getElementById("fee").innerHTML = "FEES"; trigxx = 1;
+			return}
 	};
 	
 	var resul = [];
@@ -216,7 +224,8 @@ var chart = new CanvasJS.Chart("chartContainer", {
 			wind = k;
 		};
 		
-		wsum += resul[i].fee_amount; if (trigx == 0 && x == 0)  { return } ; //run only first time for click on tab
+		wsum += resul[i].fee_amount; 
+		if (trigx == 0 && x == 0)  { return } ; //run only first time for click on tab
 		dps.push({
 			x: time,
 			y: resul[i].fee_amount
@@ -224,8 +233,7 @@ var chart = new CanvasJS.Chart("chartContainer", {
 	};
 	
 	chart.render();
-	document.getElementById("fee").innerHTML = "FEES";
-	trigx =0;
+	trigx = 0;	
 };
 
 
@@ -236,7 +244,6 @@ axios.get("https://api.switcheo.network/v2/exchange/tokens").then(function(respo
 		vm.tokens.ONT = {"hash":"ceab719b8baa2310f232ee0d277c061704541cfb","decimals":8};	 //add ONT nep-5 token
 		
 	}); 
-
 	
 var addr20 = "AKJQMHma9MA8KK5M8iQg8ASeg3KZLsjwvB"; //address neo v2 contract
 var addr15 = "AZ1QiX5nqgm8dsUY7iRyafKwmKnGP9bUhN"; //address neo v1.5 contract
@@ -295,7 +302,7 @@ mem: ['','','','',''], // mempool
 results: {},
 tokens: {},
 contr: "v20",
-tabn: "status",
+tabn: "tabneo",
 uhistory: {},
 xaddress: "",
 orders: {},
@@ -371,14 +378,16 @@ methods: {
 									
 			//Neo address validation
 			for (address of vm.addresses) {
-				if (address.length === 0) { continue };
+				if (address.length == 0) { continue };
 				for (i = 0; i < address.length; i++) {
 					var c = address[i];			
-					if (!(c in ALPHABET_MAP) || address[0] != "A" || address.length !=34) 
+					if ((!(c in ALPHABET_MAP) || address[0] != "A" || address.length !=34) && address.length > 0 ) 
 					{ document.getElementById('go').innerHTML ="<span style = 'color:yellow'>Incorrect NEO address is detected!</span>"; return []}	
-					else {document.getElementById('go').innerHTML ="<span style = 'color:#fff'>Go</span>"}		 
+					
 				};
 			};
+
+			document.getElementById('go').innerHTML ="<span style = 'color:#fff'>Go</span>";
 
 			var contract20 = "91b83e96f2a7c4fdf0c1688441ec61986c7cae26";
 			var contract15 = "01bafeeafe62e651efc3a530fde170cf2f7b09bd";
