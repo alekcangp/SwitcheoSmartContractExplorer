@@ -37,6 +37,12 @@
 <noscript><div><img src="https://mc.yandex.ru/watch/50626468" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 <!-- /Yandex.Metrika counter -->
 
+
+<script src="https://unpkg.com/3d-force-graph@1.41.1/dist/3d-force-graph.min.js"></script>
+
+
+
+
 <script src = "https://cdnjs.cloudflare.com/ajax/libs/vue/2.2.6/vue.min.js"></script>
 <script src = "https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src = "./src/neo.min.js"></script>
@@ -48,13 +54,18 @@
 <meta charset="utf-8">
 <meta name="viewport" content="target-densitydpi=device-dpi"> 
 <title>Switcheo Explorer</title>
-</head><body>
+</head>
+
+
+
+
+<body>
                   
 <div id = "mes">&nbsp;</div> <!-- hide for webview android-->
  
 <img id = "fade" src = "./img/bg.jpg">
-<div class="container" id="api" style = "min-width: 890px" v-cloak>
-<a href = "https://switcheo.network"><img style="height:47px; margin:0px 10px 20px 0px" src = "./img/logo.svg"></a><span  style="font-size:42px;">Explorer</span>
+<div class="container" id="api" style = "min-width:910px" v-cloak>
+<a target='_blank' href = "https://switcheo.network"><img style="height:47px; margin:0px 10px 20px 0px" src = "./img/logo.svg"></a><span  style="font-size:42px;">Explorer</span>
 <div class="row" style = "text-align:center;width:920px;">
  
  <!-- gauge balance-->  
@@ -183,10 +194,12 @@
 <div class="row">
           
 	<div class = "tabs">
-	
+           
+            <input id="tabneo" type="radio" value="tabneo" v-model = "tabn">
+            <label for="tabneo"><b id = "tabneo">NETWORK</b></label>
 			<input id="tab000" type="radio" value="status" v-model = "tabn">
-            <label for="tab000" ><b id = "vstatus">STATUS</b></label>
-			<input v-on:click = "feeVolume(0)" id="tab00" type="radio"  value="fee" v-model = "tabn">
+            <label for="tab000" ><b id = "vstatus">NODES</b></label>
+			<input v-on:click = "xfeeVolume()" id="tab00" type="radio"  value="fee" v-model = "tabn">
             <label for="tab00" ><b id = "fee">FEES</b></label>
 			<input id="tab0" type="radio"  value="multi" v-model = "tabn">
             <label for="tab0" ><b id = "mload">ADDRESSES</b></label>
@@ -199,8 +212,33 @@
 			<input id="tab4" type="radio" value="volume" v-model = "tabn">
             <label for="tab4" ><b id = "vload">VOLUME</b></label>
 
-			
-<!--STATUS -->	
+
+<!--NETWORK -->           
+<section id="content-neo">
+    <div id = "neo">
+        <div  style = "max-width: 850px">
+             <table>
+             <tr >
+                 <td style = "width: 250px; text-align: left"><span style = "color:grey">BEST BLOCK >> </span>
+                    <b id = "bestblock"></b></td>
+                
+                 <td style = "width: 350px" ><b style = "color:#fff">NEO NETWORK STATUS</b></td>
+
+                 <td style = "width: 250px; text-align: right"><b id = "lasttime"></b><span style = "color:grey">  << TIME AGO</span>
+               </td>
+              
+             </tr>
+            </table>
+        </div>
+    </div>   
+        
+   <div id="dg" style = "display: flex; justify-content: center;"></div>
+  
+
+</section>
+
+
+<!--NODES SWITCHEO -->	
 		
 <section id="content-tab000">
 
@@ -311,7 +349,7 @@
 </tbody>
 </table>
 <br>	
-<div id = "test"></div>
+
 			
 		
 </section>			
@@ -500,8 +538,15 @@
 	</div>
 </div>
 
+
+
+
+
+
 <script src="./src/api.js"></script> 
 <script src = "./src/nodes.js"></script>
+<script src = "./src/graph.js"></script>   
+
 
 </body>
 </html>
