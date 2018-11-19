@@ -1,135 +1,120 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    
-    <script language="Javascript">
-       <!--[if !IE]>
-       alert("Internet Explorer is not supported! Chrome, Firefox, Opera and Edge are supported browsers.")
+<head> 
+    <meta charset="utf-8">
+    <script>
+      <!--[if !IE]>
+      alert("Internet Explorer is not supported! Chrome, Firefox, Opera and Edge are supported browsers.")
         <![endif]-->   
     </script>
-    
-<!-- Yandex.Metrika counter -->
-<script type="text/javascript" >
-    (function (d, w, c) {
-        (w[c] = w[c] || []).push(function() {
-            try {
-                w.yaCounter50626468 = new Ya.Metrika2({
-                    id:50626468,
-                    clickmap:true,
-                    trackLinks:true,
-                    accurateTrackBounce:true
-                });
-            } catch(e) { }
-        });
-
-        var n = d.getElementsByTagName("script")[0],
-            s = d.createElement("script"),
-            f = function () { n.parentNode.insertBefore(s, n); };
-        s.type = "text/javascript";
-        s.async = true;
-        s.src = "https://mc.yandex.ru/metrika/tag.js";
-
-        if (w.opera == "[object Opera]") {
-            d.addEventListener("DOMContentLoaded", f, false);
-        } else { f(); }
-    })(document, window, "yandex_metrika_callbacks2");
-</script>
-<noscript><div><img src="https://mc.yandex.ru/watch/50626468" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-<!-- /Yandex.Metrika counter -->
-
-
-<script src="https://unpkg.com/3d-force-graph@1.41.1/dist/3d-force-graph.min.js"></script>
-
-
-
-
+<script src = "https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.3/TweenMax.min.js" async></script>
 <script src = "https://cdnjs.cloudflare.com/ajax/libs/vue/2.2.6/vue.min.js"></script>
-<script src = "https://unpkg.com/axios/dist/axios.min.js"></script>
-<script src = "./src/neo.min.js"></script>
-<script src = "./src/hash.js"></script>
-<script src = "./src/gauge.min.js"></script>
-<script src = "https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+<script src = "https://unpkg.com/axios@0.18.0/dist/axios.min.js"></script>
+<script src = "https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js" async></script>
+<script src = "./src/neo.min.js" async ></script>
+<script src = "./src/graph.js" async></script>
+<script src= "./src/excellentexport.js" async></script>
+<script src = "./src/canvasjs.min.js" async></script>
+<script src = "./src/hash.js" async></script>
+<script src = "https://unpkg.com/3d-force-graph@1.41.1/dist/3d-force-graph.min.js" async></script>
 <link href = "https://cdnjs.cloudflare.com/ajax/libs/foundation/6.3.1/css/foundation.min.css" rel="stylesheet"/>
 <link href = "./css/style.css" type="text/css" rel="stylesheet"/>
-<meta charset="utf-8">
 <meta name="viewport" content="target-densitydpi=device-dpi"> 
 <title>Switcheo Explorer</title>
-</head>
+</head><body>
 
+<!-- hide for webview android-->
+<div id = "mesf" ><a style = "color:yellow; font-weight: bold" href = 'http://switcheoexplorer.tech/'>switcheoexplorer.tech</a> || <a  target='_blank' href = 'https://vimeo.com/300048803'>Introduction Video</a> || <a  target='_blank' href = 'https://vimeo.com/300879929'>How to Use</a> || <a  target='_blank' href = 'https://github.com/alekcangp/SwitcheoSmartContractExplorer/releases/tag/v1.1'>Download for Android</a> || <a  target='_blank' href = 'https://t.me/joinchat/AAAAAEcuc4qsxMgIVcaQug'>Telegramm Group</a></div> 
+<!-- announcements--> 
+<div id = "ann" >&nbsp;</div> 
+<script>
+axios.get("https://api.switcheo.network/v2/exchange/announcement_message").then(function(response) {
+	var ann = response.data; 
+	document.getElementById("ann").innerHTML = "&#9993; " + ann.messages[0].message + " &#9993; "+ ann.messages[1].message;
+})
+</script>    
 
-
-
-<body>
-                  
-<div id = "mes">&nbsp;</div> <!-- hide for webview android-->
- 
-<img id = "fade" src = "./img/bg.jpg">
+<img id = "fade" alt = '' src = "./img/bg.jpg">
 <div class="container" id="api" style = "min-width:910px" v-cloak>
-<a target='_blank' href = "https://switcheo.network"><img style="height:47px; margin:0px 10px 20px 0px" src = "./img/logo.svg"></a><span  style="font-size:42px;">Explorer</span>
+<a target='_blank' href = "http://switcheo.network/?utm_source=Aleksandr&utm_campaign=Callisto"><img alt = '' style="height:40px; margin: 10px 0px 0px 0px" src = "./img/logoswth.png"></a>
+
 <div class="row" style = "text-align:center;width:920px;">
  
  <!-- gauge balance-->  
- <div  style = "width:220px;float:left;margin:-25px 0 0 0">
+ <div style = "height:220px; width:220px; float:left;margin:-25px 0 0 0">
+    <img alt = '' style = "height:185px; width:185px; margin:17px 0 0 17px; position:absolute; z-index:-1; opacity:0.8;" src = './img/logico.png'>
  <canvas 
 		data-type="radial-gauge"
         data-width="220"
         data-height="220"
-        data-units="NEOx1000"
-        data-title="DEX BALANCE"
+        data-units="x10^4 $"
+        data-title=""
         data-value="0.001"
         data-animate-on-init="true"
         data-animated-value="true"
         data-min-value="0"
-        data-max-value="200"
-        data-major-ticks="0,20,40,60,80,100,120,140,160,180,200"
+        data-max-value="1000"
+        data-major-ticks="0,100,200,300,400,500,600,700,800,900,1000"
         data-minor-ticks="2"
         data-stroke-ticks="false"
         data-highlights='[
-            { "from": 0, "to": 40, "color": "rgba(0,255,0,.15)" },
-            { "from": 40, "to": 80, "color": "rgba(255,255,0,.15)" },
-            { "from": 80, "to": 120, "color": "rgba(255,30,0,.25)" },
-            { "from": 120, "to": 160, "color": "rgba(255,0,225,.25)" },
-            { "from": 160, "to": 200, "color": "rgba(0,0,255,.25)" }
+            { "from": 0, "to": 200, "color": "rgba(0,255,0,.15)" },
+            { "from": 200, "to": 400, "color": "rgba(255,255,0,.15)" },
+            { "from": 400, "to": 600, "color": "rgba(255,30,0,.25)" },
+            { "from": 600, "to": 800, "color": "rgba(255,0,225,.25)" },
+            { "from": 800, "to": 1000, "color": "rgba(0,0,255,.25)" }
         ]'
         data-color-plate="transparent"
         data-color-major-ticks="#f5f5f5"
         data-color-minor-ticks="#ddd"
         data-color-title="#fff"
-        data-color-units="#ccc"
+        data-color-units="#fff"
         data-color-numbers="#eee"
         data-color-needle-start="rgba(240, 128, 128, 1)"
         data-color-needle-end="rgba(255, 160, 122, .9)"
         data-value-box="true"
         data-animation-rule="bounce"
-        data-animation-duration="1000"
-        data-border-outer-width="3"
-        data-border-middle-width="3"
-        data-border-inner-width="3"
+        data-animation-duration="500"
+        data-border-inner-width="1"
+        data-border-middle-width="1"
+        data-border-outer-width="8"
+        data-color-border-outer = "green"
+        data-color-border-outer-end="#88C773"
+        
 ></canvas>
  </div>
  
 
- <div style = "width:480px; float:left; margin:30px 0 0 0">
-<!-- Buttons select contract --> 
+ <div style = "width:480px; float:left; margin:20px 0 0 0">
+<!-- Buttons select contract (delay request for firefox browser)--> 
   <div  class="small button-group">
-	  <input v-on:click = "request" type="radio" id="All" value="All" v-model="contr">
-      <label class="button success" style="color:#fff; border-radius: 5px 0px 0 0;" for="All">All</label>
+	  <input v-on:click = "setTimeout(function(){request()}, 50)" type="radio" id="All" value="All" v-model="contr">
+      <label class="button warning" style="color:#fff; border-radius: 5px 0px 0 0;" for="All">ALL</label>
+
+      <input v-on:click = "setTimeout(function(){request()}, 50)" type="radio" id="eth" value="eth" v-model="contr">
+      <label class="button" style="color:#fff; " for="eth">ETH</label>
 	  
-      <input v-on:click = "request" type="radio" id="v20" value = 'v20' v-model="contr">
-      <label class="button success" style="color:#fff;" for="v20">Ver. 2.0</label>
+      <input v-on:click = "setTimeout(function(){request()}, 50)" type="radio" id="v20" value = 'v20' v-model="contr">
+      <label class="button success" style="color:#fff;" for="v20">NEO</label>
 	  
-      <input v-on:click = "request" type="radio" id="v15" value="v15" v-model="contr">
-      <label class="button success"  style="color:#fff;" for="v15">Ver. 1.5</label>
+      <input v-on:click = "setTimeout(function(){request()}, 50)" type="radio" id="v15" value="v15" v-model="contr">
+      <label class="button secondary"  style="color:#fff;" for="v15">V1.5</label>
 	  
-	  <input v-on:click = "request" type="radio" id="v10" value="v10" v-model="contr">
-      <label class="button success" style="color:#fff; border-radius: 0px 5px 0 0;" for="v10">Ver. 1.0</label>
+	  <input v-on:click = "setTimeout(function(){request()}, 50)" type="radio" id="v10" value="v10" v-model="contr">
+      <label class="button secondary" style="color:#fff; border-radius: 0px 5px 0 0;" for="v10">V1.0</label>
     </div>
 
 
-<!--Input address-->  
+<!--Input address neo-->  
   <div class="row" >
-	<input style="background-color: #32374B; color:#FFFFFF; width:423px; margin:auto auto 1px auto;" autofocus type="text"
+	<input style="background-color:green; color:#FFFFFF; width:423px; margin:auto auto 1px auto; opacity: 0.8;" type="text"
 	v-on:keyup.enter = "request" v-model.trim = "addresses[0]" placeholder = "Enter NEO address">
+  </div>
+
+  <!--Input address eth-->  
+  <div class="row" >
+	<input style="background-color: #483D8B; color:#FFFFFF; width:423px; margin:auto auto 1px auto; opacity: 0.8;" type="text"
+	v-on:keyup.enter = "request" v-model.trim = "addresses[1]" placeholder = "Enter ETH address">
   </div>
   
 <!-- Button -->  
@@ -138,37 +123,49 @@
 	v-on:click = "request" class="button success"><b id = 'go'>Go</b>
 	</button>
   </div>
-  
+  &nbsp;<b style = "font-family: 'digital-font', sans-serif; font-size: 12px; color:lime; text-shadow:  0 0 5px black;"> 
+         <span v-if = "number != 0" >SWTH price: {{ animatedNumber }} $</span>
+         <span v-else > SWTH price: ........... $</span>
+        </b>
+        <div id = "aler" style = "color:orange"></div>
 </div>
  
  
  <!-- gauge contract -->
  <div style = "width:220px; float:left; margin:-25px 0 0 0">
+    <img alt = '' style = "height:185px; width:185px; margin:17px 0 0 17px; position:absolute; z-index:-1; opacity:0.8" src = './img/logico.png'>
  <canvas 
-		data-value="270"
-        data-title="CONTRACT"
+		data-value="0"
+        data-title=""
 		data-type="radial-gauge"
         data-width="220"
         data-height="220"
         data-min-value="0"
         data-max-value="360"
-        data-major-ticks="All,,NEOv1.0,,NEOv1.5,,NEOv2.0,,All"
+        data-major-ticks="ALL,V1.0,V1.5,NEO,ETH,,,,ALL"
         data-minor-ticks="22"
         data-ticks-angle="360"
         data-start-angle="180"
         data-stroke-ticks="false"
-        data-highlights="false"
         data-color-plate="transparent"
+        data-color-title="#fff"
         data-color-major-ticks="#f5f5f5"
         data-color-minor-ticks="#ddd"
-        data-color-numbers="#ccc"
+        data-color-numbers="#fff"
         data-color-needle="rgba(240, 128, 128, 1)"
         data-color-needle-end="rgba(255, 160, 122, .9)"
+        data-highlights='[
+            { "from": 337.5, "to": 22.5, "color": "rgba(255, 165, 0,.5)" },
+            { "from": 22.5, "to": 112.5, "color": "rgba(128, 128, 128,.5)" },
+            { "from": 112.5, "to": 157.5, "color": "rgba(152, 251, 152,.5)" },
+            { "from": 157.5, "to": 202.5, "color": "rgba(70, 130, 180,.5)" }
+           
+        ]'
         data-value-box="false"
         data-value-text-shadow="false"
         data-color-circle-inner="#fff"
         data-color-needle-circle-outer="#ccc"
-        data-needle-circle-size="15"
+        data-needle-circle-size="12"
         data-needle-circle-outer="false"
         data-animation-rule="linear"
         data-needle-type="line"
@@ -176,15 +173,16 @@
         data-needle-end="99"
         data-needle-width="3"
         data-borders="true"
-        data-border-inner-width="0"
-        data-border-middle-width="0"
-        data-border-outer-width="10"
-        data-color-border-outer="#ccc"
-        data-color-border-outer-end="#ccc"
+        data-border-inner-width="1"
+        data-border-middle-width="1"
+        data-border-outer-width="8"
+        data-color-border-outer = "green"
+        data-color-border-outer-end="#88C773"
         data-color-needle-shadow-down="#222"
         data-border-shadow-width="0"
         data-font-value="Led"
-		data-animation-target="plate"
+        data-animation-target="plate"
+        data-animation-duration="500"
 ></canvas>
  </div>
  </div>
@@ -196,7 +194,7 @@
 	<div class = "tabs">
            
             <input id="tabneo" type="radio" value="tabneo" v-model = "tabn">
-            <label for="tabneo"><b id = "tabneo">NETWORK</b></label>
+            <label for="tabneo"><b id = "net">NETWORK</b></label>
 			<input id="tab000" type="radio" value="status" v-model = "tabn">
             <label for="tab000" ><b id = "vstatus">NODES</b></label>
 			<input v-on:click = "xfeeVolume()" id="tab00" type="radio"  value="fee" v-model = "tabn">
@@ -205,35 +203,55 @@
             <label for="tab0" ><b id = "mload">ADDRESSES</b></label>
             <input id="tab1" type="radio"  value="balance" v-model = "tabn">
             <label for="tab1" ><b id = "bload">BALANCE</b></label>
-            <input id="tab2" type="radio"  value="transfers" v-model = "tabn">
-            <label for="tab2" ><b id = "tload">TRANSFERS</b></label>
             <input id="tab3" type="radio" value="orders" v-model = "tabn">
             <label for="tab3" ><b id = "oload">ORDERS</b></label>
 			<input id="tab4" type="radio" value="volume" v-model = "tabn">
             <label for="tab4" ><b id = "vload">VOLUME</b></label>
-
+            <input id="tab2" type="radio"  value="transfers" v-model = "tabn">
+            <label for="tab2" ><b id = "tload">TRANSFERS</b></label>
 
 <!--NETWORK -->           
 <section id="content-neo">
+    <p> <b style = "color:#fff">NEO NETWORK STATUS</b> </p>
+     
     <div id = "neo">
-        <div  style = "max-width: 850px">
-             <table>
-             <tr >
-                 <td style = "width: 250px; text-align: left"><span style = "color:grey">BEST BLOCK >> </span>
+        <div  style = "max-width: 850px;">
+             <table id = "ghead">
+             <tr>
+                 <td style = "width: 200px; text-align: left;"><span style = "color:grey">HEIGHT >> </span>
                     <b id = "bestblock"></b></td>
                 
-                 <td style = "width: 350px" ><b style = "color:#fff">NEO NETWORK STATUS</b></td>
+                 <td style = "width: 450px" >
+                    <span style = "color:grey">UNCONFIRMED >> </span>
+                    <b id = "unconf"></b>
+                    <span style = "color:grey"> &lt;&lt; TRANSACTIONS </span>
+                 </td>   
 
-                 <td style = "width: 250px; text-align: right"><b id = "lasttime"></b><span style = "color:grey">  << TIME AGO</span>
+                 <td style = "width: 200px; text-align: right"><b id = "lasttime"></b><span style = "color:grey">  &lt;&lt; TIME AGO</span>
                </td>
-              
              </tr>
+             <tr>
+                <td style = "width: 200px; text-align: left"><span style = "color:grey">EDGES >> </span>
+                   <b id = "edges"></b></td>
+               
+                <td style = "padding: 0; margin: 0; "><button style="width:450px; box-shadow: 0 0 3px #FFFFFF" 
+                  v-on:click = "tabelv()" id = "bgr">
+                 <span id = 'tv'>&nbsp;</span>
+                </button>
+                </td>   
+
+                <td style = "width: 200px; text-align: right"><b id = "vertices"></b><span style = "color:grey">  &lt;&lt; VERTICES</span>
+              </td>
+            </tr>
+
             </table>
         </div>
-    </div>   
-        
+    </div>  
+
+    <div  style = "display: flex; justify-content: center;">          
+    <div id="tabv"  style = "width:850px;"></div>
+    </div>
    <div id="dg" style = "display: flex; justify-content: center;"></div>
-  
 
 </section>
 
@@ -370,132 +388,99 @@
 <div id="chartContainer" style="height: 500px; width:100%;"></div>
 <br>
 <a style="font-size:12px;"  target="_blank" href = "https://switcheolytics.tech/" >This is using API switcheolytics.tech</a>
-<script src="./src/canvasjs.min.js"></script>
 
 </section>
 			
 			
 <!--MULTI ADDRESSES-->
 <section id="content-tab0">	
-<p><b>Add multi addresses.</b></p>
+<p><b>ADD MULTI ADDRESSES</b></p>
 <div v-for="(item, index) in addresses" >
 		
       <input style="background-color: #212A3F; margin:0px 0px 15px 40px; display:inline; color:#FFFFFF; width:423px;" 
-      autofocus type="text" v-model="addresses[index]" placeholder = "Enter NEO address">     
-      <a href="#" @click="deleteItem(addresses, index)"><b style = "color:red">&nbsp;&nbsp;&nbsp;X</b></a>
+      autofocus type="text" v-model="addresses[index]" placeholder = "Enter NEO or ETH address">     
+      <a style = "text-decoration: none;" href="#" @click="deleteItem(addresses, index)"><b style = "color:red">&nbsp;&nbsp;&nbsp;X</b></a>
     </div>	
 	<button class="button" v-on:click = "addItem(addresses)">Add more...</button>
 
 </section>
 
 <!--Output BALANCE	-->
-<section id="content-tab1">							  
+<section id="content-tab1">	  				  
 	<div class="row">
-    <p v-if = "(addresses.filter(word => word != '')).length == 0 "><b>Smart contract balance. Enter address.</b></p> 
-	<p v-else-if = "(addresses.filter(word => word != '')).length == 1"><b>Smart contract balance. Address: {{addresses[0]}}</b></p>
-	<p v-else ><b>Smart contract balance. Address: MULTI</b></p>
-	
-		<div class="large-4 columns"  v-for="(result, index) in results"> <!-- requested Vue module in api.js -->
-		
-			<!--auto comments in columns-->
-			<div style="background-color: #88C773; font-weight: bold">
-			<p v-show="index == 'confirming'">WAITING FOR CONFIRMATION</p>
-			<p v-show="index == 'confirmed'">CONTRACT BALANCE</p> 
-			<p v-show="index == 'locked'">TOKENS IN OPEN ORDERS</p> 
-			</div>
-		
-			<!-- Print balance data in table -->
-			<div style="background-color:#212A3F" v-for = "(result1, index1) in result">	
-				<div v-for = "(dec, tok) in tokens"> <!--get decimals of tokens-->
-				
-				
-					<p v-show = "index != 'confirming' && tok == index1">
-					<b>{{parseFloat(result1+"e-"+dec.decimals)}}</b>					
-					&nbsp;&nbsp;&nbsp;{{index1}}				
-					</p>
-					
-					<!-- print balance only for 'confirming'-->					
-					<div v-if = "index == 'confirming' && tok == index1" v-for = "result2 in result1"> 		
-					<p><b>{{parseFloat(result2.amount+"e-"+dec.decimals)}}</b>&nbsp;&nbsp;&nbsp;{{index1}} &nbsp;&nbsp;&nbsp;
-						<span style="color:grey">{{result2.event_type}}</span>		
-					</p>
-					</div>
-				</div>
-			</div> 
-	
-		</div>
-	</div>
-</section>	   
-<!-- Output TRANSFERS -->    
-<section id="content-tab2"> 	
-	<div class="row">	
-    <p v-if = "(addresses.filter(word => word != '')).length == 0 "><b>Deposits and withdrawals. Enter address.</b></p> 
-	<p v-else-if = "(addresses.filter(word => word != '')).length == 1"><b>Deposits and withdrawals. Address: {{addresses[0]}}</b></p>
-	<p v-else ><b>Deposits and withdrawals. Address: MULTI</b></p>			
-		
-		<div  v-for="uhistt in uhistory" :key="uhistt.id"> <!-- requested Vue module in api.js -->
-			
-			<div class = "large-10 large-centered columns" v-for="uresult in uhistt.data.entries" :key="uresult.id">
-				<div style="background-color:#212A3F">
-				
-							<!-- for all tokens -->						
+       <b>EXCHANGE BALANCE</b><br> 
+       <span style="font-size:12px;" v-show = " results != '' ">
+            <a  download="balance.xls" href="#" onclick="return ExcellentExport.excel(this, 'tabtabb', 'Balance');">Excel </a>||
+            <a  download="balance.csv" href="#" onclick="return ExcellentExport.csv(this, 'tabtabb');"> CSV</a>          
+            </span>
+      <table id = "tabtabb" class = "large-8 large-centered columns" >
+          <tr v-show = "results != ''">
+                <td>TOKEN</td>
+                <td>PENDING</td>
+                <td>CONTRACT BALANCE</td>
+                <td>IN OPEN ORDERS</td>
+          </tr>
 
-							<div v-for = "(uhash, utok) in tokens" v-if = "uresult.asset == uhash.hash" :key="uhash.id">  <!--get hash of tokens-->
-							
-							<p style = "text-align:left;">
-							{{moment.unix(uresult.time).format('DD-MM-YYYY, HH:mm:ss')}}
-							<span v-show = "(uresult.address_to == addr20) || (uresult.address_to == addr15) || (uresult.address_to == addr10)" 
-							style="color:limegreen">deposit&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-							<span v-show = "(uresult.address_from == addr20) || (uresult.address_from == addr15) || (uresult.address_from == addr10)" style="color:yellow">withdrawal&nbsp;</span>
-							<b>{{uresult.amount}}</b> {{utok}} &nbsp;&nbsp; <span style = "font-size:12px">txid: {{uresult.txid}}</span>
-							</p>
-													
-						</div>
-				</div>
-			</div>
-			
-		</div>				
-	</div>	
-</section>			
-        
-		
-	<!-- Output ORDERS--> 
-<section id="content-tab3"> 	
-<div class="row">	
-<p v-if = "(addresses.filter(word => word != '')).length == 0 "><b>Last 200 orders. Enter address.</b></p> 
-<p v-else-if = "(addresses.filter(word => word != '')).length == 1"><b>Last 200 orders. Address: {{addresses[0]}}</b></p>
-	<p v-else ><b>Last 200 orders. Address: MULTI</b></p>
-	
-	<div  class = "large-10 large-centered columns" v-for = "oresult0 in orders" :key="oresult0.id"> 
-		<div v-for = "oresult in oresult0.data" :key="oresult.id">
-				<div v-if = "oresult.offer_asset_id == ohash1.hash" v-for = "(ohash1, otok1, key1) in tokens"  :key="otok1.id">
-					<div v-if = "oresult.want_asset_id == ohash2.hash"  v-for = "(ohash2, otok2, key2) in tokens" :key="otok2.id"> 
-						<p style = "text-align:left; background-color:#212A3F">
+        <tr v-for = "itemb in results">
+            <td><b>{{ itemb[0] }}</b></td>
+            <td style = "color:orange"><span style = "color:grey; font-size: 12px;">{{ itemb[5] }} </span><span style = "color:grey; font-size: 15px;">{{ itemb[4] }} </span> {{ itemb[1] }}</td>
+            <td style = "color:limegreen">{{ itemb[2] }}</td>
+            <td style = "color:yellow">{{ itemb[3] }}</td>
+        </tr>
+        <tr v-show = "results != ''">
+            <td style = "color:grey;" v-for = "dol in balance"><span v-if = "dol != 0">{{dol}}</span></td>
+        </tr>
+       </table>
+	 
+    </div>
+</section>
 
-							{{moment(oresult.created_at).format('DD-MM-YYYY, HH:mm:ss')}} 
-							<span v-show = "oresult.side == 'sell'">
-							<span style = "color:red">sell</span> {{otok1}}/{{otok2}} <span style = "color:grey">amount:</span>
-							<b>{{parseFloat(oresult.offer_amount+"e-"+ohash1.decimals)}}</b>
-							<span style = "color:grey">price:</span>
-							</span>
-							<span v-show = "oresult.side == 'buy'">
-							<span style = "color:limegreen">buy</span> {{otok2}}/{{otok1}} <span style = "color:grey">amount:</span>
-							<b>{{parseFloat(oresult.want_amount+"e-"+ohash2.decimals)}}</b>
-							<span style = "color:grey">price:</span>
-							</span>
-							
-							{{priced(oresult.fills, oresult.makes)}}
-							<span style = "color:grey">status:</span>
-                            <span v-if = "oresult.order_status == 'open'" style = "color:yellow">{{oresult.order_status}}</span>
-                            <span v-if = "oresult.order_status == 'completed'" style = "color:green">{{oresult.order_status}}</span>
-                            <span v-if = "oresult.order_status == 'cancelled'" style = "color:black">{{oresult.order_status}}</span>
-							<span style = "color:grey">filled:</span>{{Math.round(persent(oresult.fills, oresult.makes)/Number(oresult.offer_amount)*100)}}%
-											
-						</p>
-					</div>
-				</div>	
-		</div>	
-	</div>
+			
+    <!-- Output ORDERS--> 
+    
+<section id = "content-tab3"> 
+     
+       
+<div class="row">
+    <b>ORDERS HISTORY</b><br>
+    <span style="font-size:12px;" v-show = " morders != '' ">
+    <a  download="orders.xls" href="#" onclick="return ExcellentExport.excel(this, 'tabtabo', 'Orders');">Excel </a>||
+    <a  download="orders.csv" href="#" onclick="return ExcellentExport.csv(this, 'tabtabo');"> CSV</a>          
+    </span>
+   <table id = "tabtabo" class = "large-10 large-centered columns" >       
+        <tr v-if = " morders != '' ">
+            <td>DATE</td>
+            <td>SIDE</td>
+            <td>PAIR</td>
+            <td>AMOUNT</td>
+            <td>PRICE</td>
+            <td>STATUS</td>
+            <td>FILLED</td>
+        </tr>                        
+        <tr v-for = "mo in morders">
+             <td>{{moment(mo[0].created_at).format('DD-MM-YYYY, HH:mm:ss')}} </td>
+             <td>
+                <span v-if = "mo[0].side == 'sell'"><span style = "color:red">sell</span></span>
+                <span v-if = "mo[0].side == 'buy'"><span style = "color:limegreen">buy</span></span>
+            </td>
+            <td>
+                <span v-if = "mo[0].side == 'sell'">{{mo[1]}}/{{mo[2]}}</span>
+                <span v-else>{{mo[2]}}/{{mo[1]}}</span>
+            </td>
+            <td>
+                <b><span v-if = "mo[0].side == 'sell'">{{parseFloat(mo[0].offer_amount+"e-"+mo[3])}}</span>
+                <span v-else>{{parseFloat(mo[0].want_amount+"e-"+mo[4])}}</span></b>
+            </td>
+            <td>{{priced(mo[0].fills, mo[0].makes)}}</td>
+            <td>
+                <span v-if = "mo[0].order_status == 'open'" style = "color:yellow">{{mo[0].order_status}}</span>
+                <span v-if = "mo[0].order_status == 'completed'" style = "color:green">{{mo[0].order_status}}</span>
+                <span v-if = "mo[0].order_status == 'cancelled'" style = "color:grey">{{mo[0].order_status}}</span>  
+            </td>
+            <td>{{Math.round(persent(mo[0].fills, mo[0].makes)/Number(mo[0].offer_amount)*100)}}%</td>                      
+        </tr>
+	</table>
+
 </div>
 </section>	
 
@@ -504,50 +489,121 @@
 
 <section id = "content-tab4"> 	
 <div class="row">
-
-<p v-if = "(addresses.filter(word => word != '')).length == 0 "><b>Trading volume for last 200 orders. Enter address.</b></p>   
-<p v-else-if = "(addresses.filter(word => word != '')).length == 1"><b>Trading volume for last 200 orders. Address: {{addresses[0]}}</b></p>
-	<p v-else ><b>Trading volume for last 200 orders. Address: MULTI</b></p>	
-
+        <b>TRADING VOLUME</b><br>
+        <span style="font-size:12px;" v-show = "mt != ''">
+        <a download="volume.xls" href="#" onclick="return ExcellentExport.excel(this, 'tabtabv', 'Volume');">Excel </a>||
+        <a download="volume.csv" href="#" onclick="return ExcellentExport.csv(this, 'tabtabv');"> CSV</a>          
+        </span>
 <div  v-for = "vol in volume" :key="vol.id"> 
 		<div v-for = "vo in vol.data" :key="vo.id">
 				<div v-if = "vo.offer_asset_id == ohash1.hash" v-for = "(ohash1, otok1, key1) in tokens"  :key="otok1.id">
 					<div v-if = "vo.want_asset_id == ohash2.hash"  v-for = "(ohash2, otok2, key2) in tokens" :key="otok2.id"> 
-						
-							{{volumed(key1, key2, otok1, otok2, priced(vo.fills, vo.makes), persent(vo.fills, vo.makes), vo.side)}}
-						
+	
+                    {{volumed(ohash1, ohash2, key1, key2, otok1, otok2, priced(vo.fills, vo.makes), persent(vo.fills, vo.makes), vo.side)}}
+                     
 					</div>
 				</div>	
 		</div>	
 	</div>
 	
-	<div class = "large-8 large-centered columns" v-if = "m != null" v-for = "(m, i) in mt">
-	<p style = "text-align: left; background-color:#212A3F">
-	{{m}}&nbsp;&nbsp;
-	<span style =" color:grey">offer:</span><span style =" color:red">{{ms[i].toFixed(8)}} </span>
-	<span style =" color:grey">want:</span><span style =" color:limegreen">{{mb[i].toFixed(8)}}</span>
-	<span style =" color:grey">total:</span><b>{{(ms[i] + mb[i]).toFixed(8)}}</b>
-	</p>
-	</div>
+	<table id = "tabtabv" class = "large-8 large-centered columns" >       
+    <tr v-if = "mt != ''">
+        <td>TOKEN</td>
+        <td>OFFER</td>
+        <td>WANT</td>
+        <td>TOTAL</td>
+     </tr>
+         
+    <tr  v-for = "(m, i) in mt" v-if = "m != null">    	
+        <td>{{m}}</td>
+        <td>
+        <span style =" color:red">{{ms[i].toFixed(8)}} </span>
+        </td>
+        <td>
+        <span style =" color:limegreen">{{mb[i].toFixed(8)}}</span>
+        </td>
+	    <td>
+        <b>{{(ms[i] + mb[i]).toFixed(8)}}</b>  
+        </td>
+        </tr>
+   
+    </table>
 	
 </div>	
 </section>
+
+
+<!-- Output TRANSFERS -->    
+<section id="content-tab2"> 	
+	<div class="row">	
+       <b>DEPOSITS AND WITHDRAWALS</b><br>
+       <span style="font-size:12px;" v-show = "transfers != ''">
+            <a download="transfers.xls" href="#" onclick="return ExcellentExport.excel(this, 'tabtabt', 'Transfers');">Excel </a>||
+            <a download="transfers.csv" href="#" onclick="return ExcellentExport.csv(this, 'tabtabt');"> CSV</a>
+            </span>
+            <table id = "tabtabt"  class = "large-10 large-centered columns">
+                <tr v-show = "transfers != ''">
+                    <td>DATE</td>
+                    <td>EVENT</td>
+                    <td>TOKEN</td>
+                    <td>AMOUNT</td>
+                    <td>ADDRESS</td>
+                </tr>
+                <tr v-for = "tran in transfers">
+                    <td>{{moment.unix(tran[0]).format('DD-MM-YYYY, HH:mm:ss')}}</td>
+                    <td>
+                        <span v-if = "tran[1] == 'deposit'" style = "color:limegreen">{{tran[1]}}</span>
+                        <span v-else style = "color: yellow">{{tran[1]}}</span>
+                    </td>
+                    <td><b>{{tran[2]}}</b></td>
+                    <td>{{tran[3]}}</td>
+                    <td>{{tran[4]}}</td>
+                </tr>
+            </table>
+    </div>	 
+</section>	
+
 			
-		<div class = "grad"> </div> 
+		    <div class = "grad"> </div> 
 		</div>      
 	</div>
 </div>
 
 
-
-
-
-
-<script src="./src/api.js"></script> 
+<script src= "./src/api.js"></script>
 <script src = "./src/nodes.js"></script>
-<script src = "./src/graph.js"></script>   
+<script src = "./src/gauge.min.js" async></script>
 
+<script>
+    
+    document.onreadystatechange = function () {
+  if (document.readyState == "complete") {
+      txt = "<img alt = '' src = './img/loads.gif'>"; 
+      document.getElementById('tv').innerHTML = txt;
+    setTimeout(timing, 500);
+    runfee();
+    setInterval(setgauge, 10000)
+    setTimeout(monitor, 5000); 
+    setInterval(timing, 60000); 
+    setInterval(monitor, 60000);
+    setTimeout(runbest, 100);
+  }
+}
 
+</script>
+
+<!-- Hotjar Tracking Code for http://switchstatistic.000webhostapp.com/ -->
+<script>
+    (function(h,o,t,j,a,r){
+        h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+        h._hjSettings={hjid:1078254,hjsv:6};
+        a=o.getElementsByTagName('head')[0];
+        r=o.createElement('script');r.async=1;
+        r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+        a.appendChild(r);
+    })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+</script>
+<div id = "copyright">Сделано в России</div>
 </body>
 </html>
 
