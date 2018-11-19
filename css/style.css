@@ -3,18 +3,87 @@ body {
 	color: #FFFFFF;	
 	text-align: center;
     overflow: scroll;
-    
     }
 
-
-#mesf { /* hide for webview on android*/
-    width:100%; 
-    background:green; 
+    #copyright {
+position: fixed;
+bottom: 0;
+text-align: left;
+font-size: 12px;
+color:grey;
 }
+
+    @font-face{  /* digital font */
+        font-family:'digital-font';
+        src: url('./digitalfont.ttf');
+       }
+
+    #unconf, #bestblock, #lasttime, #edges, #vertices{
+       font-family: 'digital-font', sans-serif;
+       font-size: 14px;
+    }
+
+    table#ghead td { /* table on network tab */
+        height: 30px;
+        padding: 5px 5px;
+        color: #fff
+    }
+
+    #tabtabo td, #tabtabv td, #tabtabb td, #tabtabt td { /* table for volume, orders, balance, transfers */
+        height: 25px;
+        padding: 2px 5px;
+        color: #fff
+    }
+
+    #mesf { /* hide for webview on android*/
+    background:green;
+    white-space: nowrap
+}
+   #ann { /* announcement message */
+    background: #89c875;
+    white-space: nowrap
+   } 
+
+ /* button for graph*/
+    #bgr {
+        cursor: pointer;
+        text-decoration: none;
+        height: 30px;
+        outline: none;
+        display: inline-block;
+        padding: 0;
+        margin: 0;
+        position: relative;
+        overflow: hidden;
+        border: 0px solid #212A3F;
+        border-radius: 0px;
+        font-size: 13px;
+        color: grey;
+        font-weight: 600;
+        transition: .2s ease-in-out;
+      }
+      #bgr:before {
+        content: "";
+        background: linear-gradient(90deg, rgba(255,255,255,.1), rgba(255,255,255,.5));
+        height: 50px;
+        width: 50px;
+        position: absolute;
+        top: 0px;
+        left: -75px;
+        transform: skewX(-45deg);
+      }
+      #bgr:hover {
+        background: #212A3F;
+        color: #aaa;
+      }
+      #bgr:hover:before {
+        left: 470px;
+        transition: .7s ease-in-out;
+      }
 
 #neo {
    
-    height: 50px;
+    height: 78px;
     display: flex; 
     justify-content: center;
     background: transparent;
@@ -29,7 +98,7 @@ a:visited {
     color:#fff; 
 }
 
-#mesf a:hover {
+a:hover {
     color:#fff;
     text-decoration: underline;
 }
@@ -47,6 +116,7 @@ td {
 	text-align: center;
 	background: #212A3F ;
 }
+
 
 th {
 	color:  #FFFFFF;
@@ -68,6 +138,7 @@ th {
     -webkit-animation: fadein 2s; /* Safari and Chrome */
     -o-animation: fadein 2s; /* Opera */
 }
+
 @keyframes fadein {
     from {
         opacity:0;
@@ -114,13 +185,14 @@ margin:auto;
   }
   
  .button-group > label {
- width:105px;
+ width:84px;
  } 
  
 .button-group input:checked + label,
 .button-group input:checked + label:active {
-  background-color: #22BB5B; font-weight:bold;
+ font-weight:bold;
 }
+
 
 /* display DOM after load js */	
 
@@ -212,7 +284,7 @@ margin:auto;
             display: block;
         }
       
-        /*change tab`slabel for small screen */
+        /*change tab's label for small screen */
         
         @media screen and (max-width: 400px) {
             .tabs > label {
