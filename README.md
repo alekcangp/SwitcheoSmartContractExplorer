@@ -19,6 +19,7 @@ Features:
 6. Volume fees of tokens (using switcheolytics.tech API)
 7. Status monitor of switcheo's nodes in real time (version, block height, time last block, peers, memory pool)
 8. NEO network 3D graph
+9. Export data to Excel and CSV format
 
 How to try out? 
 
@@ -27,6 +28,7 @@ How to try out?
 3. Input your NEO address(es).
 4. Press the green button or 'Enter'.
 * Switcheo Explorer for Android is avalable: https://github.com/alekcangp/SwitcheoSmartContractExplorer/releases/tag/v1.1
+* Intro and How to use videos: https://vimeo.com/300048803, https://vimeo.com/300879929
 
 * It was tested in Edge, Chrome, Firefox and Opera browsers on Windows 10. Internet Explorer is not supported.
 
