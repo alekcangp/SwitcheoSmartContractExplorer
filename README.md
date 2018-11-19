@@ -1,5 +1,6 @@
  
  <p align="center"><a target='_blank' href = "https://switcheoexplorer.github.io"><img src = "./img/title.jpg"></a></p>
+ <p align="center">>> <a href="http://switcheoexplorer.tech/">http://switcheoexplorer.tech</a> <<</p>
  <p align="center">>> <a href="http://switchstatistic.000webhostapp.com">http://switchstatistic.000webhostapp.com</a> <<</p>
  <p align="center"><img src="https://img.shields.io/badge/status-online-green.svg"></p>
 
