@@ -1,6 +1,5 @@
 	
 	// monitoring status
-
 	function monitor () {
 
 		mon1();
@@ -8,6 +7,7 @@
 		mon3();
 		mon4();
 		mon5();
+		//setInterval(setgauge, 5000)
 		
 	async function mon1() {
 		
@@ -91,7 +91,8 @@
 			document.getElementById("s5").innerHTML = ""
 			}
 	}				
-}
+};
+
 
 // set gauge 2	
 function setgauge () {
@@ -114,19 +115,6 @@ function setgauge () {
 		gauges[2].value = res;
 };
  
-// get best block height
- async function bestblocks (call) {
-try {
-	await axios.get('https://api.neoscan.io/api/main_net/v1/get_all_nodes').then(function(response) {
-		neos = response.data; document.getElementById('neosapi').innerText = "";
-			for ( var i = 0; i < neos.length; ++i ) {	
-			vm.bestb[i] = neos[i].height; 
-			}
-		});
-	} catch(e) {document.getElementById('neosapi').innerText = "Neoscan API  is unreachable! Best block is not defined.";}
-call();
-}
-
 var st1 = 0, st2 = 0, st3 = 0, st4 = 0, st5 = 0; // start only one time
 
 // NODE 1
@@ -173,7 +161,7 @@ async function node1 () {
 
 		function differ () { //print data
 			
-			vm.diff[0] = hei - Math.max.apply(null, vm.bestb); 
+			vm.diff[0] = hei -  vm.bestb; 
 			if (vm.diff[0] == 1) {vm.diff[0] = 0}
 			document.getElementById('height1').innerText = hei + ' (' + vm.diff[0] + ')'; // current block
 			document.getElementById('count1').innerText =  (++vm.counter[0]) + " s ago"; //timer
@@ -233,7 +221,7 @@ async function node2 () {
 
 		function differ () { //print data
 			
-			vm.diff[1] = hei - Math.max.apply(null, vm.bestb); 
+			vm.diff[1] = hei -  vm.bestb; 
 			if (vm.diff[1] == 1) {vm.diff[1] = 0}
 			document.getElementById('height2').innerText = hei + ' (' + vm.diff[1] + ')'; // current block
 			document.getElementById('count2').innerText =  (++vm.counter[1]) + " s ago"; //timer
@@ -291,7 +279,7 @@ async function node3 () {
 		}	
 
 		function differ () { //print data		
-			vm.diff[2] = hei - Math.max.apply(null, vm.bestb); 
+			vm.diff[2] = hei -  vm.bestb; 
 			if (vm.diff[2] == 1) {vm.diff[2] = 0}
 			document.getElementById('height3').innerText = hei + ' (' + vm.diff[2] + ')'; // current block
 			document.getElementById('count3').innerText =  (++vm.counter[2]) + " s ago"; //timer
@@ -349,7 +337,7 @@ async function node4 () {
 		}	
 
 		function differ () { //print data		
-			vm.diff[3] = hei - Math.max.apply(null, vm.bestb); 
+			vm.diff[3] = hei -  vm.bestb; 
 			if (vm.diff[3] == 1) {vm.diff[3] = 0}
 			document.getElementById('height4').innerText = hei + ' (' + vm.diff[3] + ')'; // current block
 			document.getElementById('count4').innerText =  (++vm.counter[3]) + " s ago"; //timer
@@ -408,7 +396,7 @@ async function node5 () {
 		}	
 
 		function differ () { //print data		
-			vm.diff[4] = hei - Math.max.apply(null, vm.bestb); 
+			vm.diff[4] = hei -  vm.bestb; 
 			if (vm.diff[4] == 1) {vm.diff[4] = 0}
 			document.getElementById('height5').innerText = hei + ' (' + vm.diff[4] + ')'; // current block
 			document.getElementById('count5').innerText =  (++vm.counter[4]) + " s ago"; //timer
