@@ -22,7 +22,7 @@ Features:
 
 How to try out? 
 
-1. Follow this link to: http://switchstatistic.000webhostapp.com
+1. Follow this links to: http://switcheoexplorer.tech or http://switchstatistic.000webhostapp.com
 2. Choose the desired contract or leave the default values.
 3. Input your NEO address(es).
 4. Press the green button or 'Enter'.
