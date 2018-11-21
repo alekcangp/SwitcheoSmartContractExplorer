@@ -248,7 +248,7 @@ var amo = 0, amoe = 0, peth, pneo, pswth, addrne = [], bal20, bal15, bal10;
 async function timing() {
 	
 	// eth and neo in dollars
-	 axios.get("https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest?symbol=ETH,NEO,SWTH,DAI,OMG,MKR&CMC_PRO_API_KEY=10f32fd5-aaf9-4b18-912f-e765ce96305c").then(
+	 axios.get("https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest?symbol=ETH,NEO,SWTH,DAI,OMG,MKR&CMC_PRO_API_KEY=******************************").then(
 		function (result) {peth = result.data.data.ETH.quote.USD.price;  pneo = result.data.data.NEO.quote.USD.price; pswth = result.data.data.SWTH.quote.USD.price; 
 			vm.number = pswth;
 		})
@@ -262,7 +262,7 @@ async function timing() {
 		bal10 = response.data.balance;});
 
 		// amount eth in contract
-		 axios.get("https://api.etherscan.io/api?module=account&action=balance&address=0xba3ed686cc32ffa8664628b1e96d8022e40543de&tag=latest&apikey=JDV298ZAS6EKVDF2HCWB5FQIBBK6WDH854").then(
+		 axios.get("https://api.etherscan.io/api?module=account&action=balance&address=0xba3ed686cc32ffa8664628b1e96d8022e40543de&tag=latest&apikey=*******************************").then(
 		function (result) { amoe += result.data.result*1e-18 });
 
 		// tokens price in neo or eth
@@ -273,7 +273,7 @@ async function timing() {
 
 	   // amount tokens in eth 
 	   function amtok(ehash, ind) {
-		   axios.get("https://api.etherscan.io/api?module=account&action=tokenbalance&contractaddress="+ehash+"&address=0xba3ed686cc32ffa8664628b1e96d8022e40543de&tag=latest&apikey=JDV298ZAS6EKVDF2HCWB5FQIBBK6WDH854").then(
+		   axios.get("https://api.etherscan.io/api?module=account&action=tokenbalance&contractaddress="+ehash+"&address=0xba3ed686cc32ffa8664628b1e96d8022e40543de&tag=latest&apikey=************************").then(
 			function (result) { var res = result.data.result/10**vm.tokens[ind].decimals*vm.prices[ind].ETH; amoe += res});
 	   }
 	   
@@ -594,7 +594,7 @@ methods: {
 		}
 
 		if (nonemp[j].length == 42 && (vm.contr == 'eth' || vm.contr == 'All') ) { 
-			var urleth = "https://api.etherscan.io/api?module=logs&action=getLogs&fromBlock=6665614&toBlock=latest&address=0xba3ed686cc32ffa8664628b1e96d8022e40543de&topic1=0x000000000000000000000000"+ nonemp[j].substr(2, 40) +"&sort=desc&apikey=JDV298ZAS6EKVDF2HCWB5FQIBBK6WDH854"
+			var urleth = "https://api.etherscan.io/api?module=logs&action=getLogs&fromBlock=6665614&toBlock=latest&address=0xba3ed686cc32ffa8664628b1e96d8022e40543de&topic1=0x000000000000000000000000"+ nonemp[j].substr(2, 40) +"&sort=desc&apikey=******************************"
 			urlex[y] = axios.get(urleth);
 			++y
 		}
